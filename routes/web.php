@@ -6,7 +6,8 @@ use Illuminate\Support\Facades\Route;
 
 // Por defecto cuando queremos acceder a una ruta no definida nos dara 404
 // Creamos un control adicional que se encarga de administrar esta ruta (No es recomendable crear un controlador para todo y que maneje varios recursos)
-Route::get('/', [HomeController::class, 'index']);
+// Cuando usamos metodos invok al especificar la ruta no requerimos especificarle el metodo sino que solo le pasamos el controlador
+Route::get('/', HomeController::class);
 //function () {
     // return view('welcome');
     
