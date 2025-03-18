@@ -37,3 +37,30 @@ Route::get('/cursos2/{curso}/{category?}', function($curso, $category = null){
         return "Bienvenido al curso: $curso";
     }
 });
+
+// Controlar la forma en la que se pasan los parametros para que no vengan con caracteres extraños
+// para especificar un formato tenemos las RegEx
+Route::get('/cursos3/{curso}/{category?}', function($curso, $category = null){
+    return "Bienvenido al curso: $curso y de la cateogoria $category";    
+
+// Si queremos que el parametro "curso" solo pueda recibir valores alfabericos
+// Al metodo WHERE le pasamos el nombre del parametro despues la expreccion regular
+// Ahora como aqui recibimos dos argumentos en la URL, le pasamos a la funcion un arreglo 
+})/*->where(
+    // 'curso', '[A-Za-z]+' -> Esto es si tenemos un solo argumento
+    [
+        'curso' => '[A-Za-z]+',
+        'category' => '[A-Za-z]+'
+    ]);
+    */
+
+// Si bien podemos escribir nuestras RegEx en Laravel tenemos metodos que ya tienen las exprecciones
+// Con este los parametros solo se aceptan con valores alfabeticos
+//      ->whereAlpha('curso')
+// Con este solo acepta en el argumento los valores que esten en la lista
+->whereIn('curso', ['php','laravel','vue'])
+->whereAlphaNumeric('category');
+
+Route::get('/cursos4/{id}', function ($id) {
+    return "Bienvenido al curso con el Id: $id";
+});
