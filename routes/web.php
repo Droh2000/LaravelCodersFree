@@ -1,9 +1,13 @@
 <?php
 
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 
 // Por defecto cuando queremos acceder a una ruta no definida nos dara 404
-Route::get('/', function () {
+// Creamos un control adicional que se encarga de administrar esta ruta (No es recomendable crear un controlador para todo y que maneje varios recursos)
+Route::get('/', [HomeController::class, 'index']);
+//function () {
     // return view('welcome');
     
     // Esta es la razon por la que se le dan nombre a las rutas
@@ -20,48 +24,44 @@ Route::get('/', function () {
     // Si la ruta espera mas de un parametro colocamos esto dentro de un array
     //return route('cursos.show', ["id" => 4]);
 
-    return "Hola desde la pagina de inicio";
-});
+    //return "Hola desde la pagina de inicio";
+//});
 
 // Creacion de rutas para hacer un CRUD (Vamos a usar el ejemplo de articulos)
 
 // Mostrar el listado de registros
-Route::get('/posts', function(){
-    return 'Ruta de listado de Posts';
-});
+// En lugar de la funcion le pasamos el controlador y el metodo en un Array
+Route::get('/posts', [PostController::class, 'index'])
+// Aprovechamos para darle nombre a las rutas, para esto seguimmos la convencion de Laravel
+// que seria la URI.NOMBRE_METODO
+->name('posts.index');
 
 // Mostrar un formulario para crear un registro
-Route::get('/posts/create/', function($id) {
-    return 'Ruta para crear posts';
-});
+Route::get('/posts/create/', [PostController::class, 'create'])
+->name('posts.create');
 
 // Guardar un registro procesando la informacion que mandemos del formulario
-Route::post('/posts', function ($id) {
-    return 'Ruta para crear un post';
-});
+Route::post('/posts', [PostController::class, 'store'])
+->name('posts.store');
 
 // Mostrar los datos de un registro
 // Hay que tener cuidado con el orden en el que creamos el Post ya que la de "/posts/create" cumple la misma estrcutura de esta
 // por eso se crea esta ruta despues antes que la de "create"
-Route::get('posts/{post}', function ($post) {
-    return "Ruta para mostrar el post con el identificador $post";
-});
+Route::get('posts/{post}', [PostController::class, 'show'])
+->name('posts.show');
 
 // Mostrar un formulario de Edicion
 // Este formulario ya debe estar lleno con los datos que queremos editar por eso le mandaremos el identificador en la URL
-Route::get('/posts/{post}/edit', function($post){
-    return "Aqui se mostrara el formulario para editar el post: $post";
-});
+Route::get('/posts/{post}/edit', [PostController::class, 'edit'])
+->name('posts.edit');
 
 // (Actualizar) Procesar los datos que se manden desde el formulario de edicion
-Route::put('/posts/{post}', function ($post) {
-    return "Ruta para procesar el formulario para editar el post: $post";
-});
+Route::put('/posts/{post}', [PostController::class, 'update'])
+->name('posts.update');
 
 // Eliminar un registro
-Route::delete('/posts/{post}', function ($post) {
-    return "Ruta para eliminar ";
-});
+Route::delete('/posts/{post}', [PostController::class, 'destroy'])
+->name('posts.destroy');
 // Gracias al uso de diferentes verbos HTTP podemos seguir usando la misma ruta
 
 /*

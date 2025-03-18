@@ -22,3 +22,6 @@ Almacenar en cache las rutas
     Primero limpiamos las rutas del cache
         * php artisan route:clear
     Luego con el archivo actualizado volvemos a agregar a Cache
+
+Crear Controladores
+    * php artisan make:controller PostController
