@@ -4,7 +4,22 @@ use Illuminate\Support\Facades\Route;
 
 // Por defecto cuando queremos acceder a una ruta no definida nos dara 404
 Route::get('/', function () {
-    return view('welcome');
+    // return view('welcome');
+    
+    // Esta es la razon por la que se le dan nombre a las rutas
+    // Le pasamos el nombre de una de las rutas
+    //      return route('cursos.informacion'); // Esto nos da URI
+
+    // Ahora supongamos que nos piden cambiar la URL y pase de /curso/ a /materias/
+    // Como en la redireccion estamos haciendo referencia al nombre con "route()" y no a la URI directamente
+    // no tendremos problemas y no tendremos errores en todo el sistema
+    // Entonces no hacer referencia directamente a la URI sino al nombre de las rutas
+
+    // Para las rutas que esperan un parametro
+    // Al metodo "route" le pasamos un segundo parametro que seria el argumento que espera
+    // Si la ruta espera mas de un parametro colocamos esto dentro de un array
+    return route('cursos.show', ["id" => 4]);
+
 });
 
 // Podemos definir dos rutas que tengan la misma URI pero de diferente peticion HTTP
@@ -26,7 +41,7 @@ Route::get('/cursos/{curso}', function($curso){
 // Asi toma la parte de "information" como si fuera la ruta dinamica (La tenemos que mover mas arriba antes de la dinamica)
 Route::get('/cursos/informacion', function () {
     return "Aqui esta la informacion del curso";
-});
+})->name('cursos.informacion');
 
 // Recibir mas de un parametro en ruta dinamica
 // Para que uno de los parametros sean opcionales le colocamos el simbolo ? y en la funcion asignarle un valor por defecto
@@ -63,4 +78,4 @@ Route::get('/cursos3/{curso}/{category?}', function($curso, $category = null){
 
 Route::get('/cursos4/{id}', function ($id) {
     return "Bienvenido al curso con el Id: $id";
-});
+})->name('cursos.show');
