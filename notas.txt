@@ -1,0 +1,13 @@
+Listar Rutas
+    Para ver todas las ritas que tenemos definidas en el sistema:
+        * php artisan route:list o php artisan r:l
+
+    Nos va a mostrar tanto rutas definidas por nosotros como rutas definidas por paquetes
+    Para ver solo las rutas definidas por nosotros
+        * php artisan r:l --except-vendor
+    
+    Para solo ver las rutas creadas por paquetes
+        * php artisan r:l --only-vendor
+
+    Supongamos que solo queremos visualizar rutas que empiezen con la palabra "cursos"
+        * php artisan r:l --path=cursos
