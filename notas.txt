@@ -11,3 +11,14 @@ Listar Rutas
 
     Supongamos que solo queremos visualizar rutas que empiezen con la palabra "cursos"
         * php artisan r:l --path=cursos
+
+Almacenar en cache las rutas
+    Como todo el tiempo Laravel lee el archivo "web.php" de arriba a abajo, cuando pasemos a produccion
+    ya no vamos a estar creando rutas y lo mejor seria que laraval ya se aprenda las rutas que estan
+    Para almacenar las rutas en Cache: (Esto se haria en la terminal del servidor)
+        * php artisan route:cache
+    
+    Si despues el proyecto sufrio actualizaciones y tenemos nuevas rutas
+    Primero limpiamos las rutas del cache
+        * php artisan route:clear
+    Luego con el archivo actualizado volvemos a agregar a Cache
