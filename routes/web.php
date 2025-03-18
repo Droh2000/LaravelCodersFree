@@ -29,7 +29,26 @@ Route::get('/', [HomeController::class, 'index']);
 
 // Creacion de rutas para hacer un CRUD (Vamos a usar el ejemplo de articulos)
 
-// Mostrar el listado de registros
+// Reducir las lineas de codigo a una sola para la creacion de rutas (Con el metodo RESOURCE que nos crea las rutas requeridas para CRUD)
+// El primer parametro es la URI con la que van a empezar las demas rutas, el segundo parametro es el nombre del controlador
+// Esto ya nos crea las rutas y asigna el metodo correspondiente a cada ruta y con nombre (Segun el nombre de la URI pasada)
+Route::resource('posts', PostController::class);// Verificamos con: php artisan r:l
+    // Si no queremos todas las rutas que nos crea por defecto el metodo ya que no las requerimos todas
+    // Le pasamos entre el array el nombre de los metodos 
+    //      ->except(['create', 'edit']);
+    // Con esto indicamos que solo queremos crear algunas rutas en especifico
+    //      ->only(['index', 'create']);
+    // Para modificar la URI pero que se sigan manteniendo los nombres de las rutas
+    //      ->names('post'); // Aqui le indicamos el nombre que ya tenian las rutas anteriormente suponiendo que cambiamos la URI
+    // Para que el del parametro tambien tenga el nombre que le especifiquemos aqui
+    // Aqui hacemos referencia al nombre de la URI => Nombre del Parametro
+    //      ->parameters(['articulos' => 'post']);
+
+// Si estamos construyendo una API y queremos generar asi las rutas usamos este metodo
+//      Route::apiResource('posts', PostController::class);
+
+
+/* Mostrar el listado de registros
 // En lugar de la funcion le pasamos el controlador y el metodo en un Array
 Route::get('/posts', [PostController::class, 'index'])
 // Aprovechamos para darle nombre a las rutas, para esto seguimmos la convencion de Laravel
@@ -63,6 +82,7 @@ Route::put('/posts/{post}', [PostController::class, 'update'])
 Route::delete('/posts/{post}', [PostController::class, 'destroy'])
 ->name('posts.destroy');
 // Gracias al uso de diferentes verbos HTTP podemos seguir usando la misma ruta
+*/
 
 /*
 // Podemos definir dos rutas que tengan la misma URI pero de diferente peticion HTTP

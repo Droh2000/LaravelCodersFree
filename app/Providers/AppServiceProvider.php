@@ -25,5 +25,13 @@ class AppServiceProvider extends ServiceProvider
     {
         // Para probar creamos una ruta que reciba el ID, automaticamente se ejecutara esta validacion
         Route::pattern('id', '[0-9]+');
+
+        // Suponiendo que nos pieden que quitemos los nombres en ingles de los metodos de la URI
+        // Aqui podemos cambiarles el nombre (Esto solo sirve para cuando creemos rutas de tipo Resource)
+        Route::resourceVerbs([
+            'create' => 'crear',
+            'edit' => 'editar',
+        ]);
+
     }
 }
