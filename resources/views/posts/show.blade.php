@@ -7,6 +7,7 @@
     <title>Cursos de Pago</title>
 </head>
 <body>
-    <h1>Aqui se mostrara el detalle de un Post</h1>
+    {{/* Usamos el mismo nombre que especificamos en el controlador como key */}}
+    <h1>Aqui se mostrara el detalle del Post {{ $post }}</h1>
 </body>
 </html>

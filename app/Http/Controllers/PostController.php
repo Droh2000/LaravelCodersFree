@@ -23,11 +23,24 @@ class PostController extends Controller
     }
 
     public function show($post){
-        return view('posts.show');
+        // Pasarle el parametro a la vista (Dentro del Array le pasamos las variables)
+        return view('posts.show', /*[
+            // Primero le especificamos el nombre por el cual la vista identificara ese valor
+            "post" => $post
+        ]);*/
+
+            // Ahora si queremos que el nombre de la variable se mantenga en la vista nos podemos ahorrar la sintaxis
+            // de arriba llamando solo este metodo, este nos crea un Array a partir del valor
+            compact('post')
+        );
     }
 
     public function edit($post){
-        return view('posts.edit');
+        /* Si tubieramos mas de un valor
+            $prueba = "Funciona la prueba";
+
+            return view('posts.edit', compact('edit', 'prueba')); */
+        return view('posts.edit', compact('edit'));
     }
 
     public function update($post){
