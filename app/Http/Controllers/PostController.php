@@ -40,7 +40,7 @@ class PostController extends Controller
             $prueba = "Funciona la prueba";
 
             return view('posts.edit', compact('edit', 'prueba')); */
-        return view('posts.edit', compact('edit'));
+        return view('posts.edit', compact('post'));
     }
 
     public function update($post){
