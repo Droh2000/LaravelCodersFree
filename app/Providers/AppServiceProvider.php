@@ -28,10 +28,16 @@ class AppServiceProvider extends ServiceProvider
 
         // Suponiendo que nos pieden que quitemos los nombres en ingles de los metodos de la URI
         // Aqui podemos cambiarles el nombre (Esto solo sirve para cuando creemos rutas de tipo Resource)
-        Route::resourceVerbs([
+        /*Route::resourceVerbs([
             'create' => 'crear',
             'edit' => 'editar',
         ]);
+
+            Esta linea se comento porque nos pasaba que al ingresar a la ruta 
+                * posts/create -> Se ejecutaba la ruta de "Show" ya que con las lineas de arriba
+                    solo existe la ruta "crear" por lo que deberia de ser:
+                        * posts/crear
+        */
 
     }
 }

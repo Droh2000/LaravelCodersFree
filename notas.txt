@@ -25,3 +25,8 @@ Almacenar en cache las rutas
 
 Crear Controladores
     * php artisan make:controller PostController
+
+Vistas
+    Uso de la plantilla Blade para no crearlas con PHP crudo
+    El nombre que se les da puede ser cualquiera pero se sigue la convencion de nombrarla como el metodo del controlador donde se llaman
+    

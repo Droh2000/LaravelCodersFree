@@ -9,11 +9,13 @@ class PostController extends Controller
     // Aqui metemos la logica de nuestras rutas
     // Creamos un metodo para cada respectiva Ruta
     public function index(){
-        return "Hola desde la pagina de posts";
+        // Como las vistas estan dentro de la carpeta posts, luego ponemos punto para que indicar que debajo 
+        // de ese nivel hay un archivo y le colocamos el nombre del archivo de la vista
+        return view('posts.index');
     }
 
     public function create(){
-        return 'Ruta para crear posts';
+        return view('posts.create');
     }
 
     public function store(){
@@ -21,11 +23,11 @@ class PostController extends Controller
     }
 
     public function show($post){
-        return "Ruta para mostrar el post con el identificador $post";
+        return view('posts.show');
     }
 
     public function edit($post){
-        return "Aqui se mostrara el formulario para editar el post: $post";
+        return view('posts.edit');
     }
 
     public function update($post){
