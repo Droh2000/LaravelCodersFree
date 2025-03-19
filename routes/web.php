@@ -33,7 +33,7 @@ Route::get('/', HomeController::class);
 // Reducir las lineas de codigo a una sola para la creacion de rutas (Con el metodo RESOURCE que nos crea las rutas requeridas para CRUD)
 // El primer parametro es la URI con la que van a empezar las demas rutas, el segundo parametro es el nombre del controlador
 // Esto ya nos crea las rutas y asigna el metodo correspondiente a cada ruta y con nombre (Segun el nombre de la URI pasada)
-Route::resource('posts', PostController::class);// Verificamos con: php artisan r:l
+//Route::resource('posts', PostController::class);// Verificamos con: php artisan r:l
     // Si no queremos todas las rutas que nos crea por defecto el metodo ya que no las requerimos todas
     // Le pasamos entre el array el nombre de los metodos 
     //      ->except(['create', 'edit']);
@@ -49,41 +49,45 @@ Route::resource('posts', PostController::class);// Verificamos con: php artisan 
 //      Route::apiResource('posts', PostController::class);
 
 
-/* Mostrar el listado de registros
-// En lugar de la funcion le pasamos el controlador y el metodo en un Array
-Route::get('/posts', [PostController::class, 'index'])
-// Aprovechamos para darle nombre a las rutas, para esto seguimmos la convencion de Laravel
-// que seria la URI.NOMBRE_METODO
-->name('posts.index');
+//      Mostrar el listado de registros
+// Cuando queramos definir rutas para distintas areas y requerimos agruparlas (Clasificarlas) para esto tenemos otra
+// forma de organizar nuestra rutas (Grupo de Rutas)
+// Por ejemplo estas rutas tienen cosas en comun (Misma URL, Mismo Controlador, Nombres Similares)
+// Definicion de un Grupo de rutas en el que comparten el mismo controlador
+// Luego como todas empiezan con "/posts" esto lo hacemos con el metodo "prefix" para indicar que todas las rutas empezar con ese prefijo
+// Lo mismo para los nombre para indicar que con "name()" todas vana a empezar con el nombre "post."
+Route::prefix('posts')->name('posts.')->controller(PostController::class)->group(function(){
+    // Todas las rutas que definamos dentro de esta funcion van a estar compartiendo el mismo controlador
+    // asi que al definir la ruta solo le definimos el nombre del metodo
 
-// Mostrar un formulario para crear un registro
-Route::get('/posts/create/', [PostController::class, 'create'])
-->name('posts.create');
+    // En lugar de la funcion le pasamos el controlador y el metodo en un Array
+    Route::get('/', 'index')
+    // Aprovechamos para darle nombre a las rutas, para esto seguimmos la convencion de Laravel
+    // que seria la URI.NOMBRE_METODO
+    ->name('index');
 
-// Guardar un registro procesando la informacion que mandemos del formulario
-Route::post('/posts', [PostController::class, 'store'])
-->name('posts.store');
+    // Mostrar un formulario para crear un registro
+    Route::get('/create', 'create')->name('create');
 
-// Mostrar los datos de un registro
-// Hay que tener cuidado con el orden en el que creamos el Post ya que la de "/posts/create" cumple la misma estrcutura de esta
-// por eso se crea esta ruta despues antes que la de "create"
-Route::get('posts/{post}', [PostController::class, 'show'])
-->name('posts.show');
+    // Guardar un registro procesando la informacion que mandemos del formulario
+    Route::post('/', 'store')->name('store');
 
-// Mostrar un formulario de Edicion
-// Este formulario ya debe estar lleno con los datos que queremos editar por eso le mandaremos el identificador en la URL
-Route::get('/posts/{post}/edit', [PostController::class, 'edit'])
-->name('posts.edit');
+    // Mostrar los datos de un registro
+    // Hay que tener cuidado con el orden en el que creamos el Post ya que la de "/posts/create" cumple la misma estrcutura de esta
+    // por eso se crea esta ruta despues antes que la de "create"
+    Route::get('/{post}', 'show')->name('show');
 
-// (Actualizar) Procesar los datos que se manden desde el formulario de edicion
-Route::put('/posts/{post}', [PostController::class, 'update'])
-->name('posts.update');
+    // Mostrar un formulario de Edicion
+    // Este formulario ya debe estar lleno con los datos que queremos editar por eso le mandaremos el identificador en la URL
+    Route::get('/{post}/edit', 'edit')->name('edit');
 
-// Eliminar un registro
-Route::delete('/posts/{post}', [PostController::class, 'destroy'])
-->name('posts.destroy');
-// Gracias al uso de diferentes verbos HTTP podemos seguir usando la misma ruta
-*/
+    // (Actualizar) Procesar los datos que se manden desde el formulario de edicion
+    Route::put('/{post}', 'update')->name('update');
+
+    // Eliminar un registro
+    Route::delete('/{post}', 'destroy')->name('destroy');
+    // Gracias al uso de diferentes verbos HTTP podemos seguir usando la misma ruta
+});
 
 /*
 // Podemos definir dos rutas que tengan la misma URI pero de diferente peticion HTTP
