@@ -4,7 +4,6 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\View;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -39,11 +38,5 @@ class AppServiceProvider extends ServiceProvider
                     solo existe la ruta "crear" por lo que deberia de ser:
                         * posts/crear
         */
-
-        // Cuando tenemos el caso en el que queremos pasar el mismo parametro a muchas vistas 
-        // Dentro de este metodo definimos el parametro a mandar a todas las vistas
-        // Definimos la variable "prueba" seguido del valor (Ya asi este valor esta disponible en todas las vistas)
-        View::share('prueba', 'Este es un mensaje de prueba');
-
     }
 }

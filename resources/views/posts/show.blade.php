@@ -7,7 +7,7 @@
     <title>Cursos de Pago</title>
 </head>
 <body>
-    {{/* Usamos el mismo nombre que especificamos en el controlador como key */}}
+    <!-- Usamos el mismo nombre que especificamos en el controlador como key -->
     <h1>Aqui se mostrara el detalle del Post {{ $post }}</h1>
     <!-- Esta es la variable que estamos pasando a todas las vistas -->
     <p>Esta es la variable {{ $prueba }}</p>
