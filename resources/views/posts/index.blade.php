@@ -7,6 +7,6 @@
     <title>Cursos de Pago</title>
 </head>
 <body>
-    <h1>Aqui se mostrara el listado de Posts</h1>
+    <h1>Aqui se mostrara el listado de Posts {{ $prueba2 }}</h1>
 </body>
 </html>

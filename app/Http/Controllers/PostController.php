@@ -51,4 +51,3 @@ class PostController extends Controller
         return "Ruta para eliminar ";
     }
 }
-// Para el caso en el que queremos mandarle parametros no a todas las vistas sino solo a unas cuantas
