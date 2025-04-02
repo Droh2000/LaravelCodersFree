@@ -52,6 +52,26 @@
         <p>Estamos en Produccion 2</p>
     @endproduction
 
+    @switch($dia)
+        @case(1)
+            <p>Lunes</p>
+            @break
+        @case(2)
+            <p>Martes</p>
+            @break
+        @case(3)
+            <p>Miercoles</p>
+            @break
+        @case(4)
+            <p>Jueves</p>
+            @break
+        @case(5)
+            <p>Viernes</p>
+            @break
+        @default
+            @break
+    @endswitch
+
     {{-- Interactuamos con el Array que le pasamos desde JS --}}
     <script>
         // Primero tenemos que convertir los datos de PHP a un formato que entienda JS

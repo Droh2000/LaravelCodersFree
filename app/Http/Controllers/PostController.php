@@ -32,7 +32,10 @@ class PostController extends Controller
 
         ];
 
-        return view('posts.index', compact('label','post'));
+        // Esto representa el Dia que lo verificaremos en un Switch para mostrar el nombre
+        $dia = 5;
+
+        return view('posts.index', compact('label','post', 'dia'));
     }
 
     public function create(){
