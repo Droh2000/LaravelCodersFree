@@ -82,6 +82,13 @@
         @endforeach
     </ul>
 
+    @forelse ( $posts2 as $p2 )
+        <!-- Aqui mostrariamos la informacion si se obtuvo con los datos esperados -->
+    @empty
+        <!-- Aqui mostramos para el caso que no se obtuvieron datos -->
+        <p>No se encontraron datos de la base de datos</p>
+    @endforelse
+
     {{-- Interactuamos con el Array que le pasamos desde JS --}}
     <script>
         // Primero tenemos que convertir los datos de PHP a un formato que entienda JS

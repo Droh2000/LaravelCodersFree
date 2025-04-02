@@ -32,10 +32,13 @@ class PostController extends Controller
 
         ];
 
+        // Supongamos que la BD nos retorno un array vacio y queremos controlar en la vista indicando ese suceso
+        $posts2 = [];
+
         // Esto representa el Dia que lo verificaremos en un Switch para mostrar el nombre
         $dia = 5;
 
-        return view('posts.index', compact('label','post', 'dia'));
+        return view('posts.index', compact('label','post', 'dia', 'posts2'));
     }
 
     public function create(){
