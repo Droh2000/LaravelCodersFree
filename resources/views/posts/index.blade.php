@@ -89,6 +89,30 @@
         <p>No se encontraron datos de la base de datos</p>
     @endforelse
 
+    <!-- Vamos a mostrar tantos * como la cantidad -->
+    <ul>
+        @for ($i=1; $i<= $cant; $i++)
+            <li>
+                <!-- Esto es para que nos agrege N astediscos por el numero que se esta iterando -->
+                @for ($j=1; $j <= $i; $j++)
+                    *
+                @endfor
+            </li>
+        @endfor
+    </ul>
+
+    <!-- Uso del bucle While con la directiva de PHP para escribir codigo PHP
+    @php
+        $i = 1;
+    @endphp
+
+    @while ($i<= $cant)
+        <p>*</p>
+        @php
+            $i++;
+        @endphp
+    @endwhile
+
     {{-- Interactuamos con el Array que le pasamos desde JS --}}
     <script>
         // Primero tenemos que convertir los datos de PHP a un formato que entienda JS
