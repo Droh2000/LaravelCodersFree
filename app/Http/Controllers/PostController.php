@@ -14,7 +14,25 @@ class PostController extends Controller
 
         // Pasarle parametros a la  vista (Le estamos mandando un elementos HTML)
         $label = "<p>Este es un parrafo</p>";
-        return view('posts.index', compact('label'));
+
+        // Supongamos que en este array tenemos varios articulos
+        $post = [
+            [
+                'title' => 'Art 1',
+                'content' => 'Art 1',
+            ],
+            [
+                'title' => 'Art 2',
+                'content' => 'Art 2',
+            ],
+            [
+                'title' => 'Art 3',
+                'content' => 'Art 3',
+            ],
+
+        ];
+
+        return view('posts.index', compact('post'));
     }
 
     public function create(){
