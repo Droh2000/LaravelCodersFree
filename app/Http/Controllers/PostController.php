@@ -11,7 +11,10 @@ class PostController extends Controller
     public function index(){
         // Como las vistas estan dentro de la carpeta posts, luego ponemos punto para que indicar que debajo 
         // de ese nivel hay un archivo y le colocamos el nombre del archivo de la vista
-        return view('posts.index');
+
+        // Pasarle parametros a la  vista (Le estamos mandando un elementos HTML)
+        $label = "<p>Este es un parrafo</p>";
+        return view('posts.index', compact('label'));
     }
 
     public function create(){

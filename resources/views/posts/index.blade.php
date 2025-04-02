@@ -8,5 +8,7 @@
 </head>
 <body>
     <h1>Aqui se mostrara el listado de Posts {{ $prueba2 }}</h1>
+    <!-- Como es codigo HTML lo que le estamos mandando -->
+    {!! $label !!}
 </body>
 </html>
