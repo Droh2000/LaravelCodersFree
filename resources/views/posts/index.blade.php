@@ -35,6 +35,22 @@
         <p>La variable no existe o no tiene valor asignado</p>
     @endempty
 
+    <!-- 
+        Cuando queramos mostrar cierto contenido dependiendo en donde se encuentre desplegada la aplicacion
+        Dentro de esta directiva queremos evaluar si nos encontramos en un localhost y el otro si nos encontramos en produccion
+        Esto lo detecta por el archivo de configuracion de "app.php" o la variable de entorno
+    -->
+    @env('local')
+        <p>Estamos en Local</p>
+    @endenv
+
+    @env('production')
+        <p>Estamos en Produccion</p>
+    @endenv
+    <!-- Otra alternativa a lo de arriba -->
+    @production
+        <p>Estamos en Produccion 2</p>
+    @endproduction
 
     {{-- Interactuamos con el Array que le pasamos desde JS --}}
     <script>
