@@ -72,6 +72,16 @@
             @break
     @endswitch
 
+    <!-- Mostrar el contenido del Array en el HTML -->
+    <ul>
+        @foreach ( $post as $p )
+               <li>
+                    <h3>{{$p['title']}}</h3>
+                    <p>{{$p['content']}}</p>
+               </li>     
+        @endforeach
+    </ul>
+
     {{-- Interactuamos con el Array que le pasamos desde JS --}}
     <script>
         // Primero tenemos que convertir los datos de PHP a un formato que entienda JS
