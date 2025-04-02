@@ -8,8 +8,33 @@
 </head>
 <body>
     <h1>Aqui se mostrara el listado de Posts {{ $prueba2 }}</h1>
-    {{-- Como es codigo HTML lo que le estamos mandando
-    {!! $label !!}--}}
+    {{-- Como es codigo HTML lo que le estamos mandando--}}
+    {!! $label !!}
+
+    <!-- Directivas -->
+    @if (true)
+        <p> Mensaje por ser Verdad </p>
+    @else    
+        <p> Mensaje por ser False </p>
+    @endif
+
+    <!-- Esta espera que el valor que le pasemos sea Falso, si es True no entra -->
+    @unless (false)
+        <p>Se cumplo que sea falso</p>
+    @endunless
+
+    <!-- Con esta verificamos si la variable que le pasemos se encuentra definida -->
+    @isset($variable)
+        <p>La variable existe y tiene un valor asinado</p>
+    @else
+        <p>La variable no existe</p>    
+    @endisset
+
+    <!-- esta directiva entra si la variable que le pasemos, no existe o tiene almacenado un valor nulo -->
+    @empty($variable)
+        <p>La variable no existe o no tiene valor asignado</p>
+    @endempty
+
 
     {{-- Interactuamos con el Array que le pasamos desde JS --}}
     <script>
@@ -18,7 +43,7 @@
         //      const posts = {!! json_encode($post) !!};
 
         // Otra formas mas facil es usar la directiva de Blade
-        const posts = @json($posts);
+        const posts = @json($post);
 
         console.log(posts);
     </script>

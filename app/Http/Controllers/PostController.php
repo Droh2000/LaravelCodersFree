@@ -32,7 +32,7 @@ class PostController extends Controller
 
         ];
 
-        return view('posts.index', compact('post'));
+        return view('posts.index', compact('label','post'));
     }
 
     public function create(){
