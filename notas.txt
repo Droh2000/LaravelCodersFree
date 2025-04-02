@@ -32,3 +32,10 @@ Vistas
 
 Crear un Provider
     * php artisan make:provider NombreProvider
+
+Imprimir contenido o implementar logica dentro de las plantillas Blade
+Para imprimir variables tenemos que hacerlo con 
+            {{ Variable }}
+Pero si estamos trabajando con algun framework que utiliza la misma sintaxis para mostrar contenido
+tenemos que hacer
+            @{{ Dato/Codigo }}
