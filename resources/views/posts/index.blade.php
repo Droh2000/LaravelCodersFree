@@ -93,6 +93,17 @@
     <ul>
         @for ($i=1; $i<= $cant; $i++)
             <li>
+                <!-- Queremos que todos los valores mutliplos de 3 se salten la instruccion de abajo -->
+                {{--@if ($i % 3 == 0)
+                    <!-- Con este nos saltamos la logica que sigua y continuamos con la siguiente iteracion -->
+                    @continue
+                @endif--}}
+
+                {{-- Otra misma forma de hacer lo de arriba --}}
+                @continue($i % 3 == 0)
+                {{-- Si se cumple se sale de todo el bucle --}}
+                @break($i % 10 == 0)
+
                 <!-- Esto es para que nos agrege N astediscos por el numero que se esta iterando -->
                 @for ($j=1; $j <= $i; $j++)
                     *
