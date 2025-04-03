@@ -112,7 +112,7 @@
         @endfor
     </ul>
 
-    <!-- Uso del bucle While con la directiva de PHP para escribir codigo PHP
+    <!-- Uso del bucle While con la directiva de PHP para escribir codigo PHP -->
     @php
         $i = 1;
     @endphp
@@ -123,6 +123,55 @@
             $i++;
         @endphp
     @endwhile
+
+    <!-- La variable LOOP nos va a dar informacion hacerca de la iteracion en la que nos encontramos  
+        esta variable se genera automaticamente cada vez que creamos un Bucle
+    -->
+    <ul>
+        @foreach ($post as $p)
+            <li>
+                <h2>
+                    {{ $p['title'] }}
+                    <!-- Queremos mostrar algun texto solo si nos encontramos en la primera iteracion -->
+                    @if ($loop->first)
+                        (Primera iteracion)
+                    @endif
+                    <!-- Mostrar algo si nos encontramos en la ultima iteraciones -->
+                    @if ($loop->last)
+                        (Ultima iteracion)
+                    @endif
+                    <!-- Si queremos saber el indice, iteracion en el que nos encontramos actualmente -->
+                    (Indice {{$loop->index}}, Iteracion {{$loop->iteration}}, Iteracion Restante {{$loop->remaining}})
+
+                </h2>
+
+                <p>{{ $p['content'] }}</p>
+
+                <ul>
+                    <!-- Este bucle va a tener su propia variable Loop -->
+                    @foreach ($p['tags'] as $tag)
+                        <li>
+                            {{$tag}}
+                            @if ($loop->first)
+                                (Es el primero)
+                            @endif
+                            <!-- Tambien vamos a querer acceder a la variable Loop pero de otro bucle, en este caso del bucle padre 
+                                De ahi podemos acceder a los demas metodos correspondientes
+                            -->
+                            @if ($loop->parent->first)
+                                (Le pertenece al Primero Post)
+                            @endif
+
+                            @if ($loop->parent->last)
+                                (Le pertenece al Ultimo Post)
+                            @endif
+
+                        </li>
+                    @endforeach
+                </ul>
+            </li>
+        @endforeach
+    </ul>
 
     {{-- Interactuamos con el Array que le pasamos desde JS --}}
     <script>

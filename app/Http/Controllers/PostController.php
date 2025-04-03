@@ -20,14 +20,17 @@ class PostController extends Controller
             [
                 'title' => 'Art 1',
                 'content' => 'Art 1',
+                'tags' => ['tag1', 'tag2', 'tag3'],
             ],
             [
                 'title' => 'Art 2',
                 'content' => 'Art 2',
+                'tags' => ['tag4', 'tag5', 'tag6'],
             ],
             [
                 'title' => 'Art 3',
                 'content' => 'Art 3',
+                'tags' => ['tag7', 'tag8', 'tag9'],
             ],
 
         ];
