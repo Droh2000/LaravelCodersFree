@@ -15,6 +15,19 @@
     </style>
 </head>
 <body>
+
+    <!-- Usar codigo que esta en otro archivo 
+        Si estuviera en otra carpeta seria: NombreCarpeta.NombreVista
+        Para mandar parametros solo especificamos en el array: NombreVariable => Contenido
+    -->
+    @include('prueba', ['color' => 'red'])
+    <!-- Con esta si existe el archivo nos trae el codigo pero si no existe solo lo ignora y no nos da error -->
+    @includeIf('posts.prueba2')
+    <!-- Mostrar el contenido solo si se cumple la condicion -->
+    @includeWhen(true, 'prueba2')
+    <!-- Para verificar si existen varias vistas y nos traiga la primera de ellas, tiene que existir por lo menos una vista sino dara error -->
+    @includeFirst(['prueba3', 'prueba2'])
+
     <h1>Aqui se mostrara el listado de Posts {{ $prueba2 }}</h1>
     {{-- Como es codigo HTML lo que le estamos mandando--}}
     {!! $label !!}
