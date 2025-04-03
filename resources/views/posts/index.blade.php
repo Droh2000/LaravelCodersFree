@@ -304,6 +304,15 @@
         <p> Hola G </p>
     </div>
 
+    <hr>
+    <!-- Los componentes anonimos solo llevan una Vista, no una clase 
+        Vamos a hacer un componentne que ya nos traiga por defecto unos estilos Responsive
+        tambien vamos a hacer que el ancho se lo vamos a proporcionar dinamicamente
+    -->
+    <x-container width="7xl">
+        <p>Contenido De Componente Anonimo</p>
+    </x-container>
+
 
     {{-- Interactuamos con el Array que le pasamos desde JS --}}
     <script>
