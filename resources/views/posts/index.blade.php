@@ -204,6 +204,51 @@
         @endforeach
     </ul>
 
+    <form action="">
+        <div>
+            <!-- Queremos que a los Checkbox agregarle la propiedad "checked" si es que cumple una condicion
+                Para esto tenemos esta directiva con el mismo numbre el cual le pasamos una condicion
+            -->
+            <label for="">
+                <input type="checkbox" name="paises[]" id="">
+                Peru
+            </label>
+            <label for="">
+                <input type="checkbox" @checked(true) name="paises[]" id="">
+                Colombia
+            </label>
+            <label for="">
+                <input type="checkbox" name="paises[]" id="">
+                Chile
+            </label>
+            <label for="">
+                <input type="checkbox" name="paises[]" id="">
+                Argentina
+            </label>
+        </div>
+
+        <!-- Esta directiva es similar para seleccionar un checkbox solo que para las listas 
+            Para tener por defecto una opcion seleccionada
+        -->
+        <div>
+            <select name="ciudad" id="">
+                <option value="1" @selected(true)>Lima</option>
+                <option value="2">Nose</option>
+                <option value="3">Que poner</option>
+            </select>
+        </div>
+
+        <div>
+            <!-- Para hacer un campo de solo lectura si se cumple una condicion -->
+            <input type="text" @readonly(true)>
+            <!-- Esta directiva es para obligar a que se tiene que escribir en este campo -->
+            <input type="text" @required(true)>
+        </div>
+
+        <!-- Esta directiva es para desactivar los botones en base a una condicion -->
+        <button @disabled(true)>Enviar</button>
+    </form>
+
 
     {{-- Interactuamos con el Array que le pasamos desde JS --}}
     <script>
