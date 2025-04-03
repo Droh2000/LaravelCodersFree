@@ -5,6 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Cursos de Pago</title>
+    <style>
+        .color-red{
+            color: red;
+        }
+        .color-green{
+            color: green;
+        }
+    </style>
 </head>
 <body>
     <h1>Aqui se mostrara el listado de Posts {{ $prueba2 }}</h1>
@@ -172,6 +180,30 @@
             </li>
         @endforeach
     </ul>
+
+    <!-- Con esta directiva podremos agregar clases de manera dinamica a los elementos solo si se cumple determinada condicion 
+        Aqui vamos a hacer que el primer Post y ultimo se coloree de un color
+    -->
+    <ul>
+        @foreach ($post as $p)
+            <!-- Dentro le especificamos las clases que queremos aplicar -->
+            <li @class([
+                // Este solo lo queremos aplicar cuando estemos en la primera iteracion
+                'color-red' => $loop->first,
+                // Este cuando sea la utlima iteracion
+                'color-green' => $loop->last
+            ])>
+                <h2>
+                    {{$p['title']}}
+                </h2>
+
+                <p>
+                    {{$p['content']}}
+                </p>
+            </li>
+        @endforeach
+    </ul>
+
 
     {{-- Interactuamos con el Array que le pasamos desde JS --}}
     <script>
