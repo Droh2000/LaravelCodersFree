@@ -39,3 +39,8 @@ Para imprimir variables tenemos que hacerlo con
 Pero si estamos trabajando con algun framework que utiliza la misma sintaxis para mostrar contenido
 tenemos que hacer
             @{{ Dato/Codigo }}
+
+Instalamos Tailwind y usamos un codigo de alert que sacamos de la documentacion
+Para usar un componente
+    * php artisan make:component Nombre
+Estos estan en la carpeta App/View/components

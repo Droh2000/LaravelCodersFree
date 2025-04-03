@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <title>Cursos de Pago</title>
     <style>
         .color-red{
@@ -261,6 +262,47 @@
         <!-- Esta directiva es para desactivar los botones en base a una condicion -->
         <button @disabled(true)>Enviar</button>
     </form>
+
+    <div class="container mx-auto py-12">
+        <h2 class="mb-4">Uso de componentes</h2>
+        <hr>
+        <!-- 
+            Supongmos que hemos obtenido el tipo de alerta en la base de datos y la tenemos almacenada en
+            una variable en PHP
+        -->
+        @php
+            $type = 'danger';
+        @endphp
+
+        <!-- Para llamar el componente:
+                x-NombreComponente
+            Podemos mandarle informacion al componente entre las dos etiquetas
+            todo el contido que le mandemos se va a guardar en una variable llamada SLOT 
+            Podemos pasarles diferentes tipos de Slot, que son los principales (El por defecto)
+            y los Slots con nombre
+
+            Hay varias formas para pasarle datos largos a los componentes, el uso de slots es para
+            pasarle datos largos
+            Otra forma de pasar informacion es atravez de atributos 
+
+            Cuando queremos pasarle codigo PHP a un tributo para que lo interprete le ponemos dos puntos al inicio del nombre
+            asi nos ahorramos la sintaxis de "type={{$type}}"
+
+            Si le especificamos clases veremos que no las aplica en este caso los estilos, ya que cualquier cosa que le especifiquemos
+            como atributos el componente lo va a interpretar en su constructor (Espera que nosotros se lo hayamos definido ahi)
+            Cualquier atributo que definamos ahi y no lo recibamos en el constructor va a quedar almacenado en una variable llamada "attributes"
+        -->
+        <x-alert :type="$type" class="mb-4">
+            <!-- Con este determinamos el nombre de la variable a la que queremos pasare el valor -->
+            <x-slot name="title">
+                Titulo Dinamico
+            </x-slot>
+
+            Contenido Variable
+        </x-alert>
+
+        <p> Hola G </p>
+    </div>
 
 
     {{-- Interactuamos con el Array que le pasamos desde JS --}}
