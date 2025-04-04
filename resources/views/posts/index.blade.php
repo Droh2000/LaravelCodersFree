@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+{{--<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -15,7 +15,19 @@
         }
     </style>
 </head>
-<body>
+<body>--}}
+
+<!-- Ya la Plantilla nos proporcionara el codigo HTML
+    Todas las vistas que tengan estas plantillas van a tener la misma estrcutura de este codigo
+-->
+<x-app-layout>
+
+    <!--
+        La plantilla espera que le pasemos el nombre de la pagina
+    -->
+    <x-slot name="title">
+        Posts
+    </x-slot>
 
     <!-- Usar codigo que esta en otro archivo 
         Si estuviera en otra carpeta seria: NombreCarpeta.NombreVista
@@ -325,5 +337,6 @@
 
         console.log(posts);
     </script>
-</body>
-</html>
+</x-app-layout>
+{{--</body>
+</html>--}}
