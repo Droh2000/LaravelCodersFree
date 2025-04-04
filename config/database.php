@@ -16,6 +16,7 @@ return [
     |
     */
 
+    // Aqui le configuramos la conexion pero veremos que el valor lo esta tomando de la variable de entorno con el nombre de "DB_CONNECTION"
     'default' => env('DB_CONNECTION', 'sqlite'),
 
     /*

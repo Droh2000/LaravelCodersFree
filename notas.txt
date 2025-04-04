@@ -49,3 +49,11 @@ Componentes como plantilla
     Cuando tenemos codigo que se repite mucho en las paginas, como los estilos, CDN u otros archivos, usamos estas plantillas
     En este caso vamos a usarlas creando componentes
         - php artisan make:component AppLayout
+    
+Migraciones:
+    Conexion a la Base de datos:
+        Abrimos el manejador del MySql (En la variable de entorno vemos el nombre de la BD y el user/passwrod)
+        En laragon al crear el proyecto de laravel ya no creo la BD pero si no esta la creamos manualmente
+    Si la BD esta recien creada o queremos veirificar que si tenemos conexion ejecutamoe el comando:
+        * php artisan migrate
+    
