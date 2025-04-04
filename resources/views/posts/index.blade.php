@@ -37,6 +37,20 @@
     -->
     @section('title', 'Posts')
 
+    <!-- Asi trabajamos con la directiva Stack, al indicarlo dentro le especificamos el contenido
+        Esta es la diferencia de usar Push a Yield, Con push podemos apilar contenido
+    -->
+    @push('meta')
+        <meta name="description" content="Cursos de Pagos">
+    @endpush
+    <!-- 
+        Este es el ejemplo del apilamiento en el que al volver a llamar la misma etiqueta este contenido nos lo pondra en donde 
+        espesificamos el primer push (Junta todo el contido que le vamos pasando)
+    -->
+    @push('meta')
+        <meta name="keywords" content="laravel, php, cursos">
+    @endpush
+
 <!-- Para pasar contenido mas complejo como este codigo HTML tenemos que usar con la directiva endSection -->
 @section('content')
 

@@ -9,6 +9,17 @@
         insercion usando la directiva "yield"
     -->
     <title>@yield('title')</title>
+
+    <!-- Esta directiva funciona similar a la "yield" solo que esta directiva nos va a permitir
+         apilar diferente contenido, Supongamos que queremos incluir de manera dinamica estas etiquetas
+         pero dependiendo de donde nos encontremos
+    -->
+    @stack('meta')
+
+    <!-- El Stack normalmente se usa para definir contenido CSS, JS, etiquetas que se requiere
+        en ocaciones definir varias veses, esta directiva tambien las podesmo usar en el otro tipo de compontne
+    -->
+
 </head>
 <body>
     
