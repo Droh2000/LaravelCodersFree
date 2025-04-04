@@ -19,15 +19,26 @@
 
 <!-- Ya la Plantilla nos proporcionara el codigo HTML
     Todas las vistas que tengan estas plantillas van a tener la misma estrcutura de este codigo
--->
+
 <x-app-layout>
 
-    <!--
+    
         La plantilla espera que le pasemos el nombre de la pagina
-    -->
+    
     <x-slot name="title">
         Posts
     </x-slot>
+-->
+
+<!-- Para usar la Herencia de Palantillas, le indicamos donde se encuentra la plantilla -->
+@extends('layouts.app2')
+    <!-- Asi le pasamos el contiedo variable que espera que le especifiquemos a la plantilla  
+        Le damos el nombre correspondiente de la variable y el valor a asignar
+    -->
+    @section('title', 'Posts')
+
+<!-- Para pasar contenido mas complejo como este codigo HTML tenemos que usar con la directiva endSection -->
+@section('content')
 
     <!-- Usar codigo que esta en otro archivo 
         Si estuviera en otra carpeta seria: NombreCarpeta.NombreVista
@@ -337,6 +348,7 @@
 
         console.log(posts);
     </script>
-</x-app-layout>
+@endsection
+<!-- </x-app-layout>  -->
 {{--</body>
 </html>--}}
