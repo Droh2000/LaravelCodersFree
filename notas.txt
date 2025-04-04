@@ -56,4 +56,7 @@ Migraciones:
         En laragon al crear el proyecto de laravel ya no creo la BD pero si no esta la creamos manualmente
     Si la BD esta recien creada o queremos veirificar que si tenemos conexion ejecutamoe el comando:
         * php artisan migrate
+    Las tablas se crearon por los archivos de migraciones que tengamos, Laravel registra en una tabla de la BD las migraciones ejecutadas
+    con un Lote de identificacion para agrupar cuales se ejecutar en conjunto y cuales en otra ocacion 
+
     

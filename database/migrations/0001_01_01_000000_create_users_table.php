@@ -11,7 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
+        // Crea una tabla con el nombre especificado (Aqui vemos que crea tres tablas)
         Schema::create('users', function (Blueprint $table) {
+            // Campos de la tabla, con su nombre, Modificador (unique, nullable)
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
