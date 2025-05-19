@@ -5,7 +5,7 @@ Listar Rutas
     Nos va a mostrar tanto rutas definidas por nosotros como rutas definidas por paquetes
     Para ver solo las rutas definidas por nosotros
         * php artisan r:l --except-vendor
-    
+
     Para solo ver las rutas creadas por paquetes
         * php artisan r:l --only-vendor
 
@@ -17,7 +17,7 @@ Almacenar en cache las rutas
     ya no vamos a estar creando rutas y lo mejor seria que laraval ya se aprenda las rutas que estan
     Para almacenar las rutas en Cache: (Esto se haria en la terminal del servidor)
         * php artisan route:cache
-    
+
     Si despues el proyecto sufrio actualizaciones y tenemos nuevas rutas
     Primero limpiamos las rutas del cache
         * php artisan route:clear
@@ -34,7 +34,7 @@ Crear un Provider
     * php artisan make:provider NombreProvider
 
 Imprimir contenido o implementar logica dentro de las plantillas Blade
-Para imprimir variables tenemos que hacerlo con 
+Para imprimir variables tenemos que hacerlo con
             {{ Variable }}
 Pero si estamos trabajando con algun framework que utiliza la misma sintaxis para mostrar contenido
 tenemos que hacer
@@ -49,7 +49,7 @@ Componentes como plantilla
     Cuando tenemos codigo que se repite mucho en las paginas, como los estilos, CDN u otros archivos, usamos estas plantillas
     En este caso vamos a usarlas creando componentes
         - php artisan make:component AppLayout
-    
+
 Migraciones:
     Conexion a la Base de datos:
         Abrimos el manejador del MySql (En la variable de entorno vemos el nombre de la BD y el user/passwrod)
@@ -57,6 +57,12 @@ Migraciones:
     Si la BD esta recien creada o queremos veirificar que si tenemos conexion ejecutamoe el comando:
         * php artisan migrate
     Las tablas se crearon por los archivos de migraciones que tengamos, Laravel registra en una tabla de la BD las migraciones ejecutadas
-    con un Lote de identificacion para agrupar cuales se ejecutar en conjunto y cuales en otra ocacion 
+    con un Lote de identificacion para agrupar cuales se ejecutar en conjunto y cuales en otra ocacion
 
-    
+    Crear nuestras migraciones
+        - php artisan make:migration NombreTablaPlural
+    Para Ahorrarnos tener que escribirle todo el codigo podemos nombrarlos siguiendo una convencion
+        - php artisan make:migration create_NombrePlural_table
+    Ejecutar la migracion:
+        - php artisan migrate
+
