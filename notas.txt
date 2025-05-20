@@ -66,3 +66,28 @@ Migraciones:
     Ejecutar la migracion:
         - php artisan migrate
 
+    Al ejecutar las migraciones veremos que se ejcutan por lotes
+    Para ejecutar los cambios No podemos ejecutar el metodo UP de los archivos de migracion sino que tenemos que ejecutar el metodo DOWN
+        - php artisan migrate:rollback
+    Hay que tener en cuenta que por defecto este comando ejecuta el metodo Down de todas las migraciones que se hayan ejecutado en el ultimo lote
+    por consecuencia nos elimina los cambios de la migracion.
+    Ahora podemos volver a ejecutar el comando para ejecutar el metodo UP y asi se nos aplicara las modificaciones que hicimos
+
+    Pero si empezamos a hacer cambios de migraciones de diferentes lotes podriamos ejecutar el comando del Rollback para cada uno de los lotes hasta
+    llegar al que queremos
+    Lo mejor es que para revertir los cambios de diferentes lotes
+        - php artisan migrate:refresh
+    Este comando nos ejecuta todos los metodos DOWN de cada una de las migraciones sin importar el Lote en el que se encuentren y despues nos ejecuta el metodo UP
+    para cada uno de los archivos (Despues de esto tambien tendremos registradas todas las migraciones en el mismo lote porque las borramos y volvimos a ejecutar todas)
+
+    Tambien tenemos el comando
+        - php artisan migrate:fresh
+    Este comando nos elimina todas las tablas y despues ejecuta el metodo UP
+
+    Cual de estos dos comando elegir
+        Si ya estamos trabajando en proyecto de laravel pasado donde luego hemos creado tablas usando las migraciones y en un determinado momento queremos revertir todos los cambios
+        que hemos hecho con las migraciones y volver a ejecutar, en ese caso es mejor usar el comando "Refresh" porque este comando solo va a revertir los cambios que hemos hecho con
+        las migraciones, volver a ejecutar pero lo mas importante es que no va a tocar las tablas que ya estaban en el proyecto pasado
+
+        Mientras que Fresh es mas destructivo, eliminando todas las tablas independientemente si las creamos con migraciones o no
+        Si hemos trabajado en un proyecto desde cero, da igual si usamos uno u otro
