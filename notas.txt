@@ -91,3 +91,10 @@ Migraciones:
 
         Mientras que Fresh es mas destructivo, eliminando todas las tablas independientemente si las creamos con migraciones o no
         Si hemos trabajado en un proyecto desde cero, da igual si usamos uno u otro
+
+    Lo anterior fueron comandos destructivos pero para el caso que ya tenemos datos importantes en la Base de datos
+        Modificar Campos en una determinada tabla sin que se eliminen los registros
+            Para esto podemos crear migraciones para que alteren una Tabla
+            (En este caso le queremos agregar un nuevo campo), Ademas que seguimos la convencion: NombreMigracion_to_NombreTablaModificar_table
+                - php artisan make:migration add_slug_to_posts_table
+            Despues de ejecutar este comando en los registros de la tabla para este nuevo campo tendra el valor de NULL por tanto el campo aceptara valores null
