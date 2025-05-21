@@ -18,6 +18,10 @@ return new class extends Migration
                 // Tenemos que especificar todos los modificadores que queramos mantener porque si no los especificamos nos los quitara
                 ->nullable()
                 ->change(); // Asi le decimos que modifique la columna con las nuevas propiedades especificadas
+
+            // Cambiar el nombre de una columna (Nombre Actual y Nombre Nuevo)
+            $table->renameColumn('title', 'contentSort');
+
         });
     }
 
@@ -30,6 +34,8 @@ return new class extends Migration
             // Ponemos la columna a sus modificadores originales
             $table->longText('body')
                 ->change();
+            // Revertimos los cambiones ponendo en lo opuesto
+            $table->renameColumn('contentSort', 'title');
         });
     }
 };
