@@ -102,3 +102,6 @@ Migraciones:
     Cambiar el nombre de una Tabla
         Para esto nos creamos una nueva migracion siguiendo la convencion de rename_NombreTabla_table
             - php artisan make:migration rename_posts_table
+
+    Creamos una migracion para eliminar una tabla (Convencion: drop_NombreTabla_table)
+        - php artisan make:migration drop_posts_table
