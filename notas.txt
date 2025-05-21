@@ -105,3 +105,6 @@ Migraciones:
 
     Creamos una migracion para eliminar una tabla (Convencion: drop_NombreTabla_table)
         - php artisan make:migration drop_posts_table
+
+    Tipos de datos que podemos crear usando los metodos que nos proporicona PHP
+
