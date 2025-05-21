@@ -22,6 +22,9 @@ return new class extends Migration
             // Cambiar el nombre de una columna (Nombre Actual y Nombre Nuevo)
             $table->renameColumn('title', 'contentSort');
 
+            // Eliminar Columnas
+            $table->dropColumn('slug');
+
         });
     }
 
@@ -36,6 +39,8 @@ return new class extends Migration
                 ->change();
             // Revertimos los cambiones ponendo en lo opuesto
             $table->renameColumn('contentSort', 'title');
+
+            $table->string('slug')->unique();
         });
     }
 };
