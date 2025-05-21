@@ -16,7 +16,9 @@ return new class extends Migration
             $table->id();
 
             // Valores Entero
-            $table->integer('user_id');
+            $table->integer('user_id')
+                ->unsigned(); // Para solo permitir valores positivos
+
             // Aumentar el Rango de numeros
             $table->bigInteger('user2_id');
 
@@ -47,10 +49,13 @@ return new class extends Migration
 
             // Datos de tipo String Le podemos poner solo el nombre del campo y tambien la cantidad de caracteres que queremos permitir
             $table->string('name'); // 255 caracteres
-            $table->string('name2', 20);
+            $table->string('name2', 20)
+                ->default('Valor por defect'); // Este es el valor que se le asignara si no se especifica al registrar el dato
 
             // Campos de texto mas grandes
-            $table->text('description');// 65535 characters
+            $table->text('description')// 65535 characters
+                ->nullable(); // Para que el campo acepte valores nulos
+
             $table->mediumText('content');// 16777215 Characters
             $table->longText('text');// 4294967295 characters
 
@@ -59,6 +64,9 @@ return new class extends Migration
             // Lo que ocurre es que apartir de este nos crea dos campos que son NombreCampo_id y NombreCampo_type
 
             // Almacenar fechas
+            $table->timestamp('published_at')
+                ->useCurrent(); // Para que cada vez que se cree un campo aqui, se registre con la fecha actual
+
             $table->timestamps();
         });
     }
