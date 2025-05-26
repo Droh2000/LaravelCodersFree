@@ -198,4 +198,15 @@ Route::get('/prueba', function(){
             // Si estamos truncando los datos pero nuestro objetivo es ir actualizando los datos que vamos recuperando
             // Para esto en lugar de usar el metodo "chunk" usamos "chunkById", se emplea igual que el metodo de arrriba
 
+    // Esta es otra forma de trabajar con datos Truncados, este metodo "lazy" su diferencia es que a diferencia del metodo "chunk"
+    // es que en ese se va agrupando en el arreglo que recibe la funcion, a diferencia de "lazy" nos retorna una coleccion pudiendo
+    // acceder a los datos de forma mas practica
+    DB::table('users')
+            ->orderBy('id')
+            // Con "each" vamos recorriendo la coleccion y dentro en la funcion podemos recuperar los datos
+            ->lazy()->each(function($user){
+                // Aqui podemos acceder a los registros individuales (No agrupados como antes)
+                echo $user->name . '<br>';
+            });
+            // Si queremos ir actualizando los datos que vamos recuperando podemos usar el metodo "lazyById"
 });
