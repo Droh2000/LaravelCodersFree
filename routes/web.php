@@ -234,4 +234,25 @@ Route::get('/prueba', function(){
         // si queremos cambiar el nombre de un campo en los datos obtenidos, ponemos 'as' seguido del nombre
         ->select('id', 'name as signature', 'email')
         ->get();
+
+    // Si requerimos de alguna consulta que no podemos lograr con los metodos que nos proporciona Laravel, entonces
+    // tambien podemos usar esta forma en la que metemos nuestras propias sentencias SQL
+    // Supongamos que queremos crear una sentencia que nos permita crear un campo personalizado donde su contenido sera
+    // la fucion de los resultados obtenidos
+    DB::table('users')
+        // Dentro del DB::raw metemos la sentencia SQL que se va a generar con estos metodos
+        ->select('id', 'name as signature', 'email')//, DB::raw('CONCAT(name, "", email) as full_name'))
+        // Otra forma de hacerlo es meter aqui directamente la sentencia
+        ->selectRaw('CONCAT(name, "", email) as full_name')
+        // Supongamos que ahora queremos hacer un filtro mas especifico y no nos sirve el metodo "where()"
+        // Dentro de este metodo colocamos toda la sentencia del filtro (La podemos hacer tan compleja como queramos)
+        ->whereRaw('id >= 2 AND id <= 5')
+        // Este es en el caso que queramos agregar una condicion OR en el filtro Where
+        ->orWhereRaw('id <= 5')
+        // Agregar la Clausula "Having"
+        //  ->havingRaw()
+        // Para saber como se van a ordenar los datos
+        // ->orderByRaw()
+        // ->groupByRaw()
+        ->get();
 });
