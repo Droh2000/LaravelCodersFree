@@ -227,4 +227,11 @@ Route::get('/prueba', function(){
         echo 'El usuario No existe';
     }
 
+    DB::table('users')
+        // Clausula de seleccion
+        // Para cuando no queremos que se nos de todos los campos y solo tomar lo que nos interesa
+        // Asi especificamos los campos exactos que queremos que nos traiga
+        // si queremos cambiar el nombre de un campo en los datos obtenidos, ponemos 'as' seguido del nombre
+        ->select('id', 'name as signature', 'email')
+        ->get();
 });
