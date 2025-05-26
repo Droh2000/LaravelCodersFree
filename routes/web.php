@@ -255,4 +255,16 @@ Route::get('/prueba', function(){
         // ->orderByRaw()
         // ->groupByRaw()
         ->get();
+
+    // Obtenemos todos los registros de los Posts relacionados con su Usuario por el ID
+    DB::table('posts')
+        // Primero le pasamos la tabla con la que queremos hacer la union, el segundo parametro es la forma en la que vamos a comparar ambas tablas
+        // (En este caso del campo user_id de la tabla "Posts" con la tabla "users" de su ID)
+        ->join('users', 'posts.user_id', '=', 'users.id')
+        // Obtener las categorias relacionadas
+        ->join('categories', 'posts.category_id', '=', 'categories.id')
+        // Asi es como indicamos que queremos seleccionar todos los campos de la tabla "posts" pero solo queremos el campo "name" de la tabla Users
+        ->select('posts.*', 'users.name as user_name', 'categories.name as category_name')
+        ->get();
+
 });
