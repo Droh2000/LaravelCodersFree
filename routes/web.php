@@ -283,8 +283,10 @@ Route::get('/prueba', function(){
         ])
         // Queremos que nos traiga todos los registros con la condicional OR
         // En este caso queremos traer diferentes tipos de correos
-        ->where('email', 'like', '%@example.org%')
-        ->orWhere('email', 'like', '%@example.com%')
+        /*->where('email', 'like', '%@example.org%')
+        ->orWhere('email', 'like', '%@example.com%')*/
+        // Para decir que nos excluya todos los correos que terminen en "example.org" (Asi excluimos unos determinados numeros de elementos)
+        ->whereNot('email', 'like', '%@example.com%')
         ->get();
 
 });
