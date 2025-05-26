@@ -5,6 +5,8 @@ use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB; // Importamos para poder usar el QueryBuilder
 
+use function Laravel\Prompts\table;
+
 // Por defecto cuando queremos acceder a una ruta no definida nos dara 404
 // Creamos un control adicional que se encarga de administrar esta ruta (No es recomendable crear un controlador para todo y que maneje varios recursos)
 // Cuando usamos metodos invok al especificar la ruta no requerimos especificarle el metodo sino que solo le pasamos el controlador
@@ -265,6 +267,20 @@ Route::get('/prueba', function(){
         ->join('categories', 'posts.category_id', '=', 'categories.id')
         // Asi es como indicamos que queremos seleccionar todos los campos de la tabla "posts" pero solo queremos el campo "name" de la tabla Users
         ->select('posts.*', 'users.name as user_name', 'categories.name as category_name')
+        ->get();
+
+    DB::table('users')
+        // Condicional con Where, pasamos nombre del campo y el valor con el cual queremos buscarlo
+        // El metodo Where tambien podemos usar cualquier operador que sea compatible con un Sistema gestor de BD
+        /*->where('id', '>=', 5)
+        ->where('id', '<=', 5)
+        ->where('id', '<>', 5)
+        ->where('name', 'like', '%di%')*/
+        // Esta es una forma de pasarle varias condicionales
+        ->where([
+            ['id', '>=', '5'],
+            ['id', '<=', '10']
+        ])
         ->get();
 
 });
