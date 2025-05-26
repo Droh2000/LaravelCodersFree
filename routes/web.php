@@ -3,6 +3,7 @@
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\DB; // Importamos para poder usar el QueryBuilder
 
 // Por defecto cuando queremos acceder a una ruta no definida nos dara 404
 // Creamos un control adicional que se encarga de administrar esta ruta (No es recomendable crear un controlador para todo y que maneje varios recursos)
@@ -10,7 +11,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', HomeController::class);
 //function () {
     // return view('welcome');
-    
+
     // Esta es la razon por la que se le dan nombre a las rutas
     // Le pasamos el nombre de una de las rutas
     //      return route('cursos.informacion'); // Esto nos da URI
@@ -35,7 +36,7 @@ Route::get('/', HomeController::class);
 // Esto ya nos crea las rutas y asigna el metodo correspondiente a cada ruta y con nombre (Segun el nombre de la URI pasada)
 //Route::resource('posts', PostController::class);// Verificamos con: php artisan r:l
     // Si no queremos todas las rutas que nos crea por defecto el metodo ya que no las requerimos todas
-    // Le pasamos entre el array el nombre de los metodos 
+    // Le pasamos entre el array el nombre de los metodos
     //      ->except(['create', 'edit']);
     // Con esto indicamos que solo queremos crear algunas rutas en especifico
     //      ->only(['index', 'create']);
@@ -97,7 +98,7 @@ Route::match(['get', 'post'], '/contacto', function () {
     return "Hola desde la pagina de contacto usando el metodo GETo POST";
 });
 
-// Tenemos las rutas que se van creando de manera dinamica que segun lo que cambia en la URL muestra uno 
+// Tenemos las rutas que se van creando de manera dinamica que segun lo que cambia en la URL muestra uno
 // u otro contenido (Lo que este entre {} va a depender de lo que el usuario ingrese en la URL)
 // El nombre que se le pase entre {} tiene que ser el mismo nombre del argumento de la funcion
 Route::get('/cursos/{curso}', function($curso){
@@ -124,18 +125,18 @@ Route::get('/cursos2/{curso}/{category?}', function($curso, $category = null){
 // Controlar la forma en la que se pasan los parametros para que no vengan con caracteres extraños
 // para especificar un formato tenemos las RegEx
 Route::get('/cursos3/{curso}/{category?}', function($curso, $category = null){
-    return "Bienvenido al curso: $curso y de la cateogoria $category";    
+    return "Bienvenido al curso: $curso y de la cateogoria $category";
 
 // Si queremos que el parametro "curso" solo pueda recibir valores alfabericos
 // Al metodo WHERE le pasamos el nombre del parametro despues la expreccion regular
-// Ahora como aqui recibimos dos argumentos en la URL, le pasamos a la funcion un arreglo 
+// Ahora como aqui recibimos dos argumentos en la URL, le pasamos a la funcion un arreglo
 })->where(
     // 'curso', '[A-Za-z]+' -> Esto es si tenemos un solo argumento
     [
         'curso' => '[A-Za-z]+',
         'category' => '[A-Za-z]+'
     ]);
-    
+
 
 // Si bien podemos escribir nuestras RegEx en Laravel tenemos metodos que ya tienen las exprecciones
 // Con este los parametros solo se aceptan con valores alfabeticos
@@ -148,3 +149,28 @@ Route::get('/cursos4/{id}', function ($id) {
     return "Bienvenido al curso con el Id: $id";
 })->name('cursos.show');
 */
+
+Route::get('/prueba', function(){
+    // Recuperar valores que tenemos en la base de datos, con el metodo "table" especificamos a que tabla queremos hacer la consulta
+    $categories = DB::table('categories')
+        // ->where('id', 2)// Filtro para que nos regrese solo ciertos datos (id = 2)
+        -> where('id','>=',2)    // Agregar Filtro con una condicion
+        ->get(); // Recuperamos todos los registros de la tabla
+        // ->first();// Este es para que nos regrese el primer elemento del array, asi solo obtenemos el JSON y no el array
+
+    // Otra forma que podemos hacer para filtrar registros por el ID
+    // Con el metodo "find()" buscamos por el ID de acuerdo al campo que le pasemos (Nos trae el registro cuyo id sea 4)
+    $category = DB::table('categories')->find(4);
+
+    // Supongamos que requerimos un array pero que solo nos incluya ciertos campos que especifiquemos y no todos los datos
+    $categories = DB::table('categories')
+        // Tambien podemos aplicar filtros
+        ->where('id', '>', 1)
+        ->pluck('name', 'id'); // Aqui especificamos los campos que requerimos
+        // Si queremos que las llaven tomen otro valor de la tabla, esepcificamos un segundo campo en este caso el ID
+
+    // Veremos los datos en formato de Array con un JSON
+    // return $categories[0]->name; // Acceder a la propiedad "name" del elemento 0
+    // return $category->name; // Esto es si usamos "first()"
+    return $categories;
+});

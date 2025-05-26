@@ -108,3 +108,6 @@ Migraciones:
 
     Tipos de datos que podemos crear usando los metodos que nos proporicona PHP
 
+Query Builder
+    Esto es para poder interactuar con las datos que tenemos en la base de datos para poder recuperar registros, editarlos o eliminarlos
+    con este generamos consultas para laravel
