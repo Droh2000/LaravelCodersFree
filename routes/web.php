@@ -209,4 +209,22 @@ Route::get('/prueba', function(){
                 echo $user->name . '<br>';
             });
             // Si queremos ir actualizando los datos que vamos recuperando podemos usar el metodo "lazyById"
+
+    // Otros metodos que podemos usar
+    // Si nos interesa saber cuantos registros hay en una tabla
+    DB::table('users')->count();
+    // Obtener el maximo o menor numero de un determinado campo
+    DB::table('users')->max('id');
+    DB::table('users')->min('id');
+    // Obtener el promedio de los valores del campo
+    DB::table('users')->avg('id');
+    // Consultar si existe un registro en un campo
+    if(DB::table('users')->where('id', 5)->exists()){
+        echo 'El usuario existe';
+    }
+    // Verificar si el usuario no existe
+    if(DB::table('users')->where('id', 5)->doesntExist()){
+        echo 'El usuario No existe';
+    }
+
 });
