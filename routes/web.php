@@ -289,4 +289,38 @@ Route::get('/prueba', function(){
         ->whereNot('email', 'like', '%@example.com%')
         ->get();
 
+    // Otras clausulas Where
+    DB::table('users')
+        // Para obtener un rango de filtrados, le pasamos el campo y en el array entre cual y cual valor
+        ->whereBetween('id', [5, 10])
+        // Este nos traer todos los registros cuyos valores no estan este rango
+        ->whereNotBetween('id', [5, 10])
+        // Para que nos recupere registros especificos pasandole un calumna y los valores exactos que queremos que nos de
+        // si le pasamos un dato que no exista, lo ignorara
+        ->whereIn('id', [1, 2, 3])
+        // Nos da todos los registros que no esten especificados aqui
+        ->whereNotIn('id', [4, 5, 6])
+        // Obtener todos los registros que tienen nulo en alguna parte (En esta columna)
+        ->whereNull('last_name')
+        // Nos de todos los valores que no son nulos
+        ->whereNotNull('name')
+        // Para la comparacion de fechas, aqui le pasamos el campo fecha y la fecha en formato: Anio-Mes-Dia
+        ->whereDate('create_at', '2023-04-01')
+        // Para que nos traiga los registros superiores a la fecha indicada
+        ->whereDate('create_at','>=' ,'2023-04-01')
+        // Recuperar todos los registros que pertenencen a un determinado mes (Aqui como valor solo le pasamos el mes)
+        ->whereMonth('create_at', '08')
+        // Aplicar el filtro por Dia (Todos los registros que tengan ese dia)
+        ->whereDay('create_at', '4')
+        // Aplicar filtro por Año
+        ->whereYear('create_at', '2025')
+        // Aplicar filtro por Hora (A este le podemos agregar modificadores como mayor, igual, menor)
+        ->whereTime('create_at', '21:04:41')
+        // si queremos comparar que dos columnas tengan el mismo valor, en este caso "create_at" y "update_at" tienen el mismo valor
+        // y van cambiando como se van insertando datos, asi podemos verificar cuales son los registros que no se ahn actualizado
+        ->whereColumn('create_at', 'update_at')
+        // Si queremos los valores que sean mayores a 'update_At'
+        ->whereColumn('create_at','>','update_at')
+
+        ->get();
 });
