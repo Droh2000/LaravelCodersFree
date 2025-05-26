@@ -172,5 +172,30 @@ Route::get('/prueba', function(){
     // Veremos los datos en formato de Array con un JSON
     // return $categories[0]->name; // Acceder a la propiedad "name" del elemento 0
     // return $category->name; // Esto es si usamos "first()"
-    return $categories;
+    //      return $categories;
+
+
+    // Si tenemos que manipular muchos datos, no podremos almacenar los datos en una variable, para eso tenemos que trabajar con los datos truncados
+    // Recuperar datos de usuario (Si almacenamos en una variable, nos puede decir que no tenemos memoria suficiente)
+    $users = DB::table('users')
+            ->get();
+
+    //  return $users;
+
+    // Datos Truncados: No nos va a traer todos los datos de la BD al mismo tiempo, sino que nos lo va a ir trayendo por trozos
+    DB::table('users')
+            // Para poder usar el metodo de abajo requerimos usar primero llamar este, indicando como queremos que se ordenen los registros
+            // Por defecto los ordena de manera ascendente (En este caso por el campo ID) si queremos desendente lo especificamos
+            ->orderBy('id', 'desc')
+            // Le pasamos el tamano del grupo segun de lo que queremos que nos traiga, despues una funcion que recibe los grupos en array
+            ->chunk(100, function($users){
+                // Asi hace una consulta, nos trae los primeros 100 registros y estos los podemos procesar aqui
+                // Cuando termine de procesarlos vuelve a hacer una consulta a la BD hasta que termine
+                foreach($users as $user){
+                    echo $user->name . '<br>';
+                }
+            });
+            // Si estamos truncando los datos pero nuestro objetivo es ir actualizando los datos que vamos recuperando
+            // Para esto en lugar de usar el metodo "chunk" usamos "chunkById", se emplea igual que el metodo de arrriba
+
 });

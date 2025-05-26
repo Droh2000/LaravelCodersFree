@@ -15,9 +15,13 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        User::factory()->create([
+        /*User::factory()->create([
             'name' => 'Test User',
             'email' => 'test@example.com',
-        ]);
+        ]);*/
+
+        //Usamos el factory del usuario para que nos cree 1000 registros
+        \App\Models\User::factory(1000)->create();
+        // Para ejecutar esto tenemos el comando: php artisan db:seed
     }
 }
