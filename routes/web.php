@@ -323,4 +323,24 @@ Route::get('/prueba', function(){
         ->whereColumn('create_at','>','update_at')
 
         ->get();
+
+    // Agrupacion Logica
+    // Queremos traer todos aquellos registros donde el ID sea mayor o igual a 10 y los correos terminan en 'example.org'
+    // o que los correos sean de "example.net"
+    DB::table('users')
+        /*->where('id', '>=', 10)
+        ->where('email', 'like', '%@example.org')
+        ->where('email', 'like', '%@example.net')*/
+        // Con las lineas de arriba veremos que nos ignora el primer WHERE, esto pasa porque agregamos un OrWhere entonces
+        // aunque no este cumpliendo los primeras filtros agregados si cumple el del Or y por eso nos trae ID menores a 10
+        // Entonces para que sea primero el Where y de ahi pase a los otros dos, para eso tenemos la agrupacion logica
+        ->where('id', '>=', 10)
+        // Para agrupar varios where
+        ->where(function($query){
+            // Debemos de recuperar la consulta que hemos ejecutado anteriormente (Esto lo tenemos en el argumento 'query')
+            // Usando esa variable ejecutamos las demas consultas
+            $query->where('email', 'like', '%@example.org')
+            ->where('email', 'like', '%@example.net');
+        })
+        ->get();
 });
