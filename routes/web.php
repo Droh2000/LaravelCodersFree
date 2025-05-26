@@ -281,6 +281,10 @@ Route::get('/prueba', function(){
             ['id', '>=', '5'],
             ['id', '<=', '10']
         ])
+        // Queremos que nos traiga todos los registros con la condicional OR
+        // En este caso queremos traer diferentes tipos de correos
+        ->where('email', 'like', '%@example.org%')
+        ->orWhere('email', 'like', '%@example.com%')
         ->get();
 
 });
