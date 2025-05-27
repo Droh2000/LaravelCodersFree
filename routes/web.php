@@ -460,4 +460,26 @@ Route::get('/prueba', function(){
             );
 
         return 'Usuario creado o actualizado correctamente';
+
+        // Actualizar un Registro
+        DB::table('user')
+            ->where('id', 1508) // Primero buscamos el registro
+            /*->update([
+                // Campos que queremos actualizar
+                'name' => 'Jose',
+                'last_name' => 'Rodriguez',
+            ]);*/
+
+            // Con este otro metodo podemos actualizar el registro pero si no existe entonces lo inserta (Para insertart combina los datos de ambos array)
+            ->updateOrInsert(
+                [
+                    // El filtro lo vamos a hacer de cuardo al campo email
+                    'email' => 'vitor@example.com'
+                ],
+                [
+                    // Aqui indicamos como queremos actualizar
+                    'name' => 'Victoria',
+                    'last_name' => 'Ramirez'
+                ]
+            );
 });
