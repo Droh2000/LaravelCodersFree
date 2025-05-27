@@ -409,4 +409,55 @@ Route::get('/prueba', function(){
             $query->where('id', '>=', $prueba);
         })
         ->get();
+
+    // Insertar Registros en la Base de datos
+    DB::table('users')
+        // Dentro del arreglo le pasamos los datos a insertar
+        /*->insert([
+            'name' => 'Victor Lopez',
+            'email' => 'vitor@example.com',
+            'password' => bcrypt('123456')
+        ]);*/
+
+        // Si queremos agregar mas de un registro
+        ->insert(
+            [
+                'name' => 'Victor Lopez',
+                'email' => 'vitor@example.com',
+                'password' => bcrypt('123456')
+            ],
+            [
+                'name' => 'Iris Black',
+                'email' => 'iras@example.com',
+                'password' => bcrypt('123456')
+            ]
+        );
+
+        // Tenemos este metodo para insertar los registros especificados pero si alguno de los registros falla
+        // entonces ignora ese registro y continua normalmente con los demas registros
+        //  ->insertOrIgnore([])
+
+        // El metodo "upsert()" lo usaremos cuando queremos insertar nuevos registros pero en el caso que ese registro ya exista en la tabla
+        // no queremos que lo inserte sino que lo actualice
+        DB::table('users')
+            ->upsert(
+                [
+                    // Sabemos que ya existe este registro
+                    'name' => 'Victor',
+                    'last_name' => 'Ramirez',
+                    'email' => 'vitor@example.com',
+                    'password' => bcrypt('123456')
+                ],
+                [
+                    // En el segundo Array le indicamos cual es el campo que queremos identificar a cada uno de los registros
+                    'email' // En este caso sabemos que el Email es un campo unico
+                ],
+                [
+                    // Aqui especificamos los campos que queremos actualizar
+                    'name',
+                    'last_name'
+                ]
+            );
+
+        return 'Usuario creado o actualizado correctamente';
 });
