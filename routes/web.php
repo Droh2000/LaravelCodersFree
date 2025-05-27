@@ -491,4 +491,9 @@ Route::get('/prueba', function(){
             ->increment('ranting', 1);
             // Si queremos disminuir el valor
             // ->decrement('ranting', 1)
+
+        // Eliminar Registros
+        DB::table('users')
+            ->where('id', 1)
+            ->delete();
 });
