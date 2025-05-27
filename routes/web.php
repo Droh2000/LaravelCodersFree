@@ -343,4 +343,24 @@ Route::get('/prueba', function(){
             ->where('email', 'like', '%@example.net');
         })
         ->get();
+
+    // Ordenar Registros
+    DB::table('users')
+        // Indicamos por cual campo queremos ordenar, despues especificamos el orden (Ascendente o Decendente), por defecto es ascendente
+        ->orderBy('name', 'desc')
+        // Este metodo nos ordena de manera descendente de acuerdo al campo
+        ->latest('name')
+        // Este lo ordena por defecto de manera acendente
+        ->oldtest('id')
+        // Generar ordenes de manera aleatoria, esto nos sirve por si queremos recuperar un registro al azar
+        ->inRandomOrder() // este metodo nos ordena de manera aleatoria
+        ->first()
+        ->get();
+
+    // Si ya hicimos la consulta y ya especificamos un tipo de orden, pero despues queremos elimnar ese orden, por ejemplo ya utilizamos el orden
+    // y despues queremos usar la consulta pero sin el orden implementado
+    $users = DB::table('users')
+        ->inRandomOrder(); // Solo generamos la consulta no ejectuamos el "get()"
+    // Eliminamos ese orden (Aqui si se ejecuta el GET)
+    $users->reorder()->get();
 });
