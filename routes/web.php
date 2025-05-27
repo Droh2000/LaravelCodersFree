@@ -482,4 +482,13 @@ Route::get('/prueba', function(){
                     'last_name' => 'Ramirez'
                 ]
             );
+
+        // Incrementar o Decrementar
+        // Si queremos incrementar el valor de uno en uno
+        DB::table('users')
+            // Primero indicamos sobre cual registro queremos afectar esto
+            ->where('id', 1)
+            ->increment('ranting', 1);
+            // Si queremos disminuir el valor
+            // ->decrement('ranting', 1)
 });
