@@ -363,4 +363,21 @@ Route::get('/prueba', function(){
         ->inRandomOrder(); // Solo generamos la consulta no ejectuamos el "get()"
     // Eliminamos ese orden (Aqui si se ejecuta el GET)
     $users->reorder()->get();
+
+    // Agrupar Registros
+    // Queremos agruparlos para saber cuantos Posts a escrito cierto usuario por su ID
+    DB::table('posts')
+        // Cuando agrupemos solo debemos tener seleccionado aquellos campos que hemos especificados en "groupBy"
+        ->select(
+            'user_id', // Lo importante es que solo este Seleccionado el campo por el que agrupamos
+            // Para agregar mas informacion y que no solo nos muestre el campo dentro del GroupBY
+            DB::raw('count(*) as total') // Contamos cuantos registros tiene el usuario
+            // De aqui podemos agregar mas funciones de agregacion
+        )
+        ->groupBy('user_id')
+        // Queremos filtrar y que nos de los registros donde su total sea mayor a dos
+        // No podemos usar el Where filtrando por la columna total porque este solo accede a los campos de la tabla, no los puestos por nosotros
+        // Cuando creamos un campo y le queremos aplicar un filtro
+        ->having('total', '>', 2)
+        ->get();
 });
