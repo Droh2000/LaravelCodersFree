@@ -392,4 +392,21 @@ Route::get('/prueba', function(){
         /*->limit(10)
         ->offset(10)*/
         ->get();
+
+    // Filtros en caso de que se cumpla alguna condicion
+    // En PHP cualquier valor que no sea NULL, 0, Cadena Vacia se considera como True
+    $prueba = false;
+
+    DB::table('users')
+        // Solo queremos aplicar este filtro si el valor de "prueba" es Verdadero
+        //->where('id', '>', 10)
+        // En este metodo le pasamos el valor que queremos evaluar, la funcion recibe como parametro la consulta
+        // en la misma funcion podriamos recibir el valor evaluado
+        ->when($prueba, function($query, $prueba){
+            // Aplicamos el filtro solo si es True
+            $query->where('id', '>=', 10);
+            // Aqui nos trae los valores que no sean null
+            $query->where('id', '>=', $prueba);
+        })
+        ->get();
 });
