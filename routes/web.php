@@ -380,4 +380,16 @@ Route::get('/prueba', function(){
         // Cuando creamos un campo y le queremos aplicar un filtro
         ->having('total', '>', 2)
         ->get();
+
+    // Limitar los registros que queremos que nos traiga
+    DB::table('users')
+        // Podemos especificar que ignore ciertos registros (Para que sean consecutivos)
+        // Solo podemos usar este metodo si especificamos el metodo TAKE
+        ->skip(3)
+        // Queremos obtener los 10 primeros registros
+        ->take(10)
+        // Estos metodos son lo mismo que el metodo Take
+        /*->limit(10)
+        ->offset(10)*/
+        ->get();
 });
