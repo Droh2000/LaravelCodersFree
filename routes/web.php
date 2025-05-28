@@ -548,4 +548,18 @@ Route::get('eloquent', function(){
     User::orderBy('id', 'desc')
         ->get();
 
+    // Esto representaria un registro de la tabla
+    $user = new User();
+    // Cada uno de los campos de la tabla podemos acceder como propiedad
+    $user->name = 'Victoria Nones';
+    $user->email = 'vicotry@example.com';
+    $user->password = bcrypt('12345684');
+    // return $user;
+    // Al ver el resultado veremos que nos retorna un objeto con las propieades pero veremos que el campo de password no sale, esto es porque en el Modelo Users configuramos
+    // para que nos oculte el campo en su propiedad "protected $hiddend"
+
+    // Despues de definirle las propieades le decimos que nos almacene los datos en la BD
+    $user->save();
+    // return $user;
+    // Despues de hacer esto veremos otros campos que no veiamos antes que eran create_at, update_At, Id
 });
