@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Database\Eloquent\Factories\Factory;// Esta libreria nos genera datos de prueba y los inserta en la BD
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
@@ -24,7 +24,9 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
+        // Especifica cada uno de los campos de la tabla de la BD
         return [
+            // Los valores que le esta asignando llama a la libreria y le especifiamos el tipo de datos que nos genere
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
