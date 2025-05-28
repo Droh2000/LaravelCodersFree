@@ -602,5 +602,13 @@ Route::get('eloquent', function(){
     $user = User::find(101);
     $user->update($date); // Para poder usarla en el modelo tiene que estar habilitado la asignacion masiva
 
+    // Eliminar Registros
+    $user = User::find(101); // primero recuperamos el dato
+    $user->delete();
+
+    // Si queremos borrar varios registros
+    $users_id = [97,98,99,100];
+    // Con este metodo especificamos cuyo campo "id" este dentro del array que le pasamos
+    $user = User::whereIn('id', $users_id)->delete();
 
 });
