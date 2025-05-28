@@ -496,4 +496,37 @@ Route::get('/prueba', function(){
         DB::table('users')
             ->where('id', 1)
             ->delete();
+
+        // Paginacion
+        // Aqui vamos a paginar los registros por ejemplo solo recuperar cierta cantidad de registros y solo mostrar cierta cantidad
+        // en una determinada vista
+        // En lugar de usar el metodo "get()" usamos "paginate()"
+        $user = DB::table('users')
+            // Indicamos de cuantos en cuantos registros queremos que se paginen
+            // Si no le especificamos un numero por defecto tomara el valor de 15
+            ->paginate(15);
+            // Al usar este metodo veremos que nos lo retorna en un JSON indicandonos la pagina (1 a N), y ademas tenemos el campo "data"
+            // que es un array que engloba todos los registros entre llaves, ademas tenemos otros campos
+            // "current_page", "links" (estos son los cuadros de abajo donde nos movemos por flechas hacia atras o hacia adelante)
+            // ademas de otros campos para lograr hacer la paginacion del lado del Fronted
+        return view('prueba', compact($user)); // Regresamos el JSON a la vista
+
+        // Supongamos que hemos recuperado un listado de usuarios y lo hemos recuperado paginado, ademas tenemos un listado de articulos y tambien lo tenemos paginado
+        // En ese caso tenemos dos paginaciones, cuando eso pasa teemos el incoveniente porque ambos usan la URL para ver lo que llega de la paginacion
+        // Ya que la URL es: Dominio.test/URL?page=Numero
+        // para ese caso:
+        $user = DB::table('users')
+            // El primer parametro es la cantidad de registros que queremos y el segundo es la cantidad de columnas que queremos que nos retorne dentro de la paginacion
+            // (Solo los elementos de informacion que nos interesa), si queremos que nos retorne todo solo colocamos: "['*']"
+            // Si queremos que cuando hagamos click sobre uno de los botones de la paginacion en la URL no viaje el valor de Page ya que tenemos dos paginaciones
+            // sino que en este caso nos gustaria que viaje el valor de "pageUsers" (Esto lo especificamos como tercer parametro)
+            // asi podemos determinar en cual paginacion nos encontramos
+            ->paginate(15, ['*'], 'pageUsers');
+        return view('prueba', compact($user));
+
+        // Para tener una paginacion Simple, con este solo veremos el boton de Previos/Next
+        $user = DB::table('users')
+            ->simplePaginate(15);
+        return view('prueba', compact($user));
+
 });

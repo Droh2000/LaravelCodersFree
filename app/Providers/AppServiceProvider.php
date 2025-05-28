@@ -5,6 +5,11 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Route;
 
+// Ya que en la paginacion de Laravel por defecto esta hecha para usar con TailwindCSS pero para el caso
+// que no queramos usar ese framework, indicamos aqui que queremos usar otro como Bootstrap
+Use Illuminate\Pagination\Paginator;
+// Este paquete ademas es para indicar que la paginacion creada por nosotros y no por laravel, se la pagina que use por defecto
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -33,10 +38,16 @@ class AppServiceProvider extends ServiceProvider
             'edit' => 'editar',
         ]);
 
-            Esta linea se comento porque nos pasaba que al ingresar a la ruta 
+            Esta linea se comento porque nos pasaba que al ingresar a la ruta
                 * posts/create -> Se ejecutaba la ruta de "Show" ya que con las lineas de arriba
                     solo existe la ruta "crear" por lo que deberia de ser:
                         * posts/crear
         */
+
+        // Aqui especificamos que queremos usar Bootstrap para la paginacion y no TailwindCSS
+        Paginator::useBootstrapFive();
+
+        // Aqui especificamos que mejor use nuestra paginacion creada por nosotros
+        Paginator::defaultView('nuestraPaginacion');
     }
 }

@@ -111,3 +111,6 @@ Migraciones:
 Query Builder
     Esto es para poder interactuar con las datos que tenemos en la base de datos para poder recuperar registros, editarlos o eliminarlos
     con este generamos consultas para laravel
+
+La razon del uso de TailwindCSS en Laravel es que muchos de sus Kit de inicio que nos brinda usan por defecto este Framework
+y varios paquetes oficiales, como tener un sistema de login y registro de forma rapida
