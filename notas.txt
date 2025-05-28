@@ -124,3 +124,12 @@ Eloquent
     adicionales a la base de datos, tenemos eventos del modelo
     Podemos almacenar en cache los resultados de consulta frecuente
 
+    Si queremos trabajar con Eloquent primero tenemos que crear esas Clases (Modelo)
+    En cada proyecto de Laravel por defecto viene con un modelo en:
+        app/Models/User.php -> Este es el modelo que nos permite conectarnos con la tabla Users de la BD
+
+    En este caso primero creamos la tabla Users en la BD y luego insertar unos registros para hacer las consultas
+    entre las migraciones por defecto tenemos la que nos crea la tabla de Users
+        - Si no la tenemos en la BD ejecutamos las migraciones
+        - Usamos los Factories para crear datos ficticios a la BD "database/factories/UserFactory.php" y "database/seeder/DatabaseSeeder.php"
+            (php artisan db:seed)

@@ -4,6 +4,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB; // Importamos para poder usar el QueryBuilder
+use App\Models\User;
 
 use function Laravel\Prompts\table;
 
@@ -528,5 +529,23 @@ Route::get('/prueba', function(){
         $user = DB::table('users')
             ->simplePaginate(15);
         return view('prueba', compact($user));
+
+});
+
+Route::get('eloquent', function(){
+    // Los Models nos van a mapear una tabla (Cada modelo nos va a representar una tabla), si queremos la tabla Users llamamos el modelo Users
+    // Con eloquent tenemos acceso a todos lo metodos que teniamos en QueryBuilder pero ademas tendremos otros metodos
+    // Queremos recuperar el listado de todos los usuarios (llamamos al modelo y de ahi con :: llamamos al metodo)
+    $users = User::get();
+    /*
+        ¿Como sabe Eloquent a cual tabla de la BD se tiene que conectar?
+            Lo que pasa es que con eloquent se siguen una serie de convenciones es que el modelo se debe de llamar igual que la tabla pero en Singular, llamandose la tabla en Plural
+            Tambien como consideracion es que el nombre de las tablas y el nombre de los modelos debe de estar escritos en ingles
+            si no queremos escribirlos en ingles podemos espceificarle en el modelo a que tabla se tiene que conectar
+    */
+
+    // Ordenar los datos obtenidos de manera descendente
+    User::orderBy('id', 'desc')
+        ->get();
 
 });

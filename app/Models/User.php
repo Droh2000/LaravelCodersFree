@@ -23,6 +23,10 @@ class User extends Authenticatable
         'password',
     ];
 
+    // Ejemplo para especificarle explicitamente a que tabla se tiene que conectar
+    // si no queremos seguir la convencion en ingles
+    protected $table = 'users';
+
     /**
      * The attributes that should be hidden for serialization.
      *
