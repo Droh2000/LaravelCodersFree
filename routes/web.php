@@ -587,4 +587,20 @@ Route::get('eloquent', function(){
     $category = Category::create($data);
     return $category;
 
+    // Para Actualizar tambien tenemos dos formas, una que es de uno en uno y otra forma que es de varios registros
+    // Primero recuperamos un usuario
+    $user = User::find(101);
+    $user->name = 'Juan Ortiz';
+    $user->save();
+
+    // Actualizando de forma asignacion
+    // Supongamos que los datos llegan de un formulario
+    $date = [
+        'name' => 'Jose Mujica',
+        'email' => 'example@example.com'
+    ];
+    $user = User::find(101);
+    $user->update($date); // Para poder usarla en el modelo tiene que estar habilitado la asignacion masiva
+
+
 });
