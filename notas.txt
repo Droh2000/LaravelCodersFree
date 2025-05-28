@@ -133,3 +133,11 @@ Eloquent
         - Si no la tenemos en la BD ejecutamos las migraciones
         - Usamos los Factories para crear datos ficticios a la BD "database/factories/UserFactory.php" y "database/seeder/DatabaseSeeder.php"
             (php artisan db:seed)
+
+    Asignacion Masiva
+        Para este caso lo hicimos en otra tabla de "categories"
+        Creamos el modelo
+            - php artisan make:model Category
+        Cuando queremos crearle al modelo de una vez los elementos que se relacionan con este
+        lo relacionamos con su migracion (Esto para cuando estamos creando de una vez la tabla con la migracion)
+            - php artisan make:model Category -m

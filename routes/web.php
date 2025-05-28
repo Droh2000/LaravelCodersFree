@@ -5,6 +5,7 @@ use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB; // Importamos para poder usar el QueryBuilder
 use App\Models\User;
+use App\Models\Category;
 
 use function Laravel\Prompts\table;
 
@@ -562,4 +563,28 @@ Route::get('eloquent', function(){
     $user->save();
     // return $user;
     // Despues de hacer esto veremos otros campos que no veiamos antes que eran create_at, update_At, Id
+
+    // Normalmente cuando queremos insrtar datos, esta informacion va a venir de un formulario, la informacion que sea ingresada es la que tenemos que recuperar desde
+    // el backend y almacenarla en la base de datos
+    // Supongamos que lo que hemos recuperado de un formulario, lo tenemos en un array donde tenemos sus respectivos valores
+    $data = [
+        'name' => 'Programacion'
+    ];
+    // Usando el array de arriba para almacenar un nuevo dato de cateogoria
+    $category = new Category();
+    $category->name = $data['name'];
+    $category->save();
+
+    // Si tenemos muchos campos que debemos de insertar, para no esta uno por uno, como arriba, eloquent nos proporciona
+    // la asinacion masiva, en este caso solo llamamos el modelo y de ahi el metodo, al cual le pasamos un array
+    // con las propiedades que queremos cambiar, con esto aprovechamos directamente los valores que han llegado del fomulario
+    // Para que la asignacion masiva funcione tiene que estar activada en el modelo porque a diferencia donde estamos agregando los valores
+    // uno por uno nosotros teniamos el control total de como queremos que se almacene los datos, cosa que no tenemos cuando la informacion llega
+    // desde un formulario porque los usuarios pueden crear campos y desde esos campos mandar informacion que estaria oculta (Como un campo Active=0 o 1)
+    // y al guardar nos mandara todos los datos, incluyendo el que agrego el usuario para almacenar los registros, no tenemos el control de cual informacion
+    // especifica debe llevar el formulario para poder insertarla
+    // Dentro del modelo especificamos que campos son permitidos de almacenar por asignacion masiva (Si se le manda alguno campo que no esta permitido, lo que pasa es que ignora ese campo)
+    $category = Category::create($data);
+    return $category;
+
 });
