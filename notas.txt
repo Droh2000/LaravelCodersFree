@@ -114,3 +114,13 @@ Query Builder
 
 La razon del uso de TailwindCSS en Laravel es que muchos de sus Kit de inicio que nos brinda usan por defecto este Framework
 y varios paquetes oficiales, como tener un sistema de login y registro de forma rapida
+
+Eloquent
+    Esta es otra forma de hacer consultas y es usando este ORM, usa el paradigma de POO trabajando con las tablas como si fueran objetos
+    Eloquent mapea cada tabla de la BD a una clase PHP (Modelo), cada instancia del modelo representa una fila en la tabla
+    Entre las ventajas es que Eloquent nos proporciona una sintaxis legible, ya que las consultas son de forma declarativa
+    otra ventaja es que eloquent permite definir relaciones entre los modelos de manera sencilla, estos los obtenemos directamente de los modelos
+    Podemos hacer la carga perezosa de relaciones, eso quiere decir que nos permite cargar los datos relacionados en una sola vez, evitando consultas
+    adicionales a la base de datos, tenemos eventos del modelo
+    Podemos almacenar en cache los resultados de consulta frecuente
+
