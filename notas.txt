@@ -141,3 +141,17 @@ Eloquent
         Cuando queremos crearle al modelo de una vez los elementos que se relacionan con este
         lo relacionamos con su migracion (Esto para cuando estamos creando de una vez la tabla con la migracion)
             - php artisan make:model Category -m
+
+    Relaciones Polimorficas
+
+        Relacion Uno a Uno:
+            Supongamos que tenemos una tabla Usuarios pero tambien tenemos otra tabla que contiene datos del trabajo
+            para no tener una unica tabla con todos los campos de las dos tablas, creamos dos tablas pero tenemos que relacionarlas de manera
+            que la informacion de las dos tablas conectadas, asi que nos creamos una llave foranea en la tabla "Trabajo" conectandose en el
+            campo ID de la tabla "Usuario", para crear la llave foranea en laravel tenemos que seguir algunas convenciones
+                * Usar el nombre de la otra tabla pero en singular
+                * Seguido de un Guion
+                * Le ponemos el nombre del campo con el que se relaciona
+            Este campo almacenara los IDs de los usuarios en la tabla de "Trabajo"
+            Aqui la tabla "Trabajo" la creamos como "Profile"
+                -  php artisan make:model Profile -m

@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Profile;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -25,12 +26,24 @@ class DatabaseSeeder extends Seeder
         // (es importante nombrarlo con la convencion al factory de NombreModeloFactory)
         // para que lo pueda encontrar Laravel
         // Luego le especificamos la cantidad de registros que queremos que nos genere
-        \App\Models\User::factory(1000)->create();
+        //          \App\Models\User::factory(1000)->create();
         // Para ejecutar esto tenemos el comando: php artisan db:seed
         // Para crear nuestro Factory con la otra tabla: php artisan make:Factory CategoryFactory
         \App\Models\Category::factory(10)->create();
         // Cuado ejecutemos el de category tenemos que comentar los que ya hemos ejecutado previamente
         // Otra forma es indicar que se ejecuten las migraciones y despues de eso ejecutar lo luego los Factories
         //          php artisan migrate:fresh --seed
+
+        // Por la forma de nuestra logica nos tiene que primero generar los usuarios y por tanto
+        // por cada usuario que nos genere un perfil, para eso recorremos cada uno de los registros creados
+        // y de ahi llamamos el Factory de la tabla que tiene la llave foranea
+        \App\Models\User::factory(1000)->create()->each(function($user){
+            // Aqui llamamos al modelo de la otra tabla, esto ya nos genera los datos de esta tabla
+            Profile::factory()->create([
+                // Dentro le proporcionamos el id del usuario
+                'user_id' => $user->id,
+            ]);
+        });
+
     }
 }

@@ -49,4 +49,17 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    // Aqui en el modelo especificamos el tipo de relacion que existe entre esta tabla con la que tiene el FK "Profile"
+    // vamos a decir que hay una relacion de uno a uno, el nombre del metodo es con el cual queremos recuperar la relacion
+    // en este caso se llama para obtener el perfil de un determina usuario
+    public function profile()
+    {
+        // Solo podraa recuperar un perfil, dentro del metodo le especificamos el modelo con el cual queremos relacionarlo
+        return $this->hasOne(Profile::class);
+
+        // En el caso de no seguir la convencion del nombre de los campos, como segundo parametro a este metodo especificandole el nombre
+        // que le dimos que seria: FKName, PKdeEstaTabla
+        //      return $this->hasOne(Profile::class, 'user_id', 'id');
+    }
 }

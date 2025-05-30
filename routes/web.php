@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB; // Importamos para poder usar el QueryBuilder
 use App\Models\User;
 use App\Models\Category;
+use App\Models\Profile;
 
 use function Laravel\Prompts\table;
 
@@ -611,4 +612,13 @@ Route::get('eloquent', function(){
     // Con este metodo especificamos cuyo campo "id" este dentro del array que le pasamos
     $user = User::whereIn('id', $users_id)->delete();
 
+    // Recuperar un usuario con su Profile asociado
+    $user = User::find(1);
+    return $user->profile; // llamamos al metodo que creamos en el modelo
+
+    // Si es al sentido contrario
+    // Ahora de la Tabla "Profile" queremos que use el campo FK y lo busque en la tabla "Users"
+    // esta relacion inversa la definimos en el modelo Profile
+    $profile = Profile::find(1);
+    return $profile->user;
 });
