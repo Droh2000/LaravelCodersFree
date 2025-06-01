@@ -155,3 +155,14 @@ Eloquent
             Este campo almacenara los IDs de los usuarios en la tabla de "Trabajo"
             Aqui la tabla "Trabajo" la creamos como "Profile"
                 -  php artisan make:model Profile -m
+
+        Relacion Uno a Muchos:
+            Supongamos que en un tabla tenemos todas las categorias disponibles que tendremos y tenemos la tabla de post donde estan los articulos
+            como queremos relacionar que cada Post tenga su categoria, a la tabla Post le creamos una columna que tendra el Id de la tabla de categoria
+            Entonces una categoria va a tener mas de un post asociado
+
+            Creamos el modelo de Post, donde ademas en el comando especificamos que nos cree con su migracion y un Factory por eso el "mf"
+                * php artisan make:model Post -mf
+            Ejecutamos las migraciones y los seeders
+                * php artisan migrate:fresh --seed
+

@@ -45,5 +45,10 @@ class DatabaseSeeder extends Seeder
             ]);
         });
 
+        // Generamos 100 registros aleatorios para la tabla Post
+        // Hay que saber que importa el orden en el que estan los factories, como Post depende de Category
+        // es necesario que primero se ejecute el de Category
+        \App\Models\Post::factory(100)->create();
+
     }
 }

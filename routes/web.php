@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB; // Importamos para poder usar el QueryBuilder
 use App\Models\User;
 use App\Models\Category;
 use App\Models\Profile;
+use App\Models\Post;
 
 use function Laravel\Prompts\table;
 
@@ -621,4 +622,13 @@ Route::get('eloquent', function(){
     // esta relacion inversa la definimos en el modelo Profile
     $profile = Profile::find(1);
     return $profile->user;
+
+    // Queremos recuperar el registro de categoria pero tambien los Post asociados a esa categoria
+    // Para esto tenemos que haberle metido en el modelo de categoria la relacion con la tabla Post
+    $category = Category::find(1);
+    return $category->posts;
+
+    // Obtener lo mismo pero desde la tabla de Post
+    $post = Post::find(1);
+    return $post->category;
 });

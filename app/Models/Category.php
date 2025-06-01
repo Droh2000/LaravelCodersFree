@@ -24,4 +24,11 @@ class Category extends Model
         'created_at',
         'updated_at'
     ];
+
+    // Relacion Uno a Muchos con la tabla Post (Como podemos obtener varios post de una categoria, nombramos la funcion en plural)
+    public function posts(){
+        // Toma el Id de la tabla Category y lo relaciona con la columna FK de la tabla Post
+        return $this->hasMany(Post::class);
+    }
+
 }
