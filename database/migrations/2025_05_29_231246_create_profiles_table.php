@@ -17,9 +17,6 @@ return new class extends Migration
             $table->string('job');
             $table->string('phone');
             $table->string('website');
-            $table->string('address');
-            $table->string('city');
-            $table->string('country');
 
             // Creamos la llave foranea
             $table->foreignId('user_id')

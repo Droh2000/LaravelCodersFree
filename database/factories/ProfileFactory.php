@@ -21,9 +21,6 @@ class ProfileFactory extends Factory
             'job' => fake()->jobTitle(),
             'phone' => fake()->phoneNumber(),
             'website' => fake()->domainName(),
-            'address' => fake()->address(),
-            'city' => fake()->city(),
-            'country' => fake()->country(),
         ];
     }
 }

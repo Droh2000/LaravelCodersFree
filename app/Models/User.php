@@ -62,4 +62,11 @@ class User extends Authenticatable
         // que le dimos que seria: FKName, PKdeEstaTabla
         //      return $this->hasOne(Profile::class, 'user_id', 'id');
     }
+
+    // Para obtener los datos de Address sin pasar por la tabla Profile, tenemos que generar esta "Relacion uno a uno atravez de"
+    public function address(){
+        // El primero modelo que le pasamos es por el cual queremos relacionar a esta clase User y el segundo modelo es por el cual tiene
+        // que pasar primero para poder llegar al modelo Address
+        return $this->hasOneThrough(Address::class, Profile::class);
+    }
 }

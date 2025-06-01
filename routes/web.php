@@ -631,4 +631,11 @@ Route::get('eloquent', function(){
     // Obtener lo mismo pero desde la tabla de Post
     $post = Post::find(1);
     return $post->category;
+
+    // Obtenemos del usuario el profile asociado y de ahi el Address asociado al Profile para poder obtener el address
+    $user = User::find(1);
+    return $user->profile->address;
+
+    // Si queremos obtener la Address sin tener que pasar por el Profile
+    return $user->address;
 });

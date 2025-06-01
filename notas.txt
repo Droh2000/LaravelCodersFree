@@ -166,3 +166,16 @@ Eloquent
             Ejecutamos las migraciones y los seeders
                 * php artisan migrate:fresh --seed
 
+        Mejorar la estrcutura en la relacion uno a uno:
+            En la tabla "Profile" le quitamos campos y los pusimos en otra tabla, de forma que ahora tenemos tres tablas
+                - Users
+                - Profiles
+                - Address (En esta tabla almacenamos la direccion de los usuarios)
+            Para saber a que direccion le pertieneces cual Profile, creamos un FK en Address donde almacenamos el Id de los Profiles
+            Ahora tenemos una relacion uno a uno entre usuarios y perfiles pero tambien tenemos la misma relacion entre Profiles y Address
+
+            Creamos el nuevo modelo:
+                - php artisan make:model Address -mf
+
+
+

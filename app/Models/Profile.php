@@ -25,4 +25,9 @@ class Profile extends Model
         // De igual manera si no seguimos el nombre de los campos con las convenciones, se lo especicifamos asi
         //      return $this->belongsTo(User::class, 'user_id', 'id');
     }
+
+    // Relacion uno a uno con la tabla Address
+    public function address(){
+        return $this->hasOne(Address::class);
+    }
 }
