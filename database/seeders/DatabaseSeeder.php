@@ -3,7 +3,10 @@
 namespace Database\Seeders;
 
 use App\Models\Address;
+use App\Models\Course;
+use App\Models\Lesson;
 use App\Models\Profile;
+use App\Models\Section;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -57,5 +60,16 @@ class DatabaseSeeder extends Seeder
         // es necesario que primero se ejecute el de Category
         \App\Models\Post::factory(100)->create();
 
+        Course::factory(10)->create()->each(function ($course){
+            // Por cada curso nos genere secciones
+            Section::factory(4)->create([
+                'course_id' => $course->id,
+            ])->each(function($section){
+                // Por cada seccion nos genere 5 lecciones
+                Lesson::factory(5)->create([
+                    'section_id' => $section->id,
+                ]);
+            });
+        });
     }
 }

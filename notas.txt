@@ -177,5 +177,16 @@ Eloquent
             Creamos el nuevo modelo:
                 - php artisan make:model Address -mf
 
+        Este caso es similar al de arriba pero con la relacion uno a muchos
+            Ahora tenemos la tabla Courses donde esta un tema, hay otra tabla llamda "sections" donde estan las secciones que puede tener la tabla "Courses"
+            como un curso puede tener varias secciones entonces la relacion es de uno a muchos, hay una tercera tabla llamada "Lessons" que se relaciona con "Sections"
+            donde una determinada seccion puede tener varias Lecciones
+
+            Entonces queremos obtener las lecciones correspondientes a los cursos sin pasar por la tabla de secciones
+
+                * php artisan make:model Course -mf
+                * php artisan make:model Section -mf
+                * php artisan make:model Lesson -mf
+
 
 

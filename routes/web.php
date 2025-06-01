@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB; // Importamos para poder usar el QueryBuilder
 use App\Models\User;
 use App\Models\Category;
+use App\Models\Course;
 use App\Models\Profile;
 use App\Models\Post;
 
@@ -638,4 +639,14 @@ Route::get('eloquent', function(){
 
     // Si queremos obtener la Address sin tener que pasar por el Profile
     return $user->address;
+
+    // Si obtenemos el Curso podemos recuperar sus Secciones
+    $course = Course::find(1);
+    return $course->sections;
+    // Si queremos las lecciones no podemos hacerlo como:
+    //  return $course->sections->lessons;
+    // porque las relaciones solo las podemos recuperar a nivel de modelos, es decir cuando
+    // teniamos una seccion individual si podemos recuperar las lecciones pero como tenemos una coleccion de secciones no podemos obtener sus asociados
+    // para recuperar las relaciones asociados tenemos que implementar una "Relacion uno a muchos a travez de"
+    return $course->lessons;
 });
