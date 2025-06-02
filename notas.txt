@@ -204,5 +204,37 @@ Eloquent
                 * php artisan make:model Tag -mf
                 * php artisan make:migration create_post_tag_table
 
+        Relacion Uno a Uno Polimorficas
+            Supongamos que tenemos una tabla llamada Posts donde tenemos los siguientes campos:
+                - Id
+                - Name
+                - Body
+                - Image
+            Ahora requerimos crear un tipo de galeria que pueda mostrar todas las imagenes que estan registradas, lo mejor para ese caso es que todas las imagenes de nuestra aplicacion
+            esten en una tabla aparte, por tanto en una tabla vamos a tener el contenido de post y en otra tabla el contenido de las imagenes
+            En la tabla imagenes tendiamos:
+                - Id
+                - post_id (Con esto relacionamos esta tabla con la tabla Post)
+                - image_path
+            Pero resulta que tenemos otra tabla llamada "Books" donde tambien tenemos imagenes por tanto tenemos que separar ese campo, podriamos pensar en crear dentro de la tabla imagenes
+            otro campo como "book_id" donde cuando requeiramos almacenar para el post solo almacenamos en la columna que le corresponde y para cuando sea en Book solo almacenamos en la columna
+            correspondiente, pero esto no es viable porque no sabemos cuando tenemos o no informacion
+            Por tanto creariamos otra tabla "image_books" donde solo tenemos el Id de la tabla Books y su ruta de imagen, pero esta solucion tampoco nos gusta porque queremos a fuerzas
+            tener todas las imagenes de nuestra aplicacion en una misma tabla para cuando queramos aplicar una consulta sea mas facil recuperar los datos y ademas porque podriamos tener muchas otras tablas
+            no solo dos como en este caso
 
+            Las relaciones consisten en que vamos a tener que almacenar el id de las entidades con el cual tenemos que relacionarlas (Post y Books) pero la FK no se va a llamar "post_id" y "book_id"
+            sino que va a llevar un nombre especial:
+                - "NombreTabla(En singular y le agregamos la palabra 'able')_id" -> esta es la convencion que nos recomiendo la documentacion
+                    Ejemplo: "imageable_id"
+            Este sera el nombre de nuestra FK y dentro tendra el ID con el cual queremos relacionarlo que seria Post o Books
+            Pero si tenemos los mismo numeros ¿Como vamos a saber a cual de las dos entidades le corresponde? Para esto tenemos que crear otro campo mas que se llamara igual que con el nombre de la FK pero con terminacion "_type"
+                    Ejemplo: "imageable_type"
+            Ahi almacenaremos el nombre de la entidad con la que esta relacionada que contendra toda la ruta del modelo:
+                    * App/Models/Post
+                    * App/Models/Book
+            Asi sabemos a que entidad le corresponde cada imagen y usando una sola tabla
+
+            Creamos el modelo:
+                - php artisan make:model Image -m
 

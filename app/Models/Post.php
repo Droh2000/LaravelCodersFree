@@ -24,4 +24,12 @@ class Post extends Model
                 // Esto para que se registren los datos en la columna create_at y update_at
                 ->withTimestamps();
     }
+
+    // Relacion Uno a Uno Polimorfica
+    // El nombre es en singular porque solo podemos recuperar una imagen
+    public function image(){
+        // El primer parametro es el modelo con el cual queremos relacionarlo y el segundo parametro es el nombre de la relacion polimorfica
+        // que seria el nombre del metodo que le creamos
+        return $this->morphOne(Image::class, 'imageable');
+    }
 }

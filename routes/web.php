@@ -688,4 +688,8 @@ Route::get('eloquent', function(){
     // Cuando recuperamos los datos en el JSON vemos que los datos de la tabla Post_Tag estan dentro del campo "Pivot"
     // pero no esta el campo extra "data" (Esto lo configuramos en el modelo de Post)
     return $post->tags;
+
+    // Recuperar los datos de relaciones polimorficas
+    $post = Post::find(1);
+    return $post->image;
 });
