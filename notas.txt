@@ -316,3 +316,8 @@ Eloquent
             $course->tags()->sync([1,2,3]);
         Ahora para el caso que queremos quitarle un elemento
             $course->tags()->sync([1,2]); (Esto nos eliminara la relacion que tenia con el Tag 3)
+
+Anteriormente estabamos metiendo datos ficticios en el DataBaseSeeder pero el codigo interno del archivo ah crecido mucho por tanto podemos refactorizar el codigo
+donde podemos crear tantos seeders como queramos
+Por ejemplo vamos a crear un seeder que su funcion sea insertar registros de usuarios
+    * php artisan make:seeder UserSeeder

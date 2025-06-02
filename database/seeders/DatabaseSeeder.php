@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Address;
 use App\Models\Course;
 use App\Models\Lesson;
+use App\Models\Post;
 use App\Models\Profile;
 use App\Models\Section;
 use App\Models\Tag;
@@ -39,36 +40,17 @@ class DatabaseSeeder extends Seeder
         // Otra forma es indicar que se ejecuten las migraciones y despues de eso ejecutar lo luego los Factories
         //          php artisan migrate:fresh --seed
 
-        // Por la forma de nuestra logica nos tiene que primero generar los usuarios y por tanto
-        // por cada usuario que nos genere un perfil, para eso recorremos cada uno de los registros creados
-        // y de ahi llamamos el Factory de la tabla que tiene la llave foranea
-        \App\Models\User::factory(1000)->create()->each(function($user){
-            // Aqui llamamos al modelo de la otra tabla, esto ya nos genera los datos de esta tabla
-            // Por cada usuario se nos genera 1 perfil y por cada perfil nos generara una direccion
-            Profile::factory(1)->create([
-                // Dentro le proporcionamos el id del usuario
-                'user_id' => $user->id,
-            ])->each(function ($profile){
-                // Por cada perfil vamos a decirle que nos genere su Address respectivo donde le asigne el Id del profile
-                Address::factory(1)->create([
-                    'profile_id' => $profile->id
-                ]);
-            });
-        });
+        // Aqui Indicamos que se ejecute el SEEDER que creamos
+        /*$this->call(UserSeeder::class);
 
-        // Generamos 100 registros aleatorios para la tabla Post
-        // Hay que saber que importa el orden en el que estan los factories, como Post depende de Category
-        // es necesario que primero se ejecute el de Category
-        // Queremos que cada vez que se cree un Post tambien se cree una imagen asociada
-        \App\Models\Post::factory(100)->create()->each(function ($post){
-            // Para insertar imagenes, recuperamos el post y una vez ahi ingresamos a la relacion polimorfica que tiene el modelo Post
-            // de ai podemos llamar el metodo create y ahi le podemos pasar los datos
-            $post->image()->create([
-                // Con esto nos crea un nuevo registro de imagen pero va a tomar el Id del post para colocarlo en el campo Imageable_id y toma el rota del modelo
-                // para colocarlo en el imageable_type, luego le tenemos que pasar los campos que faltan
-                'url' => 'url_image_example'
-            ]); // Esto nos crea un imagen por cada post
-        });
+        $this->call(PostSeeder::class);*/
+
+        // Para no estar llamando Seeders uno tras otro, dentro de este metodo llamamos a todos los seeder que queramos
+        // Es importante seguir el orden por si uno seeder depende de otro
+        $this->call([
+            UserSeeder::class,
+            PostSeeder::class
+        ]);
 
         Course::factory(10)->create()->each(function ($course){
             // Por cada curso nos genere secciones
