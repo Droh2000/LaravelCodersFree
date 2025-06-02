@@ -692,4 +692,16 @@ Route::get('eloquent', function(){
     // Recuperar los datos de relaciones polimorficas
     $post = Post::find(1);
     return $post->image;
+
+    // Relacion Uno a Muchos Polimorifica
+    // Accedemos al Post al cual le queremos agregar comentarios
+    $post = Post::find(1);
+    // Accedemos a la relacion y con Create logramos agregarle un nuevo registro
+    // Ya con esto toma el Id y el Type del Post, por lo que solo le tenemos que pasar el contenido de los demas campos "type"
+    $post->comments()->create([
+        'body' => 'Este es un comentario de prueba'
+    ]);
+
+    // Para recuperar un Registro (Esto nos regresa la coleccion de comentarios del Post)
+    return $post->comments;
 });

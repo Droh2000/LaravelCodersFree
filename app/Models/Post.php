@@ -32,4 +32,10 @@ class Post extends Model
         // que seria el nombre del metodo que le creamos
         return $this->morphOne(Image::class, 'imageable');
     }
+
+    // Relacion Uno a Muchos Polimorfica
+    public function comments(){
+        // Pasamos la clase con la cual queremos relacionar este modelo y entre comillas el nombre del metodo de la relacion polimorfica de "Comment"
+        return $this->morphMany(Comment::class, 'commentable');
+    }
 }

@@ -238,3 +238,16 @@ Eloquent
             Creamos el modelo:
                 - php artisan make:model Image -m
 
+        Relacion Uno a Muchos Polimorficas
+            Supongamos que queremos implementar un sistema de comentarios donde Post puede tener varios Comentarios, si lo hacemos con la relacion Uno a Muchos tradicional
+            tendriamos una tabla "Post" y otra tabla "Comments" con la FK del Post_Id, Si tenemos una aplicacion muy grande donde vamos a requerir que no solo Post tenga comentarios sino muchas otras tablas
+            por lo que la unica solucion sera crear una tabla de comentarios para cada tabla, para solucionarlo tenemos las relaciones polimorficas donde por ejemplo tenemos dos entidades:
+            Post y Books, vamos a tener una unica tabla "Comments" que tenemos:
+                - Id
+                - body
+                - commentable_id (Almacenamos el Id de las entidades con las cuales queremos ir relacionando los comentarios)
+                - commentable_type (Aqui sabemos a cual entidad le corresponde el Id)
+            Los Nombres deben de seguir las mismas convenciones
+
+            Creamos esta tabla:
+                * php artisan make:model Comment -m
