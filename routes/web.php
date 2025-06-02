@@ -704,4 +704,13 @@ Route::get('eloquent', function(){
 
     // Para recuperar un Registro (Esto nos regresa la coleccion de comentarios del Post)
     return $post->comments;
+
+    // Relacion muchos a muchos polimorficas
+    // Primero vamos a agreagrle etiquetas a los Posts que con el metodo "attach()" le pasamos los IDs de Tags
+    $post = Post::find(1);
+    // ESto por defecto ya los registra en los campos "taggable_id" y "taggable_type"
+    return $post->tags()->attach([1,2,3]);
+
+
+
 });

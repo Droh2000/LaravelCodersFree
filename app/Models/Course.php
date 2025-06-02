@@ -21,4 +21,10 @@ class Course extends Model
         // que tenemos que pasar antes de llegar al primer del modelo
         return $this->hasManyThrough(Lesson::class, Section::class);
     }
+
+    // Esta es la otra entidad que se quiere relacionar con TAGs (Relacion Muchos a Muchos Polimorficas)
+    public function tags(){
+        // Le pasamos el Nombre del modelo con el cual queremos relacionarlo y entre comillas el nombre en singular de los campos
+        return $this->morphToMany(Tag::class, 'taggable');
+    }
 }

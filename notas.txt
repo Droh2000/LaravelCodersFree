@@ -251,3 +251,24 @@ Eloquent
 
             Creamos esta tabla:
                 * php artisan make:model Comment -m
+
+        Relacion Muchos a Muchos Polimorficas
+            En una relacion pequeña la relacion muchos a muchos normal es sufciente, volviendo a nuestro ejemplo normal con las tablas:
+                - Posts
+                - Post_tag
+                - Tags
+            El problema empezara cuando tendremos mas tablas que se tienen que relacionar con la tabla Tags, que en ese caso tendrimamos que crear otra tabla
+            por ejemplo para la entidad Books:
+                - Books
+                - Book_Tag
+                - Tags
+            Lo ideal es que tengamos una sola tabla intermedia donde tengamos los Ids y esa tabla la usemos para relacinar cualquier entidad que se deba realcionar con los Tags
+            en este caso, asi nos evitamos crear tablas intermedias por cada entidad que se quiera relacionar con "Tags"
+
+            En la relacion muchos a muchos polimorficas tenemos las tablas "Posts", "Books" que se quieren relacionar con "Tags" y la tabla intermedia seria "Taggables" (Singular+"ables")
+            los campos que debe de tener son:
+                - taggable_id (Aqui almacenamos el Id de las tablas con la que queremos relacionarla)
+                - taggable_type (La ruta del modelo al que esta realcionado)
+                - tag_id (Id de la tabla Tag)
+            Creamos la tabla intermedia:
+                * php artisan make:migration create_taggables_table

@@ -11,8 +11,17 @@ class Tag extends Model
     use HasFactory;
 
     // Relacion Muchos a Muchos con la tabla Post
-    public function posts(){
+    /*public function posts(){
         return $this->belongsToMany(Post::class)
                     ->withTimestamps();
+    }*/
+
+    // Relacion Inversa Muchos a Muchos Polimorifica (Saber que etiquetas tenemos relacionadas con Posts o Courses)
+    public function posts(){
+        return $this->morphedByMany(Post::class, 'taggable');
+    }
+
+    public function courses(){
+        return $this->morphedByMany(Course::class, 'taggable');
     }
 }
