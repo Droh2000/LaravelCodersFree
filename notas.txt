@@ -188,5 +188,21 @@ Eloquent
                 * php artisan make:model Section -mf
                 * php artisan make:model Lesson -mf
 
+        Relacion Muchos a Muchos
+            Tenemos la tabla de Posts y estos pueden tener Tags, podriamos pensar que un Post pude tener muchas etiquetas
+            pero que pasa si el Post con ID=3 debe de contener etiquetas que ya usaron Etiquetas previas por tanto estamos teniendo informacion redundante
+            Entonces en este caso tenemos una relacion de muchos a muchos porque un Post puede tener varias Tags pero un misma Tag puede tener varios Posts
+            por tanto las tablas que tendriamos seria:
+                - Posts
+                - Post_tag
+                - Tags
+            En Posts y Tags tenemos los datos y para relacionarlos lo hacemos en la tabla "Post_tag" esta tabla para eloquent debe de seguir varias convenciones
+            una es el nombre debe ser en sigular de ambas tablas y en orden alfabetico por eso "Post_Tag"
+            Otra convencion es que las llavez foraneas deben de llamarse empezando por el nombre de la tabla en singular y el nombre del campo con el que se relacionan
+
+            Creamos los modelos:
+                * php artisan make:model Tag -mf
+                * php artisan make:migration create_post_tag_table
+
 
 

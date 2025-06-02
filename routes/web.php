@@ -649,4 +649,43 @@ Route::get('eloquent', function(){
     // teniamos una seccion individual si podemos recuperar las lecciones pero como tenemos una coleccion de secciones no podemos obtener sus asociados
     // para recuperar las relaciones asociados tenemos que implementar una "Relacion uno a muchos a travez de"
     return $course->lessons;
+
+    // Obtener datos en relacion muchos a muchos
+    $post = Post::find(1);
+    // Para relacionarla tenemos que tener registros en la tabla intermedia de Post_Tag
+    // para eso llamamos al objeto y accedemos a la relacion, dentro del metodo "attach" especificamos el numero del Id de la etiqueta con la cual queremos relacionar
+    // Esto toma el ID de Post y el ID del Tag e inserta ambos valores en la tabla intermedia
+    //      $post->tags()->attach([2]); // Aqui queremos relacionarla con la Tag de ID=2
+
+    // Para Eliminar el registro de la tabla intermedia con esos IDs
+    //      $post->tags()->detach([2]);
+
+    // Si queremos asignar varios valores a la vez (En este caso Varios Tags al Post)
+    //      $post->tags()->attach([2, 3, 4]);
+
+    // Actualizar valores
+    // Supongamos que tenemos estos Tags
+    $tags = [ 1, 3, 4];
+    // Pero Post ya esta relacionado con los Tags: 1, 2, 3, asi que para sincronizarlo con los tags de arriba, primero borramos los valores que tiene
+    // luego agregarle la relacion con la etiqueta con el metodo de arriba
+    // Para simplificar eso tenemos el metodo "Sync" que compara los valores que le estamos pasando con los valores que tiene agregados en la BD
+    // si tiene un valor que ya tenia en la BD solo lo ignora, si ve que en la BD tenia un valor que no le pasamos entonces se valor lo borra, si
+    // le pasamos un valor que no este en la BD entonces lo agrega
+    $post->tags()->sync($tags);// Syncroniza los valores que le mandamos con los que ya tenia previamente
+
+    // Asi obtenemos los datos
+    return $post->tags;
+
+    // Para asignar informacion en el campo extra que no es ID que es "data"
+    $post = Post::find(1);
+    $post->tags()->attach([
+        // Aqui le especificamos que queremos pasarle datos adicionales en el Id que le especificamos
+        1 => [
+            // Especificamos Campo y valor
+            "data" => "Campo Extra"
+        ]
+    ]);
+    // Cuando recuperamos los datos en el JSON vemos que los datos de la tabla Post_Tag estan dentro del campo "Pivot"
+    // pero no esta el campo extra "data" (Esto lo configuramos en el modelo de Post)
+    return $post->tags;
 });

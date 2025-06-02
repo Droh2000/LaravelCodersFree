@@ -15,4 +15,13 @@ class Post extends Model
         // La relacion inversa siempre se define con "belongsTo"
         return $this->belongsTo(Category::class);
     }
+
+    // Relacion Muchos a Muchos con la tabla Tags
+    public function tags(){
+        return $this->belongsToMany(Tag::class)
+                // Para que tambien nos mande los campos extras que no sean los ID, entre comillas pasamos el nombre del campo
+                ->withPivot('data')
+                // Esto para que se registren los datos en la columna create_at y update_at
+                ->withTimestamps();
+    }
 }
