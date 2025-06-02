@@ -272,3 +272,47 @@ Eloquent
                 - tag_id (Id de la tabla Tag)
             Creamos la tabla intermedia:
                 * php artisan make:migration create_taggables_table
+
+    Consultar datos de las relaciones
+        En la tabla "Users" tenemos dos registros, en la tabla "Profiles" solo tenemos un perfil, queremos usar las relaciones para crear un nuevo perfil
+        y ese perfil asociarlo a uno del usuarios que tenemos
+        Ejecutamos:
+            * php artisan tinker
+        Recuperamos el usuario al que queremos asignarle el perfil
+            * $user = User::find(2);
+        Para asignarle un nuevo perfil accedemos al objeto usarios luego acceder a la relacion profile, como queremos insertar datos le pondemos los parentesis
+        y de llamamos el mertodo "create" donde en el arreglo le pasamos los datos, con esto Elocuent nos crea los datos pero como lo estamos haciendo usando la relacion
+        por defecto ya nos llena los campos "User_id" con su valor de "ID" (Debemos tener habilitada la asignacion masiva)
+            * $user->profile()->create([
+                "job" => "Bibliotecologa",
+                "website" => "www.prueba.com",
+                "bio" => "Texto de prueba"
+            ])
+
+        Aqui recuperamos un Curso
+            * $course = Course::first();
+        Accedemos a su relacion y de ahi empezamos a registrar nuevos datos
+            * $course->comments()->create([
+                "body" => "Comentario agregado desde tinker"
+            ])
+
+        Introducir registros en la relacion Muchos a Muchos
+        Cuando queremos ingresar registros en la tabla intermedia, tenemos que acceder a la relacio, en este caso de cursos con tags
+        y de ahi llamamos el metodo "attach", aqui le pasamos el ID de la etiqueta con la cual queremos relacionarla
+            $course->tags()->attach(1);
+        Para relacionarlo con mas de un registro
+            $course->tags()->attach([1,2,3]);
+        Si queremos eliminar el registro
+            $course->tags()->detach(1);
+
+        Si estamos actualizando registros
+        Supongamos que estamos en un formulario y cuando queramos actualizar le demos mas etiquetas
+            $course->tags()->attach([1,2,3]);
+        Lo que pasara es que nos saldra en la BD como estara relacionado con las datos que ya estaba antes relacionado por lo que tendremos informacion duplicada
+        por tanto cuando queremos actualizar y volver a mandar el Id de las Tags con las que queremos relacionarlas
+        Por defecto el curso ya esta relacionado con estas dos Tags
+            $course->tags()->attach([1,2]);
+        Queremos actualizarlo para agregarle el Tag 3 pero nos analize que si ya tiene el Tag relacionado no nos lo vuelva a agregar y solo en los nuevos inserte el registro
+            $course->tags()->sync([1,2,3]);
+        Ahora para el caso que queremos quitarle un elemento
+            $course->tags()->sync([1,2]); (Esto nos eliminara la relacion que tenia con el Tag 3)
