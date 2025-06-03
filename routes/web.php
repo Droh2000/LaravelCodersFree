@@ -714,3 +714,5 @@ Route::get('eloquent', function(){
 
 
 });
+
+Route::resource('posts', PostController::class);

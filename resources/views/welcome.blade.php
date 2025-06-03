@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+{{/*<!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
         <meta charset="utf-8">
@@ -274,4 +274,7 @@
             <div class="h-14.5 hidden lg:block"></div>
         @endif
     </body>
-</html>
+</html>*/}}
+
+<!-- Usamos el componente que tiene las opciones del menu -->
+<x-layout></x-layout>

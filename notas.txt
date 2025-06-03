@@ -321,3 +321,12 @@ Anteriormente estabamos metiendo datos ficticios en el DataBaseSeeder pero el co
 donde podemos crear tantos seeders como queramos
 Por ejemplo vamos a crear un seeder que su funcion sea insertar registros de usuarios
     * php artisan make:seeder UserSeeder
+
+Formularios
+
+    - Nos creamos un componente donde tenemos las opciones del menu a donde nos redirigira como Post y Home
+    - El componente lo estamos usando en "welcome.blade.php"
+    - Creamos un controlador para Post listo para implementar un CRUD
+        * php artisan make:controller PostController -r
+    - Creamos la Ruta en "web.php"
+
