@@ -24,6 +24,18 @@ class PostController extends Controller
     }
 
     public function store(Request $request){
+        /*
+            Evitamos que el formulario se mande si tiene campos en blanco
+            Esto lo podriamos hacer poniendo "required" en cada los inputs, el problema es que esto se puede editar en el navegador
+            asi que la validacion a parte de agregarla al Fronted tambien la hacemos por parte del backend porque aqui no se puede modificar
+            Aqui con el "request" obtenemos todos los parametros que han llegado al formulario, aqui vamos a poner los campos como obligatorios
+            pero tenemos muchas otras reglas de validacion
+        */
+        $request->validate([
+            'title' => 'required',
+            'body' => 'required',
+            'category_id' => 'required',
+        ]);
         // Cuando el usuario nos mande por el formulario de "create.blade.php" algo, esto sera enviado a la ruta del "action" que es este metodo
         // lo que nos manden lo podemos recuperar con este objeto "request" que se activa cuando se preciona el boton del formulario y serian los campos
         // Procesamos la informacion para almacenarla en la base de datos
