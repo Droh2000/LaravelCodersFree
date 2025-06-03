@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Http\Request;
 
@@ -9,17 +10,26 @@ use Illuminate\Http\Request;
 class PostController extends Controller
 {
     public function index(){
-        // Obtenemos todo el listado de posts
-        $posts = Post::paginate();
+        // Obtenemos todo el listado de posts (Para que nos salgan los post mas nuevos al inicio de la tabla usamos
+        // que nos ordene de manera desendente de acuerdo al campo ID)
+        $posts = Post::latest('id')->paginate();
         return view('postsForm.index', compact('posts'));
     }
 
     public function create(){
-        return view('postsForm.create');
+        // Recuperamos todas las categorias que teniamos en la base de datos, para tener disponible dentro del formulario de creacion
+        // las categorias
+        $categories = Category::all();
+        return view('postsForm.create', compact('categories'));
     }
 
-    public function store(){
-
+    public function store(Request $request){
+        // Cuando el usuario nos mande por el formulario de "create.blade.php" algo, esto sera enviado a la ruta del "action" que es este metodo
+        // lo que nos manden lo podemos recuperar con este objeto "request" que se activa cuando se preciona el boton del formulario y serian los campos
+        // Procesamos la informacion para almacenarla en la base de datos
+        Post::create($request->all());
+        // Mandamos al listado de Post para ver que se vea que si se creo (Redireccionamos a una ruta)
+        return redirect()->route('post.index');
     }
 
     public function show(string $post){

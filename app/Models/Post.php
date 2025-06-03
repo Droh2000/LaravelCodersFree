@@ -10,6 +10,14 @@ class Post extends Model
     /** @use HasFactory<\Database\Factories\PostFactory> */
     use HasFactory;
 
+    // Para que funcione el envio de datos por el formulario tenemos que habilitar la asignacion masiva
+    // Aqui le indicamos los campos del formulario
+    protected $fillable = [
+        'title',
+        'body',
+        'category_id',
+    ];
+
     // Relacio inversa de uno a muchos
     public function category(){
         // La relacion inversa siempre se define con "belongsTo"
