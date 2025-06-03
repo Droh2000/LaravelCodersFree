@@ -2,7 +2,23 @@
 <x-layout>
     <!--
         Formulario en el que el usuario va a poder ingresar datos y guardardarlos en la Base de datos
+
+        Ahora si especificamos solo algunos campos y dejamos en blanco otros que son obligatorios, al pulsar el boton de enviar
+        por defecto nos elimina todos los datos que hayamos escrito en los campos y nos dejara todo el Form en blanco esto porque nos
+        regresa a la ruta anterior pero en ese re-envio nos mandara una variable "errors" con esta podemos detectar en el HTML si hay mensajes
+        de validacion por mostrar
+        Entonces debemos de mostrar mensajes de error para indicar cuales campos son obligatorios verificando si existe esa variable
     -->
+    @if ($errors->any())
+        <ul>
+            @foreach ($errors as $error)
+                <li>
+                    {{ $error }}
+                </li>
+            @endforeach
+        </ul>
+    @endif
+
     <form action="{{route('posts.store')}}" method="POST">
         <!--
             Por defecto al inicio al enviar los datos del formulario nos sale: 419 PAGE EXPIRED
@@ -19,12 +35,25 @@
             <!-- Con el nombre especificado en el "name" relacionamos el input al campo especificado de la tabla-->
             <label> Titulo del post: </label>
             <input type="text" name="title" id="">
+            <!-- Esto es por si queremos mejor mostrar el error debajo de cada uno de los campos que dio error indicando el nombre del campo -->
+            <br>
+            @error('title')
+                <span>
+                    {{ $message }}
+                </span>
+            @enderror
         </div>
         <hr>
         <div>
             <label>Contenido del post:</label>
             <br>
             <textarea name="body" id="" cols="30" rows="10"></textarea>
+            <br>
+            @error('body')
+                <span>
+                    {{ $message }}
+                </span>
+            @enderror
         </div>
         <!-- Para el caso de las categorias en este caso estamos almacenando el ID de las categorias
                 Asi que en el controlador recuperamos todas las categorias que tenemos en la base de datos
