@@ -76,6 +76,11 @@
         </div>
         <!-- Para el caso de las categorias en este caso estamos almacenando el ID de las categorias
                 Asi que en el controlador recuperamos todas las categorias que tenemos en la base de datos
+
+            Supongamos que un usuario en nuestra pagina para crear, edita el select de las categorias y edita para poner una categorias que no existe para nosotros
+            al precionar el boton de enviar, le mostrara una ventana de error de laravel porque aqui agregamos una restriccion de FK no se puede agregar
+            una categoria que no exista
+            Lo mejor es que para ese caso que falle mostrar un mensaje de error, como en las reglas de validacion
         -->
         <div>
             <label for="">Categorias</label>
@@ -93,6 +98,11 @@
                     <option @selected(old('category_id') == $category->id) value="{{$category->id}}">{ $category->name {}}</option>
                 @endforeach
             </select>
+            @error('category_id')
+                <span>
+                    {{ $message }}
+                </span>
+            @enderror
         </div>
 
         <!--

@@ -57,6 +57,11 @@
                     <option @selected(old('category_id', $post->category_id</option>) == $category->id) value="{{$category->id}}">{ $category->name {}}</option>
                 @endforeach
             </select>
+            @error('category_id')
+                <span>
+                    {{ $message }}
+                </span>
+            @enderror
         </div>
         <hr>
         <button type="submit">Actualizar Post</button>

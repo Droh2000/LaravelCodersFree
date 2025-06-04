@@ -47,7 +47,10 @@ class PostRequest extends FormRequest
             // Colocamos una segunda Coma y le especificamos el Id con el cual no queremos que haga la verificacion ($this->post Recuperamos el valor del parametro Post $post que nos mandan al controlador)
             'slug' => ['required','unique:posts, slug' . $post_id],
             'body' => 'required',
-            'category_id' => 'required',
+            // Tambien vamos a verificar que ese valor que tengamos en el Selector debe de existir en la tabla de Cateogrias de la BD
+            // a esto le mandamos el nombre de la tabla y por que campo queremos que tome para verficar, asi si mandamos un valor que no existe
+            // nos mostrara un mensaje de error
+            'category_id' => 'required|exists:categories,id',
         ];
     }
 }
