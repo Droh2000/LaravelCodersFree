@@ -52,14 +52,31 @@ class PostController extends Controller
     }
 
     public function edit(string $post){
-        return view('postsForm.edit');
+        // Cuando ingrsamos al apartado de editar queremos obtener el Post correspondiente y poner sus datos en los campos del formulario
+        // Recuperamos los datos del Post (Esto se lo pasamos a la vista)
+        $post = Post::find($post);
+        $categories = Category::all();
+        return view('postsForm.edit', compact('post', 'categories'));
     }
 
     public function update(Request $request, string $post){
-
+        // Agregamos las validaciones
+        $request->validate([
+            'title' => 'required',
+            'body' => 'required',
+            'category_id' => 'required',
+        ]);
+        // Actualizamos el Post correspondiente
+        $post = Post::find($post);
+        $post->update($request->all());
+        // Mandamos al usuario a la pagina donde se muestran los registros
+        return redirect()->route('posts.index');
     }
 
     public function destroy(string $post){
-
+        // Buscamos el Post que queremos eliminar y llamamos el metodo
+        $post = Post::find($post);
+        $post->delete();
+        return redirect()->route('posts.index');
     }
 }

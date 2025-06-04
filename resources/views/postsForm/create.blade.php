@@ -34,7 +34,12 @@
         <div>
             <!-- Con el nombre especificado en el "name" relacionamos el input al campo especificado de la tabla-->
             <label> Titulo del post: </label>
-            <input type="text" name="title" id="">
+            <!--
+                Evitar que cuando las reglas de validacion fallen nos borren los datos de los campo donde se ingreso datos
+                tenemos que recuperar esos datos antes que el usuario envie los datos, para esto en los inputs para recuperar
+                los datos le agregamos el argumento "vale" en el metodo Old especificarle el nombre del campo
+            -->
+            <input type="text" value="{{ old('title') }}" name="title" id="">
             <!-- Esto es por si queremos mejor mostrar el error debajo de cada uno de los campos que dio error indicando el nombre del campo -->
             <br>
             @error('title')
@@ -47,7 +52,8 @@
         <div>
             <label>Contenido del post:</label>
             <br>
-            <textarea name="body" id="" cols="30" rows="10"></textarea>
+            <!-- Asi le hacemos para que el TextArea mantenga los datos registrados por el usuario -->
+            <textarea name="body" id="" cols="30" rows="10">{{old('body')}}</textarea>
             <br>
             @error('body')
                 <span>
@@ -65,10 +71,31 @@
             <select name="category_id" id="">
                 <!-- Aqui mostramos las categorias -->
                 @foreach ($categories as $category)
-                    <!-- value toma el valor que seleccionemos -->
-                    <option value="{{$category->id}}">{ $category->name {}}</option>
+                    <!-- value toma el valor que seleccionemos
+                        En Blade con la directiva "Selected" podemos mantener cual fue de las opciones las que eligio el usuario
+                        donde indicamos con un booleano si seleccionamos o no, por tanto primero verificamos si hay error o no de validacion
+                        y recuperamos lo que habia antes en el campo, despues preguntamos si ese valor que recuperamos es igual al campo del Value
+                        Asi en el caso que falle la regla de validacion y teniamos un valor por defecto, ese valor es el que sera asignado en el Select
+                    -->
+                    <option @selected(old('category_id') == $category->id) value="{{$category->id}}">{ $category->name {}}</option>
                 @endforeach
             </select>
+        </div>
+
+        <!--
+                Aqui vamos a verlo para los demas elementos HTML
+
+            Checkbox:
+                En laravel tenemos directivas que le podemos agregar a los elementos, estoas empiezan con '@'
+                    @checked(True/False) -> Asi lo seleccionamos o no por defecto
+                Asi que con la funcion "old()" preguntamos si alguna regla de validacion fallo y que recupere lo que tenia
+                en el campo "active" y lo comparamos si el valor es igual al "value" del input
+        -->
+        <div>
+            <label for="">
+                <input type="checkbox" name="active" value="1" @checked(old('active') == 1)>
+                Estado
+            </label>
         </div>
 
         <br>
