@@ -342,3 +342,8 @@ y para que pueda tomar en cuenta tu pagina, esperaria que en la URL salga inform
     * pagina/posts/asi-estaria-el-titulo-del-post
 Asi con solo leer la URL sabe de que se trata a diferencia que por el ID no dice nada sobre que trata la pagina
 Para crear estas URL amigables lo comun es que agregemos en nuestras Tablas un nuevo campo que suele llamarse SLUG
+
+Algunas reglas bastante utiles
+    por ejemplo si copiamos un SLUG que existe y lo metemos en un nuevo registro: Veremos que el error que nos marca es a nivel de la BD ya que el campo debe ser unico
+    lo que pasa es que no queremos que el usuario pueda ver ese error, lo mejor es que no haga redireccion la pagina sino que nos muestre un mensaje como los campos
+    de validacion
