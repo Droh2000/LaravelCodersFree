@@ -334,3 +334,11 @@ Refactorizar las reglas de validacion
 Como estas reglas las usamos igual en varios metodos, vamos crear un archivo que podamos reutilizar
 para esto nos tenemos que crear un Form Request con el comando:
          php artisan make:request PostRequest
+
+Hasta este punto hemos estado usando el Id de los post para navegar entre las URLs como por ejemplo:
+    * pagina/posts/ID
+Lo que pasa es que de esta forma no es una URL amigable porque cuando los Robots de Google ingresan a la pagina, intentan sacar informacion de diferentes lugares
+y para que pueda tomar en cuenta tu pagina, esperaria que en la URL salga informacion relevante hacerca del contenido de la pagina, La URL amigable seria:
+    * pagina/posts/asi-estaria-el-titulo-del-post
+Asi con solo leer la URL sabe de que se trata a diferencia que por el ID no dice nada sobre que trata la pagina
+Para crear estas URL amigables lo comun es que agregemos en nuestras Tablas un nuevo campo que suele llamarse SLUG

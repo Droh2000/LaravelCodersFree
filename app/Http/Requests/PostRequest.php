@@ -25,6 +25,7 @@ class PostRequest extends FormRequest
         // Aqui colocamos las reglas de validacion que queremos reutilizar
         return [
             'title' => 'required',
+            'slug' => 'required',
             'body' => 'required',
             'category_id' => 'required',
         ];

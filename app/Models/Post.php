@@ -14,9 +14,19 @@ class Post extends Model
     // Aqui le indicamos los campos del formulario
     protected $fillable = [
         'title',
+        "slug",
         'body',
         'category_id',
     ];
+
+    // En este metodo le vamos a decir que cuando hagamos una consulta no nos tome el ID sino que tome el SLUG
+    // En el return le decimos el nombre del campo que queremos que nos retorne
+    // En las vistas no les estamos indicando que campo queremos que utilize ya cuando le indicamos el objeto $post tomaba el ID y ese era el valor que se mandaba a la ruta
+    // pero ahora con este metodo por defecto toma el campo SLUG, de igual manera cuando haga la busquedad en el controlador ahora hara la busquedad con el SLU que se recibe en
+    // los metodos que tienen: Post $post
+    public function getRouteKeyName(){
+        return "slug";
+    }
 
     // Relacio inversa de uno a muchos
     public function category(){

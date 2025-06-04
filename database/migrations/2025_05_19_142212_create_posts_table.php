@@ -30,7 +30,8 @@ return new class extends Migration
             // Estos son los campos que tendria esta tabla Posts
             // Podemos limitar la cantidad de caracteres que queremos especificando el numero que queremos permitir
             $table->string('title', 15);
-            $table->string('slug'); // El SLUG es la URL donde se muestra el titulo separado por guiones
+            // Este es el campo para crear URL Amigable, decimos que es unico porque en las paginas cada URL es unica
+            $table->string('slug')->unique(); // El SLUG es la URL donde se muestra el titulo separado por guiones
             $table->longText('body');// Supongamos que despues de ejecutar las migraciones un campo de la tabla lo definimos mal y tenemos que modificarlo
             $table->timestamps();
 

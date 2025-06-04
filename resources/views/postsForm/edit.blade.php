@@ -25,6 +25,19 @@
             @enderror
         </div>
         <hr>
+
+        <div>
+            <label>Slug: </label>
+            <input type="text" value="{{ old('slug', $post->slug) }}" name="slug" id="">
+            <br>
+            @error('slug')
+                <span>
+                    {{ $message }}
+                </span>
+            @enderror
+        </div>
+        <hr>
+
         <div>
             <label>Contenido del post:</label>
             <br>
