@@ -330,3 +330,7 @@ Formularios
         * php artisan make:controller PostController -r
     - Creamos la Ruta en "web.php"
 
+Refactorizar las reglas de validacion
+Como estas reglas las usamos igual en varios metodos, vamos crear un archivo que podamos reutilizar
+para esto nos tenemos que crear un Form Request con el comando:
+         php artisan make:request PostRequest
