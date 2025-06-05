@@ -1,0 +1,12 @@
+En este proyecto Limpio instalamos:
+    - El Kit de inicio de Livewired
+    - Ademas elegimos que ya por defecto no cree un sistema de login y registro
+    - Laravel Volt -> Esto nos permite escribir tanto la logica como el codigo HTML en un mismo archivo
+                     es conveniente porque si instalamos el Kit de Inicio por si queremos hacer modificaciones mas adelante
+
+Despues nos registramos un usuario e iniciamos sesion
+Por defecto veremos que esto nos proporciona un Dashboard
+esto por defecto usa la libreria:
+    - "Flux - LiveWire UI"
+Esta por defecto ya nos da los componentes que podemos utilizar, para llamarlos usamos:
+    - flux:NombreComponente

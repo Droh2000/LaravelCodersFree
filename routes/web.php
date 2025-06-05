@@ -19,4 +19,5 @@ Route::middleware(['auth'])->group(function () {
     Volt::route('settings/appearance', 'settings.appearance')->name('settings.appearance');
 });
 
+// Aqui en el archivo de rutas podemos ver que esta llamando a este archivo (Este tambien contiene Rutas)
 require __DIR__.'/auth.php';

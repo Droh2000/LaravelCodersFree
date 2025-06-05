@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="dark">
     <head>
+        <!-- Vemos que la cabezera estan en un archivo aparte esto es porque podemos intercambiar y asi no se pierde la informacion colocada en la cabezera
+                asi que esta informacion esta en Views/partials/head
+        -->
         @include('partials.head')
     </head>
     <body class="min-h-screen bg-white dark:bg-zinc-800">

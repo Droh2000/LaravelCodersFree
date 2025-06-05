@@ -11,6 +11,9 @@ use Livewire\Attributes\Layout;
 use Livewire\Attributes\Validate;
 use Livewire\Volt\Component;
 
+// Aqui hay que fijarse que tenemos una clase  de Livewired y debajo tenemos la vista
+// este componente esta llamando un Layout que se encuentra dentro de la carpeta "components/layouts/auth"
+// este es el que se usa para mostrar la informacion
 new #[Layout('components.layouts.auth')] class extends Component {
     #[Validate('required|string|email')]
     public string $email = '';
