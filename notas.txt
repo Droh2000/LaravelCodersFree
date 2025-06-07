@@ -10,3 +10,21 @@ esto por defecto usa la libreria:
     - "Flux - LiveWire UI"
 Esta por defecto ya nos da los componentes que podemos utilizar, para llamarlos usamos:
     - flux:NombreComponente
+
+Cosas que tenemos instalamos con el Kit de inicio
+    - TailwindCSS -> Esto esta en la carpeta: resources/css/app.css
+
+Laravel solo tiene un punto de acceso y es en la carpeta Public, lo demas para poder ser leido tiene que ser compilado, cuando
+ejecutamos el: npm run build, el compilador que usa Laravel es VITE
+    Con esto nos damos cuenta que cuando aplicamos algun cambio de estilo en la pagina veremos a primeras que al recargar la pagina, no veremos los estilos aplicados
+    eso es porque los cambios no han sido compilados y por tanto tenemos que ejecutar el comando de:
+        - npm run build -> Cada vez que queremos ver los cambio hechos en los estilos
+    Esto nos ayuda a que nuestro proyecto compilado no se vayan todas las utilidades de TailwindCSS ocupando espacio si no estamos usando todas
+    Tambien la compilacion nos sirve para meter todos nuestros Script JS y estilos propios en la carpeta Public
+
+    Para no tener que estar ejecutando el comando anterior a cada rato para ver los cambios, VITE nos proporciona el comando:
+        * npm run dev
+    Este comando mantendra encendido el servidor de VITE y por tanto cualquier cambio lo vamos a tener instantanio al guardar pagina
+
+    Si al cerrar la terminal donde estabamos corriendo VITE, vemos que en nuestro proyecto se hecharon a perder nuestros estilos
+    tenemos que ir a: public/ y eliminar el archivo "hot", asi Laravel se conectara al resultado de la compilacion y no a VITE
