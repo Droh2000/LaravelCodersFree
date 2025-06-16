@@ -32,3 +32,25 @@ ejecutamos el: npm run build, el compilador que usa Laravel es VITE
 En este punto vamos a ver como trabajar con ambas plantillas, tanto en donde tenemos las opciones del menu en una lista, como donde las tenemos en la cabezera de la pagina
 
 Agregar nuevo archivo de rutas
+
+Estructura de la Base de datos que tenemos
+    Tenemos estas Tablas:
+        - Categories
+        - Users
+        - Posts
+        - Tags
+        - Comments
+    Relaciones:
+        - Uno a Muchos -> Categories a Posts
+        - Uno a Muchos -> Users a Posts
+        - Muchos a Muchos -> Tags a Posts
+            * post_tag
+        - Uno a Muchos -> Comments a Posts
+Para ceearlas en el ORM primero debemos empezar con las tablas que no dependan de otras tablas
+Creamos los modelos con su archivo de migracion:
+    * php artisan make:model Category -m
+    * php artisan make:model Tag -m
+    - El de usuarios ya se creo con el sistema
+    * php artisan make:model Post -m
+    * php artisan make:model Comment -m
+    * php artisan make:migration create_post_tag_table
