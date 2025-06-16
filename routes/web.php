@@ -7,9 +7,12 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
+/*
+    En lugar de usar esta ruta mejor vamos a usar la de admin.dashboard
 Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
+*/
 
 Route::middleware(['auth'])->group(function () {
     Route::redirect('settings', 'settings/profile');

@@ -30,3 +30,5 @@ ejecutamos el: npm run build, el compilador que usa Laravel es VITE
     tenemos que ir a: public/ y eliminar el archivo "hot", asi Laravel se conectara al resultado de la compilacion y no a VITE
 
 En este punto vamos a ver como trabajar con ambas plantillas, tanto en donde tenemos las opciones del menu en una lista, como donde las tenemos en la cabezera de la pagina
+
+Agregar nuevo archivo de rutas

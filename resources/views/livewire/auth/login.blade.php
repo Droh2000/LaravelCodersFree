@@ -43,6 +43,9 @@ new #[Layout('components.layouts.auth')] class extends Component {
         RateLimiter::clear($this->throttleKey());
         Session::regenerate();
         // Aqui modificamos para que cuando iniciemos sesion nos mande a la pagina de Home
+        // Gracias al "redirectIntended" es que si un usuario inteccasesar directamente a una ruta diferente de la Home, si es una ruta protegida despues de iniciar sesion
+        // sera enviado a esa ruta que quiso acceder, no a la de home, porque este metodo nos redirieque a la ruta que estaba anteriormente cuando el middleware "auth" nos pide
+        // que iniciemos sesion
         $this->redirectIntended(default: route('home', absolute: false), navigate: true);
     }
 
