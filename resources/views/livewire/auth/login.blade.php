@@ -42,8 +42,8 @@ new #[Layout('components.layouts.auth')] class extends Component {
 
         RateLimiter::clear($this->throttleKey());
         Session::regenerate();
-
-        $this->redirectIntended(default: route('dashboard', absolute: false), navigate: true);
+        // Aqui modificamos para que cuando iniciemos sesion nos mande a la pagina de Home
+        $this->redirectIntended(default: route('home', absolute: false), navigate: true);
     }
 
     /**
