@@ -59,3 +59,10 @@ Crear Registros de Prueba
     * php artisan make:factory CategoryFactory
 Ejecutamos todo (Migraciones y Factories):
     * php artisan migrate:fresh --seed
+
+Iniciar con el CRUD de categorias
+    (Aqui le decimos que nos cree el controlador dentro de la carpeta Admin)
+    * php artisan make:controller Admin\CategoryController --model=Category
+
+Para ver aplicados los estilos en los elementos HTML, debemos de ejectuar el proyecto con:
+    * npm run dev
