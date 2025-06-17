@@ -54,3 +54,8 @@ Creamos los modelos con su archivo de migracion:
     * php artisan make:model Post -m
     * php artisan make:model Comment -m
     * php artisan make:migration create_post_tag_table
+
+Crear Registros de Prueba
+    * php artisan make:factory CategoryFactory
+Ejecutamos todo (Migraciones y Factories):
+    * php artisan migrate:fresh --seed
