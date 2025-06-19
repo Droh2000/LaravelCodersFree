@@ -2,13 +2,19 @@
         Este codifo de Flux lo sacamos de la pagina oficial
 -->
 <x-layouts.admin>
-    <flux:breadcrumbs class="mb-4">
-        <flux:breadcrumbs.item href="{{ route('admin.dashboard') }}">Dashboard</flux:breadcrumbs.item>
-        <!-- Esta es la opcion del menu en el que nos encontramos -->
-        <flux:breadcrumbs.item>
-            Categorias
-        </flux:breadcrumbs.item>
-    </flux:breadcrumbs>
+    <div class="flex justify-between items-center mb-4">
+        <flux:breadcrumbs>
+            <flux:breadcrumbs.item href="{{ route('admin.dashboard') }}">Dashboard</flux:breadcrumbs.item>
+            <!-- Esta es la opcion del menu en el que nos encontramos -->
+            <flux:breadcrumbs.item>
+                Categorias
+            </flux:breadcrumbs.item>
+        </flux:breadcrumbs>
+
+        <a class="btn btn-blue text-xs" href="{{route('admin.categories.create')}}">
+            Nuevo
+        </a>
+    </div>
 
     <!-- Mostrar el listado de las categorias -->
     <div class="relative overflow-x-auto">

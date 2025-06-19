@@ -14,7 +14,8 @@ class CategoryController extends Controller
     public function index()
     {
         // Recuperamos el listado de categorias y se lo pasamos a la vista
-        $categories = Category::all();
+        // Cambiamos para que los mas nuevos registros aparescan primero
+        $categories = Category::orderBy('id', 'desc')->get();
         return view('admin.categories.index', compact('categories'));
     }
 
@@ -23,7 +24,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.categories.create');
     }
 
     /**
@@ -31,7 +32,13 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Este metodo se activa cuando precionamos el boton submit del formulario
+        $data = $request->validate([
+            'name' => 'required|string|max:255|unique:categories'
+        ]);
+        // Creamos la categoria si pasa las validaciones
+        Category::create($data);
+        return redirect()->route('admin.categories.index');
     }
 
     /**
@@ -39,7 +46,7 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        //
+
     }
 
     /**
