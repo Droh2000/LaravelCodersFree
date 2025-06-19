@@ -27,7 +27,7 @@
                     <th scope="col" class="px-6 py-3">
                         Name
                     </th>
-                    <th scope="col" class="px-6 py-3">
+                    <th scope="col" class="px-6 py-3" width="200">
                         Edit
                     </th>
                 </tr>
@@ -42,9 +42,19 @@
                             {{ $category->name }}
                         </td>
                         <td class="px-6 py-4">
-                            <a href="{{route('admin.categories.edit', $category)}}" class="text-xs btn btn-green">
-                                Editar
-                            </a>
+                            <div class="flex items-center space-x-2">
+                                <a href="{{route('admin.categories.edit', $category)}}" class="text-xs btn btn-green">
+                                    Editar
+                                </a>
+
+                                <form action="{{route("admin.categories.destroy", $category)}}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-red text-xs">
+                                        Eliminar
+                                    </button>
+                                </form>
+                            </div>
                         </td>
                     </tr>
                 @endforeach

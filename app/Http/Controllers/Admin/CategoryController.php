@@ -94,6 +94,12 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        $category->delete();
+        session()->flash("swal", [
+            'icon' => 'success',
+            'title' => 'Categoria Eliminada!',
+            'text' => 'La categoria se ha eliminado correctamente',
+        ]);
+        return redirect()->route('admin.categories.index', $category);
     }
 }
