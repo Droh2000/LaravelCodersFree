@@ -154,5 +154,8 @@ Le damos la posibilidad de mandar el titulo, asi como arriba
                 Swal.fire(@json(session('swal')));
             </script>
         @endif
+
+        <!-- Esto es para generar el codigo de JS que agregemos en donde se use el componente en la parte final -->
+        @stack('js');
     </body>
 </html>

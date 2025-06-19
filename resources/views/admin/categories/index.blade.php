@@ -47,7 +47,7 @@
                                     Editar
                                 </a>
 
-                                <form action="{{route("admin.categories.destroy", $category)}}" method="POST">
+                                <form class="delete-form" action="{{route("admin.categories.destroy", $category)}}" method="POST">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-red text-xs">
@@ -61,4 +61,30 @@
             </tbody>
         </table>
     </div>
+
+    @push('js')
+        <script>
+            // Se mantenga a la esucha del evento submit de todos los formulario con la clase ".delete-form"
+            document.querySelectorAll('.delete-form').forEach(form => {
+                form.addEventListener('submit', (e) => {
+                    e.preventDefault();
+
+                    Swal.fire({
+                        title: "¿Estas seguro que quieres eliminar?",
+                        text: "No podras revertir esto!",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#3085d6",
+                        cancelButtonColor: "#d33",
+                        confirmButtonText: "Si, eliminar!",
+                        cancelButtonColor: "Cancelar"
+                        }).then((result) => {
+                        if (result.isConfirmed) {
+                            form.submit();
+                        }
+                    });
+                });
+            });
+        </script>
+    @endpush
 </x-layouts.admin>
