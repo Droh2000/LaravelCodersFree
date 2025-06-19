@@ -2,20 +2,20 @@
     <div class="mb-4">
         <flux:breadcrumbs>
             <flux:breadcrumbs.item href="{{ route('admin.dashboard') }}">Dashboard</flux:breadcrumbs.item>
-            <!-- Esta es la opcion del menu en el que nos encontramos -->
             <flux:breadcrumbs.item href="{{ route('admin.categories.index') }}">
                 Categorias
             </flux:breadcrumbs.item>
             <flux:breadcrumbs.item>
-                Nuevo
+                Editar
             </flux:breadcrumbs.item>
         </flux:breadcrumbs>
     </div>
 
-    <form action="{{route('admin.categories.store')}}" method="POST" class="bg-white px-6 py-8 rounded-lg shadow-lg space-y-4">
+    <form action="{{route('admin.categories.update', $category)}}" method="POST" class="bg-white px-6 py-8 rounded-lg shadow-lg space-y-4">
         @csrf
-        <!-- Con la funcion "old" si hay errores de validacion se mantengan los datos escritos-->
-        <flux:input name="name" label="Name" value="{{old('name')}}"/>
+        @method('PUT')
+        <!-- Con la funcion "old" si le decimos que en caso que no haya valor, nos regrese el nombre de la categoria-->
+        <flux:input name="name" label="Name" value="{{old('name', $category->name)}}"/>
 
         <div class="flex justify-end">
             <flux:button type="submits" variant="primary">

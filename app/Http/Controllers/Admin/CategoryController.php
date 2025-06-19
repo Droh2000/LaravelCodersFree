@@ -65,7 +65,7 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        //
+        return view('admin.categories.edit', compact('category'));
     }
 
     /**
@@ -73,7 +73,20 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        //
+        $data = $request->validate([
+            // Aqui le concatenamos al final para que nos excluya de la validacion el registro que estamos editando
+            'name' => 'required|string|max:255|unique:categories,name,' . $category->id,
+        ]);
+
+        $category->update($data);
+
+        session()->flash("swal", [
+            'icon' => 'success',
+            'title' => 'Categoria Actualizada!',
+            'text' => 'La categoria se ha actualizado correctamente',
+        ]);
+
+        return redirect()->route('admin.categories.edit', $category);
     }
 
     /**

@@ -42,7 +42,9 @@
                             {{ $category->name }}
                         </td>
                         <td class="px-6 py-4">
-
+                            <a href="{{route('admin.categories.edit', $category)}}" class="text-xs btn btn-green">
+                                Editar
+                            </a>
                         </td>
                     </tr>
                 @endforeach
