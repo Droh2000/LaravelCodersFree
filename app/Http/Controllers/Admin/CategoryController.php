@@ -38,6 +38,17 @@ class CategoryController extends Controller
         ]);
         // Creamos la categoria si pasa las validaciones
         Category::create($data);
+
+        // Para mandarle los datos al sweetAlert
+        // Nos creamos una variable de session que mantiene los datos entre las redirecciones de paginas
+        // y el tipo "flash" es que una vez que se consume el valor ya se borra (Ademas asi el mensaje nos sale una vez)
+        // "swal" es el nombre de la variable y el contenido es lo que le pasamos al Array
+        session()->flash("swal", [
+            'icon' => 'success',
+            'title' => 'Categoria Creada!',
+            'text' => 'La categoria se ha creado correctamente',
+        ]);
+
         return redirect()->route('admin.categories.index');
     }
 

@@ -22,6 +22,7 @@ Le damos la posibilidad de mandar el titulo, asi como arriba
 
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet" />
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
         @vite(['resources/css/app.css', 'resources/js/app.js'])
         @fluxAppearance
@@ -145,5 +146,13 @@ Le damos la posibilidad de mandar el titulo, asi como arriba
         </flux:main>
 
         @fluxScripts
+
+        <!-- Solo se mostrara si la variable existe que la mandamos desde el controlador -->
+        @if (session('swal'))
+            <script>
+                // Recibimos la informacion que nos llega desde el controlador convirtiendo el array a JSON porque asi espera la informacion
+                Swal.fire(@json(session('swal')));
+            </script>
+        @endif
     </body>
 </html>
