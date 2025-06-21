@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\PostController;
 use Illuminate\Support\Facades\Route;
 
 // Aqui vamos a definir las rutas que solo los administradores podran acceder
@@ -15,3 +16,5 @@ Route::get('/', function() {
 
 // Nos genere todas las rutas de categorias
 Route::resource('categories', CategoryController::class);
+
+Route::resource('posts', PostController::class);

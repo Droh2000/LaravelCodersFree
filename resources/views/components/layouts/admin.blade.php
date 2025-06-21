@@ -40,6 +40,7 @@ Le damos la posibilidad de mandar el titulo, asi como arriba
                     <flux:navlist.item icon="home" :href="route('admin.dashboard')" :current="request()->routeIs('admin.dashboard')" wire:navigate>{{ __('Dashboard') }}</flux:navlist.item>
                     <!-- Agregamos Nuevas opciones que salgan en el menu, ademas queremos que verifique si nos encontramos sobre cualquier ruta que empieze con admin.categories por eso el "*"  -->
                     <flux:navlist.item icon="arrow-up-on-square" :href="route('admin.categories.index')" :current="request()->routeIs('admin.categories.*')" wire:navigate>{{ __('Categories') }}</flux:navlist.item>
+                    <flux:navlist.item icon="book-open" :href="route('admin.posts.index')" :current="request()->routeIs('admin.posts.*')" wire:navigate>{{ __('Posts') }}</flux:navlist.item>
                 </flux:navlist.group>
             </flux:navlist>
 

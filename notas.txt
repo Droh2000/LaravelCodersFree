@@ -71,3 +71,5 @@ Para los Post
     * php artisan make:factory PostFactory
 Despues de todos los cambios de codigo volvemos a ejecutar las migraciones
     * php artisan migrate:fresh --seed
+Creamos el controlador:
+    * php artisan make:controller Admin/PostController --model=Post
