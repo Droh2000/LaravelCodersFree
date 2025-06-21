@@ -13,7 +13,9 @@ class PostController extends Controller
      */
     public function index()
     {
-        return view('admin.posts.index');
+        // Recuperar el listado de posts pero los vamos a retornar paginados (Esto por defecto nos retornar un JSON)
+        $posts = Post::paginate();
+        return view('admin.posts.index', compact('posts'));
     }
 
     /**
