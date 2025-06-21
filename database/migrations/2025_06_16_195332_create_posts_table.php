@@ -16,8 +16,8 @@ return new class extends Migration
             $table->string("title");
             $table->string("slug")->unique();
             $table->string("image_path")->nullable();
-            $table->text("excerpt");
-            $table->longText("content");
+            $table->text("excerpt")->nullable(); // Estos datos se los vamos a proporcionar despues de haber creado el Post
+            $table->longText("content")->nullable();
             $table->boolean("is_published")->default(false);
             $table->timestamp("published_at")->nullable();
 
