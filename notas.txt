@@ -66,3 +66,8 @@ Iniciar con el CRUD de categorias
 
 Para ver aplicados los estilos en los elementos HTML, debemos de ejectuar el proyecto con:
     * npm run dev
+
+Para los Post
+    * php artisan make:factory PostFactory
+Despues de todos los cambios de codigo volvemos a ejecutar las migraciones
+    * php artisan migrate:fresh --seed
