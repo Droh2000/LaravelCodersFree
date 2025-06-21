@@ -80,3 +80,10 @@ el campo del slug, si bien es cierto esto lo podriamos generar del lado del back
 que se va generando y a nivel de CEO se recomiendo que el SLUG sea corto, ya que es comun que el titulo sea largo y no tiene sentido
 hacer tambien el SLUG largo y que mejor solo contenga las palabras claves por eso es mejor manejar el SLUG del lado del Fronted
 donde tambien podemos editar el campo despues de especificar el titulo
+
+Queremos que cuando publicamos por primera un POST se agrege automaticamente la fecha en el campo "is_published"
+para este caso vamos a usar los Observers que nos permiten esuchar diferentes eventos del ciclo de vida del modelo
+es decir, cuando se crean, actualizan, eliminan
+Para crearlos:
+    * php artisan make:observer PostObserver
+

@@ -15,7 +15,7 @@ class PostController extends Controller
     public function index()
     {
         // Recuperar el listado de posts pero los vamos a retornar paginados (Esto por defecto nos retornar un JSON)
-        $posts = Post::paginate();
+        $posts = Post::latest('id')->paginate();
         return view('admin.posts.index', compact('posts'));
     }
 
@@ -76,7 +76,8 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        return view('admin.posts.edit', compact('post'));
+        $categories = Category::all();
+        return view('admin.posts.edit', compact('post', 'categories'));
     }
 
     /**
@@ -84,7 +85,28 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        //
+        // Aqui llegan los datos despues de Editar un posr
+        $data = $request->validate([
+            'title' => 'required|string|max:255',
+            // Que sea unico en la tabla posts en el campo slug excluyendo el registro que estamos editando
+            'slug' => 'required|string|max:255|unique:posts,slug,' . $post->id,
+            'category_id' => 'required|exists:categories,id',
+            // Solo es requerido si el valor de publicacion esta activo
+            'excerpt' => 'required_if:is_published,1|string',
+            'content' => 'required_if:is_published,1|string',
+            'is_published' => 'boolean',
+        ]);
+
+        // Cuando se ejecuta este metodo se emite el Observer y realiza la accion
+        $post->update($data);
+
+        session()->flash('swal', [
+            'icon' => 'success',
+            'title' => 'Post Actualizado!',
+            'text' => 'El Post se ha actualizado correctamente',
+        ]);
+
+        return redirect()->route('admin.posts.edit', $post);
     }
 
     /**

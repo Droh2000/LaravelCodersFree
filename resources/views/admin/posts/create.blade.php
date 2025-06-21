@@ -26,7 +26,7 @@
         <!-- Selector para relacionar el Post con una categoria -->
         <flux:select label="Category" name="category_id">
             @foreach ($categories as $category)
-                <flux:select.option value="{{$category->id}}">
+                <flux:select.option value="{{$category->id}}" :selected="$category->id == old('category_id')">
                     {{ $category->name }}
                 </flux:select.option>
             @endforeach
