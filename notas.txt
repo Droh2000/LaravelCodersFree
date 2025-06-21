@@ -74,3 +74,9 @@ Despues de todos los cambios de codigo volvemos a ejecutar las migraciones
 Creamos el controlador:
     * php artisan make:controller Admin/PostController --model=Post
 
+
+Queremos generar el SLUG de forma automaticamente y que cuando vayamos escribiendo en el campo del Title tambien vaya cambiando
+el campo del slug, si bien es cierto esto lo podriamos generar del lado del backend pero en ese caso no tenemos control del Slug
+que se va generando y a nivel de CEO se recomiendo que el SLUG sea corto, ya que es comun que el titulo sea largo y no tiene sentido
+hacer tambien el SLUG largo y que mejor solo contenga las palabras claves por eso es mejor manejar el SLUG del lado del Fronted
+donde tambien podemos editar el campo despues de especificar el titulo
