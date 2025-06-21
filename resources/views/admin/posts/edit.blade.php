@@ -1,4 +1,10 @@
 <x-layouts.admin>
+
+    <!-- Modificaciones para poder editar el texto enriquecidamente -->
+    @push('css')
+        <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet" />
+    @endpush
+
     <div class="mb-4">
         <flux:breadcrumbs>
             <flux:breadcrumbs.item href="{{ route('admin.dashboard') }}">Dashboard</flux:breadcrumbs.item>
@@ -48,7 +54,17 @@
             <!-- Campos de contenido (Aqui en la edicion es donde vamos a agregar el contenido del Post) -->
             <flux:textarea label="Summary" name="excerpt">{{ old('excerpt', $post->excerpt) }}</flux:textarea>
 
-            <flux:textarea rows="12" label="Content" name="content">{{ old('content', $post->content) }}</flux:textarea>
+            {{--<flux:textarea rows="12" label="Content" name="content">{{ old('content', $post->content) }}</flux:textarea>--}}
+            <!-- Se modifico el campo para poder agregar el texto -->
+            <div>
+                <p class="font-medium text-sm mb-2">
+                    Cuerpo
+                </p>
+                <!-- Esta Libreria nos agrega etiquetas HTML entre el Texto enriquesido y para que no salgan esos elementos ponemos el contenido entre !! -->
+                <div id="editor">{!! old('content', $post->content) !!}</div>
+                <!-- Solo en un TextArea con estas identificaciones se puede mandar a la BD de para guardar NO en el componente de arriba donde se muestra el editor -->
+                <textarea class="hidden" label="Content" name="content">{{ old('content', $post->content) }}</textarea>
+            </div>
 
             <div>
                 <p class="text-sm font-semibold">Estado</p>
@@ -71,4 +87,21 @@
             </div>
         </div>
     </form>
+
+    @push('js')
+        <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
+
+        <script>
+            const quill = new Quill('#editor', {
+                theme: 'snow'
+            });
+
+            // Para guardar lo que agregemos en el editor se mande a la base de datos, se mandara solo en el TextArea que pusimos abajo
+            // vamso a hacer que cuando modiquemos el Editor se modifique lo mismo en el Textarea
+            quill.on('text-change', function() {
+                document.querySelector('#content').value = quill.root.innerHTML;
+            });
+        </script>
+    @endpush
+
 </x-layouts.admin>

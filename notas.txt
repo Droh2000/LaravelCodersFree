@@ -87,3 +87,8 @@ es decir, cuando se crean, actualizan, eliminan
 Para crearlos:
     * php artisan make:observer PostObserver
 
+Texto Enriquecido
+    En la parte del Cuerpo del post podamos agregar titulos, subtitulos, u otra forma en la que queremos que salga el texto en el post
+    para esto tenemos el Plugin de QuillJS donde al usarlo nos mostrar la barra de menu tipo Office donde vienen las opciones para editar
+    el texto
+
