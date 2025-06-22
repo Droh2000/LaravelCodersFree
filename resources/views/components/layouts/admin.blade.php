@@ -158,6 +158,26 @@ Le damos la posibilidad de mandar el titulo, asi como arriba
             </script>
         @endif
 
+        <!-- Mostrar errores de validacion arriba por defecto en una alerta, en todas las paginas existe por defecto la variable $errors-->
+        @if ($errors->any())
+            <script>
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Opss....'
+                    // Aqui es donde se mostraran los errores
+                    html: `
+                        <div class="test-sm">
+                            <ul class="list-disc pl-5">
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    `,
+                })
+            </script>
+        @endif
+
         <!-- Esto es para generar el codigo de JS que agregemos en donde se use el componente en la parte final -->
         @stack('js');
     </body>
