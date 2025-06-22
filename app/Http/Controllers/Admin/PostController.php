@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Post;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -77,7 +78,11 @@ class PostController extends Controller
     public function edit(Post $post)
     {
         $categories = Category::all();
-        return view('admin.posts.edit', compact('post', 'categories'));
+
+        // Obtenemos todas las etiquetas
+        $tags = Tag::all();
+
+        return view('admin.posts.edit', compact('post', 'categories', 'tags'));
     }
 
     /**
@@ -94,11 +99,26 @@ class PostController extends Controller
             // Solo es requerido si el valor de publicacion esta activo
             'excerpt' => 'required_if:is_published,1|string',
             'content' => 'required_if:is_published,1|string',
+            'tags' => 'array',
             'is_published' => 'boolean',
         ]);
 
         // Cuando se ejecuta este metodo se emite el Observer y realiza la accion
         $post->update($data);
+
+        // Etiquetas
+        $tags = [];
+        // Del request recuperamos lo que se mando en el arreglo de Tags, pero este puede ser NUll
+        // para que no nos de error solo recorrera el bucle si hay datos y si es NULL solo le colocamos un array vacio
+        foreach ($request->tags ?? [] as $tag) {
+            // Buscar las etiquetas en la BD y recuperarla, si no existe en a BD que la cree
+            // buscandola por el campo NAME
+            $tags[] = Tag::firstOrCreate(['name' => $tag]);
+        }
+
+        // Accedemos al post que estamos intentando actualizar, acceder a la relacion que tiene con etiquetas
+        // y que se sincronize con el grupo de etiquetas que tenemos en el arreglo
+        $post->tags()->sync($tags);
 
         session()->flash('swal', [
             'icon' => 'success',

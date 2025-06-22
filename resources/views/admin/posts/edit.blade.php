@@ -3,6 +3,8 @@
     <!-- Modificaciones para poder editar el texto enriquecidamente -->
     @push('css')
         <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet" />
+
+        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     @endpush
 
     <div class="mb-4">
@@ -54,6 +56,40 @@
             <!-- Campos de contenido (Aqui en la edicion es donde vamos a agregar el contenido del Post) -->
             <flux:textarea label="Summary" name="excerpt">{{ old('excerpt', $post->excerpt) }}</flux:textarea>
 
+            <!-- Area para poder agregarle etiquetas al Post -->
+            <div>
+                <p class="font-medium text-sm mb-2">
+                    Etiquetas
+                </p>
+                <!-- Vamos a seleccionar mas de un elemento y estos se almacenaran en un Array "tags[]"-->
+                <select id="tags" name="tags[]" style="width: 100%" multiple="multiple">
+                    @foreach ($tags as $tag)
+                        <!--
+                            Cuando mandamos los datos de las Tags llegaran en array con el ID ($tag->id) correspondiente pero al agregar uno nuevo que no exista en la tabla
+                            nos saldra el texto de esta etiqueta, asi que de esa manera en el VALE mandamos mejor el nombre
+
+                            Vamos a hacer para que salgan las etiquetas relacionadas que ya tiene el Post Asignado
+                            aqui lo vamos a ver de otra forma a las categorias
+                            Accedemos al post recuperamos sus etiquetas de ahi solo queremos el ID para eso usamos el metodo "pluk" para que
+                            nos genere una coleccion solo del campo especificado y el resultado lo convertimos a un array
+                                $tags = $post->tags->pluck('id')->toArray();
+
+                            En PHP tenemos esta funcion que le podemos pasar un array y preguntar si un elemento existe dentro de ese array
+                            regresandonnos True o False
+                                $response = in_array(1, $tags);
+                            Aqui consultamos el NOMBRE del Tag que estamos iterando (Porque asi estamos trabajando con el Nombre aqui)
+                            Ademas usamos la funcion "old()" para verificar si hay error de validacion y si lo hay recupere los datos que tenia ya puestos
+                            si no que nos mande los datos que se tienen asignados
+                                Si queremos lo que se nos esta retornarn en la vista podemos usar en cualquier parte
+                                    @ json(old('tags'))
+                        -->
+                        <option value="{{ $tag->name }}" @selected(in_array($tag->name, old('tags', $post->tags->pluck('name')->toArray())))>
+                            {{ $tag->name }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+
             {{--<flux:textarea rows="12" label="Content" name="content">{{ old('content', $post->content) }}</flux:textarea>--}}
             <!-- Se modifico el campo para poder agregar el texto -->
             <div>
@@ -100,6 +136,21 @@
             // vamso a hacer que cuando modiquemos el Editor se modifique lo mismo en el Textarea
             quill.on('text-change', function() {
                 document.querySelector('#content').value = quill.root.innerHTML;
+            });
+        </script>
+
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+        <script>
+            // Codigo para agregar Etiquetas
+            $(document).ready(function() {
+                // Dentro del metodo agregamos la logica para poder escribir en el Selector y al precionar enter se agrege y cree como etiqueta
+                $('#tags').select2({
+                    tags: true,
+                    tokenSeparators: [','] // Para que al escribirlas y poner coma automaticamentes se cree como otra etiqueta
+                });
             });
         </script>
     @endpush
