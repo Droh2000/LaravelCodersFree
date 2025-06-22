@@ -98,3 +98,24 @@ Agregar Etiquetas
     La libreria es Select2, que para poder usarla tenemos que instalar JQuery en el proyecto
     (Igual hay que recordar que tenemos una tabla TAGS de donde queremos tomar los datos para mostrarlos en este componente nuestras etiquetas y la relacion de
     muchos a muchos con posts y categorias)
+
+Traducir los mensajes de la aplicacion
+    Por defecto como los mensajes de los errores de validacion salen en ingles, para esto existe el paquete de Laravel Lang
+    Lo instalamos:
+        - composer require laravel-lang/common
+    Publicamos los archivos de traduccion con el idioma al que queremos traducir
+        - php artisan lang:add es
+    Esto nos genera una carpeta llamada LANG en la raiz del proyecto y dentro una subcarpeta por cada idioma al que queramos traducir
+    por defecto los archivos que tenemos son traducciones internas que vienen por defecto en Laravel
+    El archivo JSON es para traducir elementos de las vistas
+
+        Si nos vamos a algunas de las vistas que ya nos genero el Kit de inicio veremos que donde sale el conenido esta como:
+            {{ __('TEXTO') }}
+        Esto es el contenido que sera traducido que esta establecido en el Archivo JSON estando como una llave el contenido por cada
+        elemento que sale en esa sintaxis
+
+    Cambiar el Idioma
+        Ya instalado todo para ver los cambios en nuestra aplicacion, modificamos el archivo de configuracion "app.php"
+        y buscamos la llave "locale" (Como prueba esto tambien lo podemos modificar en la variable de entorno en "APP_LOCALE")
+
+
