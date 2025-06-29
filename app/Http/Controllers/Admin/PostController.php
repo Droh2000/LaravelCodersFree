@@ -140,6 +140,14 @@ class PostController extends Controller
             //          php artisan storage:link
             // en caso que ya la tengamos creada nos saldra un mensaje de error
 
+            // Cuando un post ya tenia una imagen asociada y le subimos otra imagen, la imagen que ya tenia se mantiene y no se borra
+            // la idea es borrando a medida que vayamos actualizando las imagenes
+            // Si hay algo en el campo "image_path" significa que ya teniamos subido algo previamente
+            if ( $post->image_path ) {
+                // Borramos la ruta de la imagen que tiene asociada
+                Storage::delete($post->image_path);
+            }
+
             // Asociar la imagen que estamos subiendo con el POST correspondiente
             // Aqui en esta linea se nos esta retornando la ruta donde tenemos almacenada la imagen, asi que se le asignamos al campo de data donde tendremos la ruta
             $data['image_path'] = Storage::put('posts', $request->image);
