@@ -25,7 +25,16 @@
         @method('PUT')
 
         <div class="relative mb-2">
-            <img id="imgPreview" class="w-full aspect-video object-cover object-center" src="" alt="Image Not Implement">
+            <!-- Mostrar la imagen subida que tiene el post
+                    Veremos que al llamar este metodo Storage::url(), Asigna:
+                        DOMINIO/storage/posts/NombreDeLaImagenDadaPorLaravel.Extencion
+                    El dominio lo esta tomando del que este configurado en la variable de entorno y debe de coincidir con que estemos usando en la pagina
+
+                En el campo SRC preguntamos si tenemos un campo llamado "image_path" en caso de que no este colocariamos una imagen de prueba
+                en caso de que si llamamos el Storage
+            -->
+            <img id="imgPreview" class="w-full aspect-video object-cover object-center" src={{ $post->image_path ? Storage::url($post->image_path) : '' }} alt="Image Not Implement">
+
             <!-- Apartado para subir una imagen, aqui creamos un label y no un boton para poder colocarle un input de tipo file-->
             <div class="absolute top-8 right-8">
                 <label class="bg-white px-4 py-2 rounded-lg cursor-pointer">

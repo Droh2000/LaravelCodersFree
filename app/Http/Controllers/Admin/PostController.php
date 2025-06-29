@@ -130,7 +130,7 @@ class PostController extends Controller
             // Esto es un disco privado y luego la informacion que subamos no vamos a poder mostrarlo en nuestro sitio web
             // Una forma resumida de la linea de codigo es omitir la parte de DISK
             // Esto se subira al disco que tengamos configurado en: config/filesystems en la parte de "FileSystem_DISK"
-            Storage::put('posts', $request->image);
+            //          Storage::put('posts', $request->image);
 
             // Para poder mostrar la imagen subida en nuestra pagina tenemos que subirla al disco publico
             // En la variable de entorno cambiamos la variable por public: FILESYSTEM_DISK=public
@@ -139,6 +139,10 @@ class PostController extends Controller
             // Crear el acceso diecto:
             //          php artisan storage:link
             // en caso que ya la tengamos creada nos saldra un mensaje de error
+
+            // Asociar la imagen que estamos subiendo con el POST correspondiente
+            // Aqui en esta linea se nos esta retornando la ruta donde tenemos almacenada la imagen, asi que se le asignamos al campo de data donde tendremos la ruta
+            $data['image_path'] = Storage::put('posts', $request->image);
 
         }
 
