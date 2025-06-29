@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Post;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Volt\Volt;
@@ -24,8 +25,8 @@ Route::middleware(['auth'])->group(function () {
 });
 
 // Definimos esta ruta solo para ver como podemos copiar un archivo hacia otra carpeta
-Route::get('/prueba', function () {
-    $path = "RUTA/Nombre.extencion";
+Route::get('/prueba/{post}', function (Post $post) {
+    /*$path = "RUTA/Nombre.extencion";
     $target = "NUEVA_RUTA/Nombre.extencion"; // Aqui le podramos dar otro nombre
 
     // Storage::copy($path, $target);
@@ -33,8 +34,10 @@ Route::get('/prueba', function () {
     // Si queremos mover el archivo
     Storage::move($path, $target);
 
-    return 'Imagen copiada';
-});
+    return 'Imagen copiada';*/
+
+    return Storage::download($post->image_path);
+})->name('prueba');
 
 // Aqui en el archivo de rutas podemos ver que esta llamando a este archivo (Este tambien contiene Rutas)
 require __DIR__.'/auth.php';

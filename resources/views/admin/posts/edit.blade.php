@@ -42,6 +42,16 @@
                     <!-- El input estara a la esucha de la funcion de JS que metimos para previsualiar la imagen, la imagen que subamos va a viajar en un campo llamado "image" -->
                     <input class="hidden" type="file" name="image" accept="image/*" onchange="preview_image(event, '#imgPreview')">
                 </label>
+
+                <!-- Vamos como usando Laravel podemos descargar un archivo
+                        Para esto usamos como ejemplo la ruta "prueba" que habiamos creado anteriormente
+                -->
+                <div class="bg-white mt-4">
+                    <a href="{{ route('prueba', $post) }}">
+                        Descargar Imagen
+                    </a>
+                </div>
+
             </div>
         </div>
 
