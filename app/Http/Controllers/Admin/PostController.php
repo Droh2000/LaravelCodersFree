@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Post;
 use App\Models\Tag;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 
 class PostController extends Controller
@@ -110,6 +111,7 @@ class PostController extends Controller
                 // La linea de arriba es equivalente a la de abajo
                 Rule::unique('posts')->ignore($post->id)
             ],
+            'image' => 'nullable|image|max:2048',
             'category_id' => 'required|exists:categories,id',
             // Solo es requerido si el valor de publicacion esta activo
             'excerpt' => 'required_if:is_published,1|string',
@@ -117,6 +119,20 @@ class PostController extends Controller
             'tags' => 'array',
             'is_published' => 'boolean',
         ]);
+
+        //Verificamos si estamos mandando un archivo en el campo llamado "image"
+        if($request->hasFile('image')){
+            // Subir la imagen al servidor
+            // Primero tenemos que indicar en que disco queremos subirlo, tenemos el public, local, S3, entre otros
+            // Luego en el metodo PUT indicamos en que subcarpeta queremos que se suba, como segundo parametro le pasamos el archivo a subir
+            Storage::disk('local')->put('posts', $request->image);
+            // El archivo se subira dentr de: Storage/app/private/"NombreIndicadoArriba"
+            // Esto es un disco privado y luego la informacion que subamos no vamos a poder mostrarlo en nuestro sitio web
+            // Una forma resumida de la linea de codigo es omitir la parte de DISK
+            // Esto se subira al disco que tengamos configurado en: config/filesystems en la parte de "FileSystem_DISK"
+            Storage::put('posts', $request->image);
+
+        }
 
         // Cuando se ejecuta este metodo se emite el Observer y realiza la accion
         $post->update($data);

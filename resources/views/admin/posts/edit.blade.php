@@ -19,7 +19,8 @@
         </flux:breadcrumbs>
     </div>
 
-    <form action="{{route('admin.posts.update', $post)}}" method="POST">
+    <!-- Se le agrega este atributo para que podemos habilitar el formulario para subir archivos -->
+    <form action="{{route('admin.posts.update', $post)}}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
 
@@ -29,7 +30,7 @@
             <div class="absolute top-8 right-8">
                 <label class="bg-white px-4 py-2 rounded-lg cursor-pointer">
                     Cambiar Imagen
-                    <!-- El input estara a la esucha de la funcion de JS que metimos para previsualiar la imagen -->
+                    <!-- El input estara a la esucha de la funcion de JS que metimos para previsualiar la imagen, la imagen que subamos va a viajar en un campo llamado "image" -->
                     <input class="hidden" type="file" name="image" accept="image/*" onchange="preview_image(event, '#imgPreview')">
                 </label>
             </div>
