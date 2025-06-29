@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Post;
 use App\Models\Tag;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class PostController extends Controller
 {
@@ -94,7 +95,21 @@ class PostController extends Controller
         $data = $request->validate([
             'title' => 'required|string|max:255',
             // Que sea unico en la tabla posts en el campo slug excluyendo el registro que estamos editando
-            'slug' => 'required|string|max:255|unique:posts,slug,' . $post->id,
+            //  'slug' => 'required|string|max:255|unique:posts,slug,' . $post->id,
+            // La regla de validacion para el SLUG cambio
+            'slug' => [
+                // Accedemos a esta regla en forma de metodo para poder agregarle esta funcion anonima
+                // Si no tenemos nada en el campo "published_at" entones es requerido caso contrario no lo es (Regresamos True or False)
+                // Al ser una funcion anonima no podemos acceder a la variable "$post" por eso usamos use($post)
+                Rule::requiredIf( function() use($post) {
+                    return !$post->published_at;
+                }),
+                'string',
+                'max:255',
+                //'unique:posts, slug,'. $post->id
+                // La linea de arriba es equivalente a la de abajo
+                Rule::unique('posts')->ignore($post->id)
+            ],
             'category_id' => 'required|exists:categories,id',
             // Solo es requerido si el valor de publicacion esta activo
             'excerpt' => 'required_if:is_published,1|string',

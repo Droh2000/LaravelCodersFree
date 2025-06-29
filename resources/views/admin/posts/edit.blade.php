@@ -38,7 +38,12 @@
         <div class="bg-white px-6 py-8 rounded-lg shadow-lg space-y-4">
             <!-- Con la funcion "old" si le decimos que en caso que no haya valor, nos regrese el nombre de la categoria-->
             <flux:input name="title" label="Title" value="{{old('title', $post->title)}}"/>
-            <flux:input name="slug" label="Slug" value="{{old('slug', $post->slug)}}"/>
+
+            <!-- si no existe fecha de publicacion es cuando podremos edtiar el SLUG -->
+            @if (!$post->published_at)
+                <flux:input name="slug" label="Slug" value="{{old('slug', $post->slug)}}"/>
+            @endif
+
             <!-- Debemos de asegurarnos que en el selector salga elegdia la categoria que ya tenia el Post -->
             <flux:select label="Category" name="category_id">
                 @foreach ($categories as $category)

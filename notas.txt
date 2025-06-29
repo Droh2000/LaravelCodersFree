@@ -118,4 +118,6 @@ Traducir los mensajes de la aplicacion
         Ya instalado todo para ver los cambios en nuestra aplicacion, modificamos el archivo de configuracion "app.php"
         y buscamos la llave "locale" (Como prueba esto tambien lo podemos modificar en la variable de entorno en "APP_LOCALE")
 
+Vamos a evitar que se pueda cambiar el SLUG una vez el post ya se publico
+
 
