@@ -120,4 +120,11 @@ Traducir los mensajes de la aplicacion
 
 Vamos a evitar que se pueda cambiar el SLUG una vez el post ya se publico
 
+Almacenar datos en Disco S3
+    Mientras no requieramos compartir recursos, solo usando el disco local y almacenando los datos en el servidor nos viene perfectamente
+    pero cuando ya necesitamos compartir recursos o que tenemos que subir archivos que pesan, lo mejor ahi es subir los datos a la nube
+    y que no se consuman los recursos de nuestro servidor
+        Para conectarnos desde nuestra aplicacion a la nube tenemos el driver S3
 
+    En este caso la empresa de la nube que se esta usando es DigitalOcean porque es mas facil y barato que Amazon S3
+    TODO ESTO SE EXPLICA EN SU RESPECTIVA SECCION
