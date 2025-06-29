@@ -148,10 +148,23 @@ class PostController extends Controller
                 Storage::delete($post->image_path);
             }
 
+            // En esta pare salieron otras lineas de codigo porque en el curso se le olvido subir el video donde explica eso
+            // Este codigo le daba el nombre a las imagenes como se tenian el SLUG asociado al POST pero podemos cambiar el SLUG de un post
+            // y el nombre de la imagen se mantiene, luego resulta que en otro POST le damos el SLUG que tenia el post al que se lo cambiamos
+            // si a este post que le dimos el SLUG que tenia el otro, le subimos una imagen esta va a eliminar la imagen con el nombre del SLUG del post que le cambiamos
+            // Asi que vamos a modificar el nombre para que se mantenga la imagen tanto para el post con cambio de SLUG como el post con el SLUG que tenia el otro post
+            $extension = $request->image->extension();
+            $nameFile = $post->slug . '.' . $extension;
+            // Verificamos si existe la imagen
+            // Usamos un While y no un IF porque si ya existe la imagen con el nombre "copia" que le vaya agregando este texto "copia" conforme sea nesecario para evitar que la imagen sea remplazada
+            while (Storage::exists('posts/' . $nameFile)) {
+                // Remplazamos el nombre, como primer parametro le indicamos lo que le queremos cambiar, luego por lo nuevo que sera cambiado, como tercer parametro el valor original a remplazar
+                $nameFile = str_replace('.' . $extension, '-copia.' . $extension, $nameFile);
+            }
+
             // Asociar la imagen que estamos subiendo con el POST correspondiente
             // Aqui en esta linea se nos esta retornando la ruta donde tenemos almacenada la imagen, asi que se le asignamos al campo de data donde tendremos la ruta
-            $data['image_path'] = Storage::put('posts', $request->image);
-
+            $data['image_path'] = Storage::putFileAs('posts', $request->image, $nameFile);
         }
 
         // Cuando se ejecuta este metodo se emite el Observer y realiza la accion
