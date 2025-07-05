@@ -5,9 +5,29 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 
-class CategoryController extends Controller
+class CategoryController extends Controller implements HasMiddleware
 {
+
+    // Implementamos para poder definir el middleware para cada las rutas que especificamos
+    public static function middleware()
+    {
+        // Debemos retornar el middleware sobre el cual queremos proteger
+        return [
+            // Para poder aplicarlo a solo las rutas especificas
+             new Middleware(
+                // Especificamos el middleware con el que queremos protegerlo
+                'admin',
+                // Solo se aplicara a estos metodos
+                only: ['index', 'edit'],
+                // Con esto es para proteger todas las rutas excepto las que especifiquemos aqui
+                // except: ['METODO', 'METODO']
+             )
+        ];
+    }
+
     /**
      * Display a listing of the resource.
      */

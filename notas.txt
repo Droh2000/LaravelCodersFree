@@ -151,3 +151,12 @@ La principal diferencia entre tabajar con eventos y trabajar con JOBS
         * php artisan make:listener NOMBRE --event=NombreEvento
     Asi cada vez que disparemos el evento, el listener lo va a escuchar y va a ejecutar su contenido y podemos crear varios Listener para un mismo evento, asi es mejor cuando queremos
     trabajar con varias acciones y no estar colocando los Jobs de manera secuencial como arriba
+
+Seguridad
+
+    Por defecto cuando se crea un usuario y se inicia sesion tienen acceso a toda la pagina
+    asi que vamos a restrigir el acceso
+        Hicimos una modificacion en la tabla User de BD, agregando el campo "is_admin" y solo contiene el 0 o 1 para indicar si es admin o no el usuario que por defecto asinara el valor de 0
+    Para restrinjir el acceso al usuario lo vamos a hacer con los middleware:
+        * php artisan make:middleware NOMBRE
+    Luego tenemos que ver cuales rutas las vamos a proteger con este middleware
