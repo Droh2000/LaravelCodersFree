@@ -51,6 +51,13 @@ class Post extends Model
     }
     // Con esto en las vistas solo llamamos al metodo: $post->image
 
+    // Como por defecto nos redirigia al post en la url con el ID pero nosotros queriamos que saliera con el SLUG
+    // Con esto logramos que laravel por defecto utilize el SLUG y no el ID
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
+
     public function category(){
         return $this->belongsTo(Category::class);
     }

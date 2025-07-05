@@ -9,7 +9,7 @@
                     <img class="h-72 w-full object-cover object-center" src="{{ $post->image }}" alt="">
                     <div class="px-6 py-2">
                         <h1 class="font-semibold text-xl mb-2">
-                            <a href="">
+                            <a href="{{route('posts.show', $post)}}">
                                 {{ $post->title }}
                             </a>
                         </h1>

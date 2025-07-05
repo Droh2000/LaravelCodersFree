@@ -24,139 +24,17 @@ Recibimos el Titulo
         @fluxAppearance
     </head>
     <body class="min-h-screen bg-white dark:bg-zinc-800">
-        <flux:header container class="border-b border-zinc-200 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900">
-            <flux:sidebar.toggle class="lg:hidden" icon="bars-2" inset="left" />
-
-            <a href="{{ route('home') }}" class="ms-2 me-5 flex items-center space-x-2 rtl:space-x-reverse lg:ms-0" wire:navigate>
-                <x-app-logo />
-            </a>
-
-            <flux:navbar class="-mb-px max-lg:hidden">
-                <!-- Con la parte de "request()->routeIs()" es para verificar  si estamos en una ruta en especifico y si esta en esa ruta, nos marque como la ruta activa en el menu-->
-                <flux:navbar.item icon="layout-grid" :href="route('home')" :current="request()->routeIs('home')" wire:navigate>
-                    {{ __('Home') }}
-                </flux:navbar.item>
-            </flux:navbar>
-
-            <flux:spacer />
-
-            <flux:navbar class="me-1.5 space-x-0.5 rtl:space-x-reverse py-0!">
-                <flux:tooltip :content="__('Search')" position="bottom">
-                    <flux:navbar.item class="!h-10 [&>div>svg]:size-5" icon="magnifying-glass" href="#" :label="__('Search')" />
-                </flux:tooltip>
-            </flux:navbar>
-
-            <!-- Desktop User Menu
-                (Despues de llamar este componente en "welcome.blade.php")
-                Esta implementacion funciona correctamente hasta que cerramos sesion porque nos dara un error
-
-                Esto es porque en la plantilla "app.balde.php" en la seccion de "Desktop User Menu"
-                donde es el area para acceder a las credenciales escenciales del usuario y cuando no nos encontramos
-                autenticados la parte de "auth()->user()" nos esta regresando Null y sobre eso no podemos acceder a
-                la funcion de "initials()"
-
-                Encerramos todo esto dentro de la directiva @-auth para que solo se ejecute esta parte si el usario
-                esta autenticado
-            -->
-            @auth
-                <flux:dropdown position="top" align="end">
-                    <flux:profile
-                        class="cursor-pointer"
-                        :initials="auth()->user()->initials()"
-                    />
-
-                    <flux:menu>
-                        <flux:menu.radio.group>
-                            <div class="p-0 text-sm font-normal">
-                                <div class="flex items-center gap-2 px-1 py-1.5 text-start text-sm">
-                                    <span class="relative flex h-8 w-8 shrink-0 overflow-hidden rounded-lg">
-                                        <span
-                                            class="flex h-full w-full items-center justify-center rounded-lg bg-neutral-200 text-black dark:bg-neutral-700 dark:text-white"
-                                        >
-                                            {{ auth()->user()->initials() }}
-                                        </span>
-                                    </span>
-
-                                    <div class="grid flex-1 text-start text-sm leading-tight">
-                                        <span class="truncate font-semibold">{{ auth()->user()->name }}</span>
-                                        <span class="truncate text-xs">{{ auth()->user()->email }}</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </flux:menu.radio.group>
-
-                        <flux:menu.separator />
-
-                        <flux:menu.radio.group>
-                            <!-- Con los Gates podemos Ocultar botones para que solo los autorizados puedan verlos
-                                pasandole entre comillas el nombre del Gate
-                            -->
-                            @can('admin')
-                                <flux:menu.item :href="route('admin.dashboard')" icon="key" wire:navigate>{{ __('Admin') }}</flux:menu.item>
-                            @endcan
-                            <flux:menu.item :href="route('settings.profile')" icon="cog" wire:navigate>{{ __('Settings') }}</flux:menu.item>
-                        </flux:menu.radio.group>
-
-                        <flux:menu.separator />
-
-                        <form method="POST" action="{{ route('logout') }}" class="w-full">
-                            @csrf
-                            <flux:menu.item as="button" type="submit" icon="arrow-right-start-on-rectangle" class="w-full">
-                                {{ __('Log Out') }}
-                            </flux:menu.item>
-                        </form>
-                    </flux:menu>
-                </flux:dropdown>
-            @else
-                <!--
-                    Si no esta autenticado el usuario esta es la parte que mostraremos
-                    Esto es un Dropdown que tiene un Profile que es como un boton (Para poner solo texto lo cambamos a "button")
-                    y un Menu donde estan todos los Items (Este lo modificamos para que apunte a la ruta login y register)
-
-                    Vemos que tenemos "wire:navigate" esto es porque el proyecto lo creamos con el micrframework Livewired que nos agrega
-                    interactividad a la pagina donde al especificarle esa linea no nos va a recargar la pagina sino que por detraz, hace una consulata
-                    a la pagina, verifica que informacion debe mostrar y luego renderiza los cambios sin recargar la pagina (Asi tenemos un
-                    comportamiento de SPA)
-                -->
-                <flux:dropdown position="top" align="end">
-                    <flux:button
-                        class="cursor-pointer"
-                        icon:trailing="user"
-                    />
-
-                    <flux:menu>
-                        <flux:menu.radio.group>
-                            <flux:menu.item :href="route('login')" wire:navigate>{{ __('Log In') }}</flux:menu.item>
-                        </flux:menu.radio.group>
-
-                        <flux:menu.radio.group>
-                            <flux:menu.item :href="route('register')" wire:navigate>{{ __('Register') }}</flux:menu.item>
-                        </flux:menu.radio.group>
-                    </flux:menu>
-                </flux:dropdown>
-            @endauth
-        </flux:header>
+        @include('components.layouts.includes.app.header')
 
         <!-- Mobile Menu -->
-        <flux:sidebar stashable sticky class="lg:hidden border-e border-zinc-200 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900">
-            <flux:sidebar.toggle class="lg:hidden" icon="x-mark" />
+        @include('components.layouts.includes.app.sidebar')
 
-            <a href="{{ route('home') }}" class="ms-1 flex items-center space-x-2 rtl:space-x-reverse" wire:navigate>
-                <x-app-logo />
-            </a>
-
-            <flux:navlist variant="outline">
-                <flux:navlist.group :heading="__('Platform')">
-                    <flux:navlist.item icon="layout-grid" :href="route('home')" :current="request()->routeIs('home')" wire:navigate>
-                    {{ __('Home') }}
-                    </flux:navlist.item>
-                </flux:navlist.group>
-            </flux:navlist>
-        </flux:sidebar>
-
-        <flux:main>
+        <div class="[grid-area:main] p-6 lg:p-8 [[data-flux-contanier]]">
             {{ $slot }}
-        </flux:main>
+        </div>
+
+        <!-- Hacemos que todas las paginas tengan un footer -->
+        @include('components.layouts.includes.app.footer')
 
         @fluxScripts
     </body>

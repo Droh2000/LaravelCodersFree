@@ -1,12 +1,16 @@
 <?php
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PostController;
 use App\Models\Post;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Volt\Volt;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
+
+Route::get('/posts/{post}', [PostController::class, 'show'])
+    ->name('posts.show');
 
 /*
     En lugar de usar esta ruta mejor vamos a usar la de admin.dashboard
