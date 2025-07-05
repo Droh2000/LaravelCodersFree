@@ -7,6 +7,7 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
+use Illuminate\Support\Facades\Gate;
 
 class CategoryController extends Controller implements HasMiddleware
 {
@@ -33,6 +34,10 @@ class CategoryController extends Controller implements HasMiddleware
      */
     public function index()
     {
+        // Uso de los Gates a nivel de Controlador
+        // Entre comillas le pasamos el nombre del Gate
+        Gate::authorize('admin');
+
         // Recuperamos el listado de categorias y se lo pasamos a la vista
         // Cambiamos para que los mas nuevos registros aparescan primero
         $categories = Category::orderBy('id', 'desc')->get();

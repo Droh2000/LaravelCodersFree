@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use App\Models\Post;
+use Illuminate\Support\Facades\Storage;
 
 // EScuchar diferentes etapas del ciclo de vida del modelo
 class PostObserver
@@ -30,4 +31,11 @@ class PostObserver
     // Created -> Se ejecuta luego de que ya se creo el registro
     // deleting -> Se ejecuta antes de que se elimine
     // deleted -> Se ejecuta despues de que se elimino
+
+    // Antes de que termine de eliminar un Post verifique si tenia una imagen y si la tiene que la elimine
+    public function deleting(Post $post){
+        if($post->image_path){
+            Storage::delete($post->image_path);
+        }
+    }
 }

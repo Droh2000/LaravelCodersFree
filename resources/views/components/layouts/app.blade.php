@@ -88,7 +88,12 @@ Recibimos el Titulo
                         <flux:menu.separator />
 
                         <flux:menu.radio.group>
-                            <flux:menu.item :href="route('admin.dashboard')" icon="key" wire:navigate>{{ __('Admin') }}</flux:menu.item>
+                            <!-- Con los Gates podemos Ocultar botones para que solo los autorizados puedan verlos
+                                pasandole entre comillas el nombre del Gate
+                            -->
+                            @can('admin')
+                                <flux:menu.item :href="route('admin.dashboard')" icon="key" wire:navigate>{{ __('Admin') }}</flux:menu.item>
+                            @endcan
                             <flux:menu.item :href="route('settings.profile')" icon="cog" wire:navigate>{{ __('Settings') }}</flux:menu.item>
                         </flux:menu.radio.group>
 

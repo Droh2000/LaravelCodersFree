@@ -10,7 +10,9 @@ Route::get('/', function() {
 })
 // Si queremos que el middleware no afecte a todas las rutas, por tanto no los definimos en "app.php" sino que aqui mismo especificamos la ruta
 // Esto mismo lo tenemos que espcificar todas las demas rutas
-->middleware('admin')
+//      ->middleware('admin')
+// Uso de los Gates directamente desde aqui
+//  ->middleware('can:admin')
 ->name('dashboard');
 
 // Despues de crear este archivo

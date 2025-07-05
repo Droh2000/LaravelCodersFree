@@ -9,6 +9,7 @@ use App\Models\Category;
 use App\Models\Post;
 use App\Models\Tag;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 
@@ -19,8 +20,21 @@ class PostController extends Controller
      */
     public function index()
     {
+        /*
+        Pasarle parametros al Gate
+
+            Actualmente cuando ingresamos a la seccion de Posts podemos ver todo el listado de posts
+            al inicio todos los Posts le pertenecen a un usuario, en el DatabaseSeder.php podemos crear mas usuarios
+            y en el PostFactory.php verificamos que al asignarle un post a un usuario lo tome de forma aleatorio
+
+        */
         // Recuperar el listado de posts pero los vamos a retornar paginados (Esto por defecto nos retornar un JSON)
-        $posts = Post::latest('id')->paginate();
+        $posts = Post::latest('id')
+            // Le modificamos para que nos traiga los post que le pertenecen al usuario que tiene la sesion iniciada
+            // Al solo hacer esto ocurre que dentro del URL de edicion podemos modificar el URL a otro post que no nos pertenesca y podremos acceder y editar ese post
+            // para evitar ese comportamiento nos creamos un Gate adicional
+            ->where('user_id', auth()->id)
+            ->paginate();
         return view('admin.posts.index', compact('posts'));
     }
 
@@ -81,6 +95,9 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
+        // Asi el usuario no podra nunca acceder a un post que no le pertenece
+        Gate::authorize('author', $post);
+
         $categories = Category::all();
 
         // Obtenemos todas las etiquetas
@@ -206,6 +223,21 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        //
+        Gate::authorize('author', $post);
+
+        // Esta logica la declaramos en el Observable para no meter logica adicional en el controlador
+        /*if( $post->image_path ){
+            Storage::delete($post->image_path);
+        }*/
+
+        $post->delete();
+
+        session()->flash('swal', [
+            'icon' => 'success',
+            'title' => 'Post Eliminado!',
+            'text' => 'El Post se ha eliminado correctamente',
+        ]);
+
+        return redirect()->route('admin.posts.index');
     }
 }

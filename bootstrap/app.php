@@ -17,6 +17,9 @@ return Application::configure(basePath: dirname(__DIR__))
             // si lo definimos aqui se lo estamos aplicando a todas las rutas definidas en 'routes/admin.php'
             // Queremos agregar rutas de tipo WEB y que solo usarios "auth" puedan acceder
             // Route::middleware('web', 'auth', 'admin') -> Esto se comento porque se agrego el midleware por cada ruta en Routes.php
+
+            // Proteger las rutas usando el Gate, le pasamos el nombre con agregandole al inicio "can:"
+            // Route::middleware('web', 'auth', 'can:admin')
             Route::middleware('web', 'auth')
                 // Como todas las rutas que definamos seran solo de Admin, le indicamos aqui que le agrege el prefijo de Admin
                 ->prefix('admin')
