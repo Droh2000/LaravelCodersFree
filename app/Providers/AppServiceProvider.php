@@ -32,5 +32,9 @@ class AppServiceProvider extends ServiceProvider
             // El id del usuario autenticado debe conicidir con el id del usuario del Post
             return $user->id === $post->user_id;
         });
+
+        // Policies tienen un comportamiento similar a los Gates pero nos permiten organizarlo a nivel de modelo
+        // Supongamos que tenemos varios Gates y todos estas relacionados al mismo modelo y asi mejor definamos polices
+        //      php artisan make:policy NombreModeloPolicy
     }
 }

@@ -96,6 +96,8 @@ class PostController extends Controller
     public function edit(Post $post)
     {
         // Asi el usuario no podra nunca acceder a un post que no le pertenece
+        // Cuando usamos Policies Laravel buscara el Polici que empieze con Post por eso lo nombramos como PostPolicy
+        // y ejectuara el metodo que pasamos entre comillas
         Gate::authorize('author', $post);
 
         $categories = Category::all();
