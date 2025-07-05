@@ -128,3 +128,8 @@ Almacenar datos en Disco S3
 
     En este caso la empresa de la nube que se esta usando es DigitalOcean porque es mas facil y barato que Amazon S3
     TODO ESTO SE EXPLICA EN SU RESPECTIVA SECCION
+
+Vamos a refactorizar el codigo porque el controlador crecio demaciado y tenemos codigo que no tiene nada que ver con la funcion principal del metodo
+sino que podemos separar esas tareas en archivos a parte y solo mandarlos a llamar
+    Para esto vamos a crear un JOB
+        - php artisan make:job NOMBRE

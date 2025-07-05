@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\ResizeImage;
 use App\Models\Category;
 use App\Models\Post;
 use App\Models\Tag;
@@ -165,6 +166,9 @@ class PostController extends Controller
             // Asociar la imagen que estamos subiendo con el POST correspondiente
             // Aqui en esta linea se nos esta retornando la ruta donde tenemos almacenada la imagen, asi que se le asignamos al campo de data donde tendremos la ruta
             $data['image_path'] = Storage::putFileAs('posts', $request->image, $nameFile);
+
+            // Luego que la imagen se a subido llamamos al JOB
+            ResizeImage::dispatch($data['image_path']);
         }
 
         // Cuando se ejecuta este metodo se emite el Observer y realiza la accion
