@@ -133,3 +133,21 @@ Vamos a refactorizar el codigo porque el controlador crecio demaciado y tenemos 
 sino que podemos separar esas tareas en archivos a parte y solo mandarlos a llamar
     Para esto vamos a crear un JOB
         - php artisan make:job NOMBRE
+Podriamos llamar a los Jobs:
+    - Job 1
+    - Job 2
+    - Job 3
+    - Job 4
+Asi de manera secuencial
+Pero cuando tenemos que ejecutar varios trabajos lo mejor es hacerlo con Eventos y Oyentes
+porque nosotros ejecutar un evento que seria un Job y apartir de ese evento se ejecutan otros archivos en Lotes
+Para crear un Evento:
+    * php artisan make:event NOMBRE
+La principal diferencia entre tabajar con eventos y trabajar con JOBS
+    En los Jobs le colocabamos la logica internamnete de lo que quereiamos realizar, en los eventos la logica la vamos a tener que colocar en otros archivos
+    estos se les conoce con el nombre de listeners
+    Para crearlos:
+        Ademas le indicamos que este Listener se debe ejectar cuando se dispare el Evento indicado
+        * php artisan make:listener NOMBRE --event=NombreEvento
+    Asi cada vez que disparemos el evento, el listener lo va a escuchar y va a ejecutar su contenido y podemos crear varios Listener para un mismo evento, asi es mejor cuando queremos
+    trabajar con varias acciones y no estar colocando los Jobs de manera secuencial como arriba

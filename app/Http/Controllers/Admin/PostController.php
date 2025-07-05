@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Events\UploadedImage;
 use App\Http\Controllers\Controller;
 use App\Jobs\ResizeImage;
 use App\Models\Category;
@@ -168,7 +169,10 @@ class PostController extends Controller
             $data['image_path'] = Storage::putFileAs('posts', $request->image, $nameFile);
 
             // Luego que la imagen se a subido llamamos al JOB
-            ResizeImage::dispatch($data['image_path']);
+            //ResizeImage::dispatch($data['image_path']);
+
+            // Ahora ejecutamos el Evento
+            UploadedImage::dispatch($data['image_path']);
         }
 
         // Cuando se ejecuta este metodo se emite el Observer y realiza la accion
